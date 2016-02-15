@@ -85,7 +85,7 @@ namespace age {
 		// Game loop
 		while (m_isRunning) {
 			frameCounter++;
-			input();
+			processInput();
 
 			// Draw
 			glClearDepth(1.0f);
@@ -130,7 +130,7 @@ namespace age {
 		}
 	}
 
-	void Game::input() {
+	void Game::processInput() {
 		
 		SDL_Event evt;
 		while (SDL_PollEvent(&evt)) {
@@ -140,6 +140,14 @@ namespace age {
 				std::cout << "QUIT pressed" << std::endl;
 				m_isRunning = false;
 				break;
+
+			case SDL_KEYDOWN:
+				m_inputManager.keyPressed(evt.key.keysym.sym);
+				break;
+			case SDL_KEYUP:
+				m_inputManager.keyReleased(evt.key.keysym.sym);
+				break;
+
 			case SDL_MOUSEMOTION:
 				//std::cout << evt.motion.x << ", " << evt.motion.y << std::endl;
 				break;

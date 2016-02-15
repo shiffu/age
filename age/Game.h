@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ShaderProgram.h"
+#include "InputManager.h"
 
 struct SDL_Window;
 
@@ -17,11 +18,12 @@ namespace age {
 		void run();
 
 	private:
-		void input();
+		void processInput();
 
 		SDL_Window*	m_window = nullptr;
 		bool m_isRunning = false;
 
 		ShaderProgram m_basicShaderProgram;
+		InputManager m_inputManager;
 	};
 }
