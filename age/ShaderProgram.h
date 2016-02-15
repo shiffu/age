@@ -17,6 +17,8 @@ namespace age {
 
 		void bindAttribute(const std::string& name);
 		GLint getUniformLocation(const std::string& name);
+		void setUniform(const std::string& name, int value);
+		void setUniform(const std::string& name, float value);
 
 		void bind();
 		void unbind();

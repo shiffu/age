@@ -78,7 +78,7 @@ namespace age {
 		unsigned int frameCounter = 0;
 		
 		// Setting a FPS Cap higher than 400 seems to not be accurate (due to SDL_Delay)
-		const float capFPS = 1000.0f;
+		const float capFPS = 60.0f;
 		const float capElapseTime = 1000.0f / capFPS;
 		float actualFPS = 0.0f;
 
@@ -95,8 +95,7 @@ namespace age {
 				m_basicShaderProgram.bind();
 				time += 0.03f;
 
-				GLuint timeLoc = m_basicShaderProgram.getUniformLocation("time");
-				glUniform1f(timeLoc, time);
+				m_basicShaderProgram.setUniform("time", time);
 
 				sprite.draw();
 				m_basicShaderProgram.unbind();
@@ -110,8 +109,8 @@ namespace age {
 			// FPS Capping
 			delayTime = capElapseTime - elapseTime;
 
-			// Delay only if it is for more than 4ms
-			if (delayTime > 1) {
+			// Delay only if it is for more than 2ms
+			if (delayTime > 2) {
 				SDL_Delay(delayTime);
 
 				// In case of delay, we need to calculate one more time the currentFrameTime

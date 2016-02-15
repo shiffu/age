@@ -125,6 +125,16 @@ namespace age {
 		return location;
 	}
 
+	void ShaderProgram::setUniform(const std::string& name, float value) {
+		GLint location = getUniformLocation(name);
+		glUniform1f(location, value);
+	}
+
+	void ShaderProgram::setUniform(const std::string& name, int value) {
+		GLint location = getUniformLocation(name);
+		glUniform1i(location, value);
+	}
+
 	void ShaderProgram::bind() {
 		glUseProgram(m_program);
 		for (GLuint i = 0; i < m_numAttributes; i++) {
