@@ -2,10 +2,12 @@
 
 #include "Color.h"
 
+struct Position2D {
+	float x;
+	float y;
+};
+
 struct Vertex {
-	struct Position2D {
-		float x;
-		float y;
-	} pos;
+	Position2D pos;
 	Color color;
 };

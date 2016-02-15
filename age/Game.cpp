@@ -10,18 +10,19 @@
 
 namespace age {
 
-	Game::Game() {}
+	Game::Game(std::string gameName) : m_gameName(gameName) {}
 
 	Game::~Game() {}
 
-	void Game::init() {
-		std::cout << "Init game" << std::endl;
+	void Game::init(unsigned int windowWidth, unsigned int windowHeight, unsigned int windowFlags /*= SDL_INIT_EVERYTHING*/) {
+		std::cout << "Initializing game " + m_gameName << std::endl;
 
-		SDL_Init(SDL_INIT_EVERYTHING);
+		SDL_Init(windowFlags);
 
 		// Create the Window
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-		m_window = SDL_CreateWindow("Test Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1024, 768, SDL_WINDOW_OPENGL);
+		m_window = SDL_CreateWindow(m_gameName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+										windowWidth, windowHeight, SDL_WINDOW_OPENGL);
 		if (m_window == nullptr) {
 			fatalError("Error creating the window!");
 		}
@@ -47,26 +48,22 @@ namespace age {
 		std::cout << glGetString(GL_VERSION) << std::endl;
 		std::cout << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
 
-		// Init Shader Program
-		//TODO: Do not hardcode the path to resources (resourceManager)
-		m_basicShaderProgram.compileShaders("../age/shaders/basic");
-		m_basicShaderProgram.linkProgram();
-		m_basicShaderProgram.bindAttribute("position");
-		m_basicShaderProgram.bindAttribute("color");
+		onInit();
+		m_isInitialized = true;
 	}
 
 	void Game::start() {
-		std::cout << "Start game" << std::endl;
-		init();
+		if (m_isInitialized == false) {
+			fatalError("Error: Game must be initialized before start could be called!");
+		}
+
+		std::cout << "Starting game " << m_gameName << std::endl;
 		run();
 	}
 
 	void Game::run() {
-		std::cout << "Run game" << std::endl;
+		std::cout << "Running game " << m_gameName << std::endl;
 		m_isRunning = true;
-		Sprite sprite;
-		sprite.init(0, 0, 0.5f, 0.5f);
-		float time = 0.0f;
 		
 		// FPS / Time variables
 		unsigned int previousFrameTime = SDL_GetTicks();
@@ -87,18 +84,15 @@ namespace age {
 			frameCounter++;
 			processInput();
 
+			// Update callback
+			onUpdate();
+
 			// Draw
 			glClearDepth(1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-				// TEST CODE TO BE REMOVED!!
-				m_basicShaderProgram.bind();
-				time += 0.03f;
-
-				m_basicShaderProgram.setUniform("time", time);
-
-				sprite.draw();
-				m_basicShaderProgram.unbind();
+			// Render callback
+			onRender();
 
 			SDL_GL_SwapWindow(m_window);
 
@@ -128,6 +122,9 @@ namespace age {
 				previousCumulatedTime = currentFrameTime;
 			}
 		}
+
+		// Exit callback
+		onExit();
 	}
 
 	void Game::processInput() {
@@ -155,5 +152,8 @@ namespace age {
 				break;
 			}
 		}
+
+		// Input callback
+		onInput(evt);
 	}
 }

@@ -1,6 +1,8 @@
 #pragma once
 
 #include <GL/glew.h>
+#include "Color.h"
+#include "Vertex.h"
 
 namespace age {
 
@@ -11,14 +13,19 @@ namespace age {
 		~Sprite();
 
 		void init(float x, float y, float width, float height);
+		void setPosition(float x, float y);
+		Position2D getPosition() const { return m_pos; };
+		void setColor(Color color);
 		void draw();
 
 	private:
-		float m_x;
-		float m_y;
+		Position2D m_pos;
 		float m_width;
 		float m_height;
+		Color m_color;
+
 		GLuint m_vbo = 0;
+		Vertex m_vertexData[6];
 	};
 
 }
