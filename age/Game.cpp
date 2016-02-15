@@ -20,6 +20,7 @@ namespace age {
 		SDL_Init(SDL_INIT_EVERYTHING);
 
 		// Create the Window
+		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 		m_window = SDL_CreateWindow("Test Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1024, 768, SDL_WINDOW_OPENGL);
 		if (m_window == nullptr) {
 			fatalError("Error creating the window!");
@@ -36,8 +37,10 @@ namespace age {
 			fatalError("GLEW init failed!");
 		}
 
-		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 		glClearColor(0, 0, 1.0f, 1.0f);
+
+		// Set VSYNC: 0 => FALSE, 1 => TRUE
+		SDL_GL_SetSwapInterval(0);
 
 		std::cout << glGetString(GL_VENDOR) << std::endl;
 		std::cout << glGetString(GL_RENDERER) << std::endl;
@@ -53,9 +56,8 @@ namespace age {
 	}
 
 	void Game::start() {
-		init();
 		std::cout << "Start game" << std::endl;
-		
+		init();
 		run();
 	}
 
@@ -65,25 +67,67 @@ namespace age {
 		Sprite sprite;
 		sprite.init(0, 0, 0.5f, 0.5f);
 		float time = 0.0f;
+		
+		// FPS / Time variables
+		unsigned int previousFrameTime = SDL_GetTicks();
+		unsigned int previousCumulatedTime = previousFrameTime;
+		unsigned int currentFrameTime;
+		unsigned int elapseTime;
+		int delayTime;
+		unsigned int cumulatedElapseTime = 0;
+		unsigned int frameCounter = 0;
+		
+		// Setting a FPS Cap higher than 400 seems to not be accurate (due to SDL_Delay)
+		const float capFPS = 1000.0f;
+		const float capElapseTime = 1000.0f / capFPS;
+		float actualFPS = 0.0f;
 
 		// Game loop
 		while (m_isRunning) {
+			frameCounter++;
 			input();
 
 			// Draw
 			glClearDepth(1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			m_basicShaderProgram.bind();
-			time += 0.03f;
+				// TEST CODE TO BE REMOVED!!
+				m_basicShaderProgram.bind();
+				time += 0.03f;
 
-			GLuint timeLoc = m_basicShaderProgram.getUniformLocation("time");
-			glUniform1f(timeLoc, time);
+				GLuint timeLoc = m_basicShaderProgram.getUniformLocation("time");
+				glUniform1f(timeLoc, time);
 
-			sprite.draw();
-			m_basicShaderProgram.unbind();
+				sprite.draw();
+				m_basicShaderProgram.unbind();
 
 			SDL_GL_SwapWindow(m_window);
+
+			// FPS and elapse time updates
+			currentFrameTime = SDL_GetTicks();
+			elapseTime = currentFrameTime - previousFrameTime;
+
+			// FPS Capping
+			delayTime = capElapseTime - elapseTime;
+
+			// Delay only if it is for more than 4ms
+			if (delayTime > 1) {
+				SDL_Delay(delayTime);
+
+				// In case of delay, we need to calculate one more time the currentFrameTime
+				currentFrameTime = SDL_GetTicks();
+			}
+
+			previousFrameTime = currentFrameTime;
+
+			cumulatedElapseTime  = currentFrameTime - previousCumulatedTime;
+			// Display FPS every 0.5 sec
+			if (cumulatedElapseTime > 500) {
+				actualFPS = (float)frameCounter * 1000.0f / (float)cumulatedElapseTime;
+				printf("FPS: %f\n", actualFPS);
+				frameCounter = 0;
+				previousCumulatedTime = currentFrameTime;
+			}
 		}
 	}
 
@@ -98,7 +142,7 @@ namespace age {
 				m_isRunning = false;
 				break;
 			case SDL_MOUSEMOTION:
-				std::cout << evt.motion.x << ", " << evt.motion.y << std::endl;
+				//std::cout << evt.motion.x << ", " << evt.motion.y << std::endl;
 				break;
 			default:
 				break;

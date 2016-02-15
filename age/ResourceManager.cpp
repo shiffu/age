@@ -10,7 +10,7 @@ namespace age {
 		std::ifstream file(filename, std::ios::binary);
 		if (file.fail()) {
 			std::string errMsg = "Fail to load file " + filename;
-			perror(errMsg.c_str);
+			perror(errMsg.c_str());
 		}
 
 		// Seek to the end
