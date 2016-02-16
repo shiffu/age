@@ -2,8 +2,10 @@
 
 in vec2 position;
 in vec4 color;
+in vec2 uv;
 
 out vec4 fragmentColor;
+out vec2 fragmentUV;
 
 uniform float time;
 
@@ -12,4 +14,5 @@ void main() {
 	fragmentColor = color * 0.3 + vec4(1.0 * (cos(time) + 1.0) * 0.5 * ((gl_Position.x + 1) * 0.5),
 								1.0 * (sin(time) + 1.0) * 0.5 * ((gl_Position.y + 1) * 0.5),
 								1.0 * (cos(time) + 1.0) * 0.5, 0.0);
+	fragmentUV = uv;
 }

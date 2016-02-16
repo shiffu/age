@@ -4,6 +4,7 @@
 #include <Game.h>
 #include <ShaderProgram.h>
 #include <Sprite.h>
+#include <Texture.h>
 
 class MyTestGame : public age::Game {
 public:
@@ -20,5 +21,6 @@ private:
 	float m_time = 0;
 	age::ShaderProgram m_basicShaderProgram;
 	std::vector<age::Sprite*> m_sprites;
+	age::Texture m_texture;
 };
 

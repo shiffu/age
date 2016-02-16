@@ -6,9 +6,7 @@
 
 namespace age {
 
-	Sprite::Sprite()
-	{
-	}
+	Sprite::Sprite() {}
 
 
 	Sprite::~Sprite()
@@ -25,7 +23,7 @@ namespace age {
 		setPosition(x, y);
 
 		Color defaultColor;
-		defaultColor.value = 0xFFFFFF00;
+		defaultColor.value = 0xFFFFFFFF;
 		setColor(defaultColor);
 	}
 
@@ -42,22 +40,34 @@ namespace age {
 		// First Triangle
 		m_vertexData[0].pos.x = m_pos.x;
 		m_vertexData[0].pos.y = m_pos.y;
+		m_vertexData[0].uv.u = 0;
+		m_vertexData[0].uv.v = 0;
 
 		m_vertexData[1].pos.x = m_pos.x;
 		m_vertexData[1].pos.y = m_pos.y + m_height;
+		m_vertexData[1].uv.u = 0;
+		m_vertexData[1].uv.v = 1.0f;
 
 		m_vertexData[2].pos.x = m_pos.x + m_width;
 		m_vertexData[2].pos.y = m_pos.y;
+		m_vertexData[2].uv.u = 1.0f;
+		m_vertexData[2].uv.v = 0;
 
 		// Second Triangle
 		m_vertexData[3].pos.x = m_pos.x + m_width;
 		m_vertexData[3].pos.y = m_pos.y;
+		m_vertexData[3].uv.u = 1.0f;
+		m_vertexData[3].uv.v = 0;
 
 		m_vertexData[4].pos.x = m_pos.x + m_width;
 		m_vertexData[4].pos.y = m_pos.y + m_height;
+		m_vertexData[4].uv.u = 1.0f;
+		m_vertexData[4].uv.v = 1.0f;
 
 		m_vertexData[5].pos.x = m_pos.x;
 		m_vertexData[5].pos.y = m_pos.y + m_height;
+		m_vertexData[5].uv.u = 0;
+		m_vertexData[5].uv.v = 1.0f;
 
 		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertexData), m_vertexData, GL_STATIC_DRAW);
@@ -88,13 +98,18 @@ namespace age {
 		// Vertex position pointer
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, pos));
-		
+
 		// Vertex color pointer
 		glEnableVertexAttribArray(1);
 		glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (void*)offsetof(Vertex, color));
-		
+
+		// Vertex uv pointer
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, uv));
+
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		
+		glDisableVertexAttribArray(2);
 		glDisableVertexAttribArray(1);
 		glDisableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);

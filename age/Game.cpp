@@ -3,6 +3,7 @@
 
 #include <SDL/SDL.h>
 #include <GL/glew.h>
+#include <SOIL/SOIL.h>
 
 #include "Game.h"
 #include "Sprite.h"
@@ -38,7 +39,7 @@ namespace age {
 			fatalError("GLEW init failed!");
 		}
 
-		glClearColor(0, 0, 1.0f, 1.0f);
+		glClearColor(0, 0, 0, 1.0f);
 
 		// Set VSYNC: 0 => FALSE, 1 => TRUE
 		SDL_GL_SetSwapInterval(0);
