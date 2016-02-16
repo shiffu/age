@@ -3,6 +3,7 @@
 #include <string>
 
 #include <GL/glew.h>
+#include <glm/glm.hpp>
 
 namespace age {
 
@@ -17,8 +18,11 @@ namespace age {
 
 		void bindAttribute(const std::string& name);
 		GLint getUniformLocation(const std::string& name);
+
+		// Set Uniform methods
 		void setUniform(const std::string& name, int value);
 		void setUniform(const std::string& name, float value);
+		void setUniform(const std::string& name, glm::mat4 value);
 
 		void bind();
 		void unbind();

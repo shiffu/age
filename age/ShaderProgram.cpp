@@ -135,6 +135,11 @@ namespace age {
 		glUniform1i(location, value);
 	}
 
+	void ShaderProgram::setUniform(const std::string& name, glm::mat4 value) {
+		GLint location = getUniformLocation(name);
+		glUniformMatrix4fv(location, 1, GL_FALSE, &(value[0][0]));
+	}
+
 	void ShaderProgram::bind() {
 		glUseProgram(m_program);
 		for (GLuint i = 0; i < m_numAttributes; i++) {
