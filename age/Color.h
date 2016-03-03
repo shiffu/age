@@ -1,15 +1,23 @@
 #pragma once
 
-#include <GL/glew.h>
+#ifdef __APPLE__
+    #include <OpenGL/gl3.h>
+#else
+    #include <GL/glew.h>
+#endif
 
-struct RGBAColor {
-	GLubyte r;
-	GLubyte g;
-	GLubyte b;
-	GLubyte a;
-};
+namespace age {
 
-union Color {
-	RGBAColor rgba;
-	GLuint value;
-};
+    struct RGBAColor {
+        GLubyte r;
+        GLubyte g;
+        GLubyte b;
+        GLubyte a;
+    };
+    
+    union Color {
+        RGBAColor rgba;
+        GLuint value;
+    };
+
+}

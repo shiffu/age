@@ -1,8 +1,15 @@
 #include <iostream>
 #include <string>
 
-#include <SDL/SDL.h>
-#include <GL/glew.h>
+#include <SDL2/SDL.h>
+
+#ifdef __APPLE__
+    #include <OpenGL/gl3.h>
+    #include <OpenGL/gl3ext.h>
+#else
+    #include <GL/glew.h>
+#endif
+
 #include <SOIL/SOIL.h>
 
 #include "Game.h"
@@ -18,10 +25,15 @@ namespace age {
 	void Game::init(unsigned int windowWidth, unsigned int windowHeight, unsigned int windowFlags /*= SDL_INIT_EVERYTHING*/) {
 		std::cout << "Initializing game " + m_gameName << std::endl;
 
-		SDL_Init(windowFlags);
+        SDL_Init(windowFlags);
 
-		// Create the Window
-		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+
+        SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
+        // Create the Window
 		m_window = SDL_CreateWindow(m_gameName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 										windowWidth, windowHeight, SDL_WINDOW_OPENGL);
 		if (m_window == nullptr) {
@@ -33,22 +45,31 @@ namespace age {
 		if (glContext == nullptr) {
 			fatalError("Error creating the OpenGL Context!");
 		}
+        
 
+#ifndef __APPLE__
 		GLenum err = glewInit();
 		if (err != GLEW_OK) {
 			fatalError("GLEW init failed!");
 		}
+#endif
 
-		glClearColor(0, 0, 0, 1.0f);
+		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 
 		// Set VSYNC: 0 => FALSE, 1 => TRUE
 		SDL_GL_SetSwapInterval(0);
 
-		std::cout << glGetString(GL_VENDOR) << std::endl;
-		std::cout << glGetString(GL_RENDERER) << std::endl;
-		std::cout << glGetString(GL_VERSION) << std::endl;
-		std::cout << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+		std::cout << "Vendor: " << glGetString(GL_VENDOR) << std::endl;
+		std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl;
+		std::cout << "GL Version: " << glGetString(GL_VERSION) << std::endl;
+		std::cout << "GLSL: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
 
+        // Temporary code. Without a default VAO,
+        // it doesn't work on MAC OS X
+        GLuint vao;
+        glGenVertexArrays(1, &vao);
+        glBindVertexArray(vao);
+        
 		onInit();
 		m_isInitialized = true;
 	}
@@ -135,7 +156,7 @@ namespace age {
 
 			switch(evt.type) {
 			case SDL_QUIT:
-				std::cout << "QUIT pressed" << std::endl;
+				std::cout << "Exit requested" << std::endl;
 				m_isRunning = false;
 				break;
 

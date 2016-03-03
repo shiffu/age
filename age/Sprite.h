@@ -1,6 +1,11 @@
 #pragma once
 
-#include <GL/glew.h>
+#ifdef __APPLE__
+    #include <OpenGL/gl3.h>
+#else
+    #include <GL/glew.h>
+#endif
+
 #include "Color.h"
 #include "Vertex.h"
 
@@ -25,7 +30,7 @@ namespace age {
 		Color m_color;
 
 		GLuint m_vbo = 0;
-		Vertex m_vertexData[6];
+        Vertex m_vertexData[6];
 	};
 
 }

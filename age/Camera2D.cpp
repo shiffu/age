@@ -9,7 +9,10 @@ namespace age {
 
 	Camera2D::~Camera2D() {}
 
-	void Camera2D::init(int screenWidth, int screeHeight) {
+	void Camera2D::init(int screenWidth, int screenHeight) {
+        m_screenWidth = screenWidth;
+        m_screenHeight = screenHeight;
+        
 		m_orthoMatrix = glm::ortho(0.0f, (float)m_screenWidth, 0.0f, (float)m_screenHeight);
 		m_isUpdateNeeded = true;
 	}

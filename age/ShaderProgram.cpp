@@ -141,7 +141,9 @@ namespace age {
 	}
 
 	void ShaderProgram::bind() {
+
 		glUseProgram(m_program);
+
 		for (GLuint i = 0; i < m_numAttributes; i++) {
 			glEnableVertexAttribArray(i);
 		}

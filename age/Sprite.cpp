@@ -1,13 +1,13 @@
 #include "Sprite.h"
 
 #include <cstddef>
+#include <iostream>
 
 #include "Vertex.h"
 
 namespace age {
 
 	Sprite::Sprite() {}
-
 
 	Sprite::~Sprite()
 	{
@@ -17,7 +17,6 @@ namespace age {
 	}
 
 	void Sprite::init(float x, float y, float width, float height) {
-
 		m_width = width;
 		m_height = height;
 		setPosition(x, y);
@@ -69,14 +68,14 @@ namespace age {
 		m_vertexData[5].uv.u = 0;
 		m_vertexData[5].uv.v = 1.0f;
 
-		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+        glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertexData), m_vertexData, GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
 	void Sprite::setColor(Color color) {
 		m_color = color;
-
+        
 		// Create buffer if needed
 		if (m_vbo == 0) {
 			glGenBuffers(1, &m_vbo);
@@ -85,7 +84,7 @@ namespace age {
 		// Set Vertices colors
 		for (unsigned int i = 0; i < 6; i++) {
 			m_vertexData[i].color.value = m_color.value;
-		}
+        }
 
 		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertexData), m_vertexData, GL_STATIC_DRAW);
@@ -95,23 +94,25 @@ namespace age {
 	void Sprite::draw() {
 		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 
-		// Vertex position pointer
-		glEnableVertexAttribArray(0);
+        // Vertex position pointer
+		//glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, pos));
-
+        
 		// Vertex color pointer
-		glEnableVertexAttribArray(1);
+		//glEnableVertexAttribArray(1);
 		glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (void*)offsetof(Vertex, color));
-
+        
 		// Vertex uv pointer
 		glEnableVertexAttribArray(2);
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, uv));
 
+        
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		
-		glDisableVertexAttribArray(2);
-		glDisableVertexAttribArray(1);
-		glDisableVertexAttribArray(0);
+        
+		//glDisableVertexAttribArray(2);
+		//glDisableVertexAttribArray(1);
+		//glDisableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 }

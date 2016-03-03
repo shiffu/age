@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>77BEF4DD-CBE7-43FF-BBB6-C0712092C47B</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TestGame</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>55DF1CBC5E2E996E56DEA90DF63F8B3AC2A37681</key>
+		<string>https://github.com/shiffu/age.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>TestGame/TestGame/TestGame.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>55DF1CBC5E2E996E56DEA90DF63F8B3AC2A37681</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/shiffu/age.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>55DF1CBC5E2E996E56DEA90DF63F8B3AC2A37681</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>55DF1CBC5E2E996E56DEA90DF63F8B3AC2A37681</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AgeMacWorkspace</string>
+		</dict>
+	</array>
+</dict>
+</plist>

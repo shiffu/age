@@ -1,6 +1,7 @@
 #pragma once
 
-#include <SDL/SDL.h>
+#include <vector>
+
 #include <Game.h>
 #include <ShaderProgram.h>
 #include <Sprite.h>
