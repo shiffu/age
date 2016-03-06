@@ -22,7 +22,12 @@ namespace age {
 		setPosition(x, y);
 
 		Color defaultColor;
-		defaultColor.value = 0xFFFFFFFF;
+		//defaultColor.value = 0xFFFFFFFF;
+        defaultColor.rgba.r = 255;
+        defaultColor.rgba.g = 255;
+        defaultColor.rgba.b = 255;
+        defaultColor.rgba.a = 255;
+        
 		setColor(defaultColor);
 	}
 
@@ -39,33 +44,33 @@ namespace age {
 		// First Triangle
 		m_vertexData[0].pos.x = m_pos.x;
 		m_vertexData[0].pos.y = m_pos.y;
-		m_vertexData[0].uv.u = 0;
-		m_vertexData[0].uv.v = 0;
+		m_vertexData[0].uv.u = 0.0f;
+		m_vertexData[0].uv.v = 0.0f;
 
-		m_vertexData[1].pos.x = m_pos.x;
+		m_vertexData[1].pos.x = m_pos.x + m_width;
 		m_vertexData[1].pos.y = m_pos.y + m_height;
-		m_vertexData[1].uv.u = 0;
+        m_vertexData[1].uv.u = 1.0f;
 		m_vertexData[1].uv.v = 1.0f;
 
-		m_vertexData[2].pos.x = m_pos.x + m_width;
-		m_vertexData[2].pos.y = m_pos.y;
-		m_vertexData[2].uv.u = 1.0f;
-		m_vertexData[2].uv.v = 0;
+		m_vertexData[2].pos.x = m_pos.x;
+		m_vertexData[2].pos.y = m_pos.y + m_height;
+		m_vertexData[2].uv.u = 0.0f;
+		m_vertexData[2].uv.v = 1.0f;
 
 		// Second Triangle
-		m_vertexData[3].pos.x = m_pos.x + m_width;
+		m_vertexData[3].pos.x = m_pos.x;
 		m_vertexData[3].pos.y = m_pos.y;
-		m_vertexData[3].uv.u = 1.0f;
-		m_vertexData[3].uv.v = 0;
+		m_vertexData[3].uv.u = 0.0f;
+		m_vertexData[3].uv.v = 0.0f;
 
 		m_vertexData[4].pos.x = m_pos.x + m_width;
-		m_vertexData[4].pos.y = m_pos.y + m_height;
+		m_vertexData[4].pos.y = m_pos.y;
 		m_vertexData[4].uv.u = 1.0f;
-		m_vertexData[4].uv.v = 1.0f;
+		m_vertexData[4].uv.v = 0.0f;
 
-		m_vertexData[5].pos.x = m_pos.x;
+		m_vertexData[5].pos.x = m_pos.x + m_width;
 		m_vertexData[5].pos.y = m_pos.y + m_height;
-		m_vertexData[5].uv.u = 0;
+		m_vertexData[5].uv.u = 1.0f;
 		m_vertexData[5].uv.v = 1.0f;
 
         glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
@@ -82,7 +87,7 @@ namespace age {
 		}
 
 		// Set Vertices colors
-		for (unsigned int i = 0; i < 6; i++) {
+		for (unsigned int i = 0; i < SPRITE_SIZE; i++) {
 			m_vertexData[i].color.value = m_color.value;
         }
 

@@ -20,7 +20,6 @@ public:
 	virtual void onExit();
 
 private:
-	float m_time = 0;
 	age::ShaderProgram m_basicShaderProgram;
 	std::vector<age::Sprite*> m_sprites;
 	age::Texture m_texture;
