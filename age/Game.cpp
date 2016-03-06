@@ -26,9 +26,10 @@ namespace age {
 		std::cout << "Initializing game " + m_gameName << std::endl;
 
         SDL_Init(windowFlags);
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+        //SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG); //Not needed apparently
 
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
@@ -42,7 +43,7 @@ namespace age {
 		// Create the OpenGL Context
 		SDL_GLContext glContext = SDL_GL_CreateContext(m_window);
 		if (glContext == nullptr) {
-			fatalError("Error creating the OpenGL Context!");
+            fatalError(std::string("Error creating the OpenGL Context: ") + SDL_GetError());
 		}
 		Utils::logGlErrors("SDL Init or GL Context creation failed");
 
