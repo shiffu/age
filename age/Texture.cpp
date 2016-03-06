@@ -22,7 +22,9 @@ namespace age {
         }
         else {
             glEnable(GL_BLEND);
-            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			Utils::logGlErrors("glEnable failed");
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			Utils::logGlErrors("glBlendFunc failed");
 
             glGenTextures(1, &m_texture);
             Utils::logGlErrors("glGenTextures failed");
@@ -30,7 +32,6 @@ namespace age {
             glBindTexture(GL_TEXTURE_2D, m_texture);
             Utils::logGlErrors("glBindTexture failed");
             
-            //TODO: use image->format->BytesPerPixel to select GL_RGBA or GL_RGB
             int width = image->w;
             int height = image->h;
             int channels = image->format->BytesPerPixel;

@@ -1,19 +1,20 @@
 #include <iostream>
 #include <string>
 
+#ifdef __APPLE__
+#include <OpenGL/gl3.h>
+#include <OpenGL/gl3ext.h>
+#else
+#include <GL/glew.h>
+#endif
+
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
-
-#ifdef __APPLE__
-    #include <OpenGL/gl3.h>
-    #include <OpenGL/gl3ext.h>
-#else
-    #include <GL/glew.h>
-#endif
 
 #include "Game.h"
 #include "Sprite.h"
 #include "Error.h"
+#include "Utils.h"
 
 namespace age {
 
@@ -25,12 +26,11 @@ namespace age {
 		std::cout << "Initializing game " + m_gameName << std::endl;
 
         SDL_Init(windowFlags);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-
-        SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
         // Create the Window
 		m_window = SDL_CreateWindow(m_gameName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -44,7 +44,8 @@ namespace age {
 		if (glContext == nullptr) {
 			fatalError("Error creating the OpenGL Context!");
 		}
-        
+		Utils::logGlErrors("SDL Init or GL Context creation failed");
+
         int flags = IMG_INIT_JPG|IMG_INIT_PNG;
         int initted = IMG_Init(flags);
         if((initted & flags) != flags) {
@@ -53,7 +54,7 @@ namespace age {
         }
         
         SDL_version compile_version;
-        const SDL_version *link_version=IMG_Linked_Version();
+        const SDL_version *link_version = IMG_Linked_Version();
         SDL_IMAGE_VERSION(&compile_version);
         printf("compiled with SDL_image version: %d.%d.%d\n",
                compile_version.major,
@@ -64,15 +65,18 @@ namespace age {
                link_version->minor,
                link_version->patch);
 
-        
+		Utils::logGlErrors("SDL_Image Init failed");
+
 
 #ifndef __APPLE__
+		glewExperimental = true;
 		GLenum err = glewInit();
 		if (err != GLEW_OK) {
 			fatalError("GLEW init failed!");
 		}
 #endif
 
+		Utils::logGlErrors("GLEW Init failed");
 		glClearColor(0.4f, 0.2f, 0.2f, 1.0f);
 
 		// Set VSYNC: 0 => FALSE, 1 => TRUE
@@ -85,12 +89,9 @@ namespace age {
 
         // Temporary code. Without a default VAO,
         // it doesn't work on MAC OS X
-		// SegV on Windows!... To investigate!
-		/*
         GLuint vao;
         glGenVertexArrays(1, &vao);
         glBindVertexArray(vao);
-        */
 
 		onInit();
 		m_isInitialized = true;

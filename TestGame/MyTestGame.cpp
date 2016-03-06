@@ -1,12 +1,12 @@
-#ifdef _WIN32
 #include "stdafx.h"
-#endif
+
 #include "MyTestGame.h"
 
 #include <iostream>
 #include <random>
 
 #include <Sprite.h>
+#include <Utils.h>
 
 MyTestGame::MyTestGame() : age::Game("My First Test Game")
 {
@@ -21,6 +21,7 @@ void MyTestGame::onInit() {
 	// Init Shader Program
 	// TODO: Do not hardcode the path to resources (resourceManager)
 	m_basicShaderProgram.compileShaders("../age/shaders/basic");
+	age::Utils::logGlErrors("compileShaders failed");
 
     m_basicShaderProgram.bindAttribute("position");
     m_basicShaderProgram.bindAttribute("color");
@@ -74,9 +75,9 @@ void MyTestGame::onInit() {
 	sprite->init(600.0f, 100.0f, 100.0f, 100.0f);
 	m_sprites.push_back(sprite);
     
-	m_texture.load("res/textures/test.png");
+	//m_texture.load("res/textures/test.png");
 	//m_texture.load("res/textures/grass.png");
-	//m_texture.load("res/textures/mario-brick.png");
+	m_texture.load("res/textures/mario-brick.png");
 }
 
 void MyTestGame::onInput(SDL_Event evt) {
