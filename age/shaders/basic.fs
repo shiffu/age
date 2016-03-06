@@ -1,4 +1,4 @@
-#version 150 core
+#version 330 core
 
 in vec4 fragmentColor;
 in vec2 fragmentUV;
