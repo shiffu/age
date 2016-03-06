@@ -24,13 +24,14 @@ namespace age {
 		void draw();
 
 	private:
+        static const unsigned short SPRITE_SIZE = 6;
 		Position2D m_pos;
 		float m_width;
 		float m_height;
 		Color m_color;
 
 		GLuint m_vbo = 0;
-        Vertex m_vertexData[6];
+        Vertex m_vertexData[SPRITE_SIZE];
 	};
 
 }

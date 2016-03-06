@@ -2,6 +2,7 @@
 #include <string>
 
 #include <SDL2/SDL.h>
+#include <SDL2_image/SDL_image.h>
 
 #ifdef __APPLE__
     #include <OpenGL/gl3.h>
@@ -9,8 +10,6 @@
 #else
     #include <GL/glew.h>
 #endif
-
-#include <SOIL/SOIL.h>
 
 #include "Game.h"
 #include "Sprite.h"
@@ -46,6 +45,26 @@ namespace age {
 			fatalError("Error creating the OpenGL Context!");
 		}
         
+        int flags = IMG_INIT_JPG|IMG_INIT_PNG;
+        int initted = IMG_Init(flags);
+        if((initted & flags) != flags) {
+            std::cerr << "IMG_Init: Failed to init required jpg and png support!\n";
+            std::cerr << "IMG_Init: " << IMG_GetError() << std::endl;
+        }
+        
+        SDL_version compile_version;
+        const SDL_version *link_version=IMG_Linked_Version();
+        SDL_IMAGE_VERSION(&compile_version);
+        printf("compiled with SDL_image version: %d.%d.%d\n",
+               compile_version.major,
+               compile_version.minor,
+               compile_version.patch);
+        printf("running with SDL_image version: %d.%d.%d\n",
+               link_version->major,
+               link_version->minor,
+               link_version->patch);
+
+        
 
 #ifndef __APPLE__
 		GLenum err = glewInit();
@@ -54,7 +73,7 @@ namespace age {
 		}
 #endif
 
-		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+		glClearColor(0.4f, 0.2f, 0.2f, 1.0f);
 
 		// Set VSYNC: 0 => FALSE, 1 => TRUE
 		SDL_GL_SetSwapInterval(0);
@@ -144,6 +163,8 @@ namespace age {
 				previousCumulatedTime = currentFrameTime;
 			}
 		}
+        
+        IMG_Quit();
 
 		// Exit callback
 		onExit();

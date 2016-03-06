@@ -27,7 +27,8 @@
 		E40032351C8687B30090BBCA /* Vertex.h in Headers */ = {isa = PBXBuildFile; fileRef = E40032231C8687B30090BBCA /* Vertex.h */; };
 		E40032371C8687D00090BBCA /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E40032361C8687D00090BBCA /* OpenGL.framework */; };
 		E4060AC01C86923A0072A086 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4060ABF1C86923A0072A086 /* CoreFoundation.framework */; };
-		E4635B481C868A9500D0FECB /* libsoil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4635B471C868A9500D0FECB /* libsoil.a */; };
+		E424E5C51C88690B00EB34A8 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E424E5C41C88690B00EB34A8 /* SDL2_image.framework */; };
+		E424E5CA1C8B9C9300EB34A8 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E424E5C91C8B9C9300EB34A8 /* Utils.cpp */; };
 		E4635B4A1C868AA100D0FECB /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4635B491C868AA100D0FECB /* GLUT.framework */; };
 		E4635B4C1C868B2E00D0FECB /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4635B4B1C868B2E00D0FECB /* SDL2.framework */; };
 /* End PBXBuildFile section */
@@ -56,6 +57,9 @@
 		E40032361C8687D00090BBCA /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		E4060ABF1C86923A0072A086 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		E40C6A6B1C867E5E006C84AB /* libage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libage.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E424E5C41C88690B00EB34A8 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
+		E424E5C81C8B9C2D00EB34A8 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		E424E5C91C8B9C9300EB34A8 /* Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
 		E4635B471C868A9500D0FECB /* libsoil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsoil.a; path = ../soil/build/Debug/libsoil.a; sourceTree = "<group>"; };
 		E4635B491C868AA100D0FECB /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		E4635B4B1C868B2E00D0FECB /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
@@ -66,10 +70,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E424E5C51C88690B00EB34A8 /* SDL2_image.framework in Frameworks */,
 				E4060AC01C86923A0072A086 /* CoreFoundation.framework in Frameworks */,
 				E4635B4C1C868B2E00D0FECB /* SDL2.framework in Frameworks */,
 				E4635B4A1C868AA100D0FECB /* GLUT.framework in Frameworks */,
-				E4635B481C868A9500D0FECB /* libsoil.a in Frameworks */,
 				E40032371C8687D00090BBCA /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -80,6 +84,9 @@
 		E40C6A621C867E5E006C84AB = {
 			isa = PBXGroup;
 			children = (
+				E424E5C91C8B9C9300EB34A8 /* Utils.cpp */,
+				E424E5C81C8B9C2D00EB34A8 /* Utils.h */,
+				E424E5C41C88690B00EB34A8 /* SDL2_image.framework */,
 				E4060ABF1C86923A0072A086 /* CoreFoundation.framework */,
 				E4635B4B1C868B2E00D0FECB /* SDL2.framework */,
 				E4635B491C868AA100D0FECB /* GLUT.framework */,
@@ -197,6 +204,7 @@
 				E400322B1C8687B30090BBCA /* InputManager.cpp in Sources */,
 				E40032291C8687B30090BBCA /* Game.cpp in Sources */,
 				E400322F1C8687B30090BBCA /* ShaderProgram.cpp in Sources */,
+				E424E5CA1C8B9C9300EB34A8 /* Utils.cpp in Sources */,
 				E40032271C8687B30090BBCA /* Error.cpp in Sources */,
 				E40032331C8687B30090BBCA /* Texture.cpp in Sources */,
 				E40032311C8687B30090BBCA /* Sprite.cpp in Sources */,
@@ -297,10 +305,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/Users/jcpennel/Documents/code/deps,
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/jcpennel/Documents/code/AgeMacWorkspace/soil/build/Debug,
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -321,10 +326,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/Users/jcpennel/Documents/code/deps,
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/jcpennel/Documents/code/AgeMacWorkspace/soil/build/Debug,
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

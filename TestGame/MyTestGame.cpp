@@ -49,7 +49,7 @@ void MyTestGame::onInit() {
     age::Sprite* sprite = nullptr;
     
     sprite = new age::Sprite();
-    sprite->init(0.0f, 50.0f, 100.0f, 100.0f);
+    sprite->init(0.0f, 0.0f, 100.0f, 100.0f);
     m_sprites.push_back(sprite);
 
 	sprite = new age::Sprite();
@@ -72,9 +72,9 @@ void MyTestGame::onInit() {
 	sprite->init(600.0f, 100.0f, 100.0f, 100.0f);
 	m_sprites.push_back(sprite);
     
-	//m_texture.load("res/textures/test.png");
+	m_texture.load("res/textures/test.png");
 	//m_texture.load("res/textures/grass.png");
-	m_texture.load("res/textures/mario-brick.png");
+	//m_texture.load("res/textures/mario-brick.png");
 }
 
 void MyTestGame::onInput(SDL_Event evt) {
@@ -110,9 +110,6 @@ void MyTestGame::onRender() {
 
 	m_basicShaderProgram.bind();
 
-	m_time += 0.03f;
-
-	m_basicShaderProgram.setUniform("time", m_time);
 	m_basicShaderProgram.setUniform("projection", m_camera.getProjection());
 	
 	m_texture.bind();
