@@ -60,7 +60,6 @@
 		E424E5C41C88690B00EB34A8 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
 		E424E5C81C8B9C2D00EB34A8 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		E424E5C91C8B9C9300EB34A8 /* Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
-		E4635B471C868A9500D0FECB /* libsoil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsoil.a; path = ../soil/build/Debug/libsoil.a; sourceTree = "<group>"; };
 		E4635B491C868AA100D0FECB /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		E4635B4B1C868B2E00D0FECB /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,7 +89,6 @@
 				E4060ABF1C86923A0072A086 /* CoreFoundation.framework */,
 				E4635B4B1C868B2E00D0FECB /* SDL2.framework */,
 				E4635B491C868AA100D0FECB /* GLUT.framework */,
-				E4635B471C868A9500D0FECB /* libsoil.a */,
 				E40032361C8687D00090BBCA /* OpenGL.framework */,
 				E40032101C8687B30090BBCA /* Camera2D.cpp */,
 				E40032111C8687B30090BBCA /* Camera2D.h */,
