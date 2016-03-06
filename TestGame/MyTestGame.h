@@ -22,7 +22,7 @@ public:
 private:
 	age::ShaderProgram m_basicShaderProgram;
 	std::vector<age::Sprite*> m_sprites;
-	age::Texture m_texture;
+	age::Texture* m_texture = nullptr;
 	age::Camera2D m_camera;
 };
 

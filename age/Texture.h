@@ -1,7 +1,5 @@
 #pragma once
 
-#include <string>
-
 #ifdef __APPLE__
     #include <OpenGL/gl3.h>
     #include <OpenGL/gl3ext.h>
@@ -14,16 +12,14 @@ namespace age {
 	class Texture
 	{
 	public:
-		Texture();
+		Texture(GLuint textureId);
 		~Texture();
-
-		void load(const std::string& filename);
 
 		void bind(GLenum textureSlot = GL_TEXTURE0);
 		void unbind();
 
 	private:
-		GLuint m_texture;
+		GLuint m_textureId;
 	};
 
 }

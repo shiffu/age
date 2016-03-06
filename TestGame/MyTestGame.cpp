@@ -5,8 +5,9 @@
 #include <iostream>
 #include <random>
 
-#include <Sprite.h>
 #include <Utils.h>
+#include <Sprite.h>
+#include <ResourceManager.h>
 
 MyTestGame::MyTestGame() : age::Game("My First Test Game")
 {
@@ -77,7 +78,7 @@ void MyTestGame::onInit() {
     
 	//m_texture.load("res/textures/test.png");
 	//m_texture.load("res/textures/grass.png");
-	m_texture.load("res/textures/mario-brick.png");
+    m_texture = age::ResourceManager::instance().loadTexture("mario-brick.png");
 }
 
 void MyTestGame::onInput(SDL_Event evt) {
@@ -115,14 +116,14 @@ void MyTestGame::onRender() {
 
 	m_basicShaderProgram.setUniform("projection", m_camera.getProjection());
 	
-	m_texture.bind();
+	m_texture->bind();
 	m_basicShaderProgram.setUniform("fragTexture", 0);
 
 	for (auto sprite : m_sprites) {
 		sprite->draw();
 	}
 
-	m_texture.unbind();
+	m_texture->unbind();
 
 	m_basicShaderProgram.unbind();
 }
