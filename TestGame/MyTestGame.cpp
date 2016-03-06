@@ -1,4 +1,6 @@
-//#include "stdafx.h"
+#ifdef _WIN32
+#include "stdafx.h"
+#endif
 #include "MyTestGame.h"
 
 #include <iostream>

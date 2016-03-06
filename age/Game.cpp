@@ -66,10 +66,13 @@ namespace age {
 
         // Temporary code. Without a default VAO,
         // it doesn't work on MAC OS X
+		// SegV on Windows!... To investigate!
+		/*
         GLuint vao;
         glGenVertexArrays(1, &vao);
         glBindVertexArray(vao);
-        
+        */
+
 		onInit();
 		m_isInitialized = true;
 	}
