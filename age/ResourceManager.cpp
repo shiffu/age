@@ -2,7 +2,12 @@
 
 #include <fstream>
 #include <iostream>
+
+#ifndef _WIN32
 #include <unistd.h>
+#else
+#include <direct.h>
+#endif
 
 #include <SDL2_image/SDL_image.h>
 #include <SDL2/SDL_opengl.h>
@@ -59,7 +64,11 @@ namespace age {
         Texture* tex = nullptr;
         //char *base_path = SDL_GetBasePath();
         char buffer[256];
-        std::string cwd = std::string(getcwd(buffer, sizeof(buffer)));
+#ifdef _WIN32
+        std::string cwd = std::string(_getcwd(buffer, sizeof(buffer)));
+#else
+		std::string cwd = std::string(getcwd(buffer, sizeof(buffer)));
+#endif
 
         const std::string filePath = cwd + "/" + m_rootFolder + "/" + m_texturesSubFolder + "/" + filename;
         
