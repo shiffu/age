@@ -4,12 +4,15 @@ in vec4 fragmentColor;
 in vec2 fragmentUV;
 
 out vec4 colorOut;
-uniform sampler2D fragTexture;
+uniform sampler2D texSampler;
 
 void main() {
-	//vec4 texColor = texture(fragTexture, vec2(fragmentUV.x, 1.0 - fragmentUV.y));
-    vec4 texColor = texture(fragTexture, fragmentUV);
-    //colorOut = texColor * fragmentColor;
-    //colorOut = vec4(texColor.g, 0, 0, 1);
-    colorOut = texColor;
+    //TODO: tmp, should use another uniform, or another shader when no texture is bound
+    vec4 texColor = texture(texSampler, fragmentUV);
+    if (texColor != vec4(0, 0, 0, 1.0)) {
+        colorOut = texColor * fragmentColor;
+    }
+    else {
+        colorOut = fragmentColor;
+    }
 }

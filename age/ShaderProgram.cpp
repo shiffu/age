@@ -15,7 +15,6 @@ namespace age {
 	void ShaderProgram::compileShaders(const std::string& name) {
 		m_program = glCreateProgram();
 
-		//TODO: create a proper resource manager
 		compileShader(name + ".vs", GL_VERTEX_SHADER);
 		compileShader(name + ".fs", GL_FRAGMENT_SHADER);
 	}
@@ -141,18 +140,10 @@ namespace age {
 	}
 
 	void ShaderProgram::bind() {
-
 		glUseProgram(m_program);
-
-		for (GLuint i = 0; i < m_numAttributes; i++) {
-			glEnableVertexAttribArray(i);
-		}
 	}
 
 	void ShaderProgram::unbind() {
 		glUseProgram(0);
-		for (GLuint i = 0; i < m_numAttributes; i++) {
-			glDisableVertexAttribArray(i);
-		}
 	}
 }

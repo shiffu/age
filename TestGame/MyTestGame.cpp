@@ -22,7 +22,6 @@ void MyTestGame::onInit() {
 	// Init Shader Program
 	// TODO: Do not hardcode the path to resources (resourceManager)
 	m_basicShaderProgram.compileShaders("../age/shaders/basic");
-	age::Utils::logGlErrors("compileShaders failed");
 
     m_basicShaderProgram.bindAttribute("position");
     m_basicShaderProgram.bindAttribute("color");
@@ -50,39 +49,56 @@ void MyTestGame::onInit() {
 	//	m_sprites.push_back(sprite);
 	//}
     
+    age::Texture* texture = age::ResourceManager::instance().loadTexture("mario-brick.png");
     age::Sprite* sprite = nullptr;
     
     sprite = new age::Sprite();
     sprite->init(0.0f, 0.0f, 100.0f, 100.0f);
+    sprite->setTexture(texture);
     m_sprites.push_back(sprite);
 
 	sprite = new age::Sprite();
+	sprite->init(100.0f, 30.0f, 100.0f, 100.0f);
+    sprite->setTexture(texture);
+    age::Color blue;
+    blue.value = 0x80FF5000;
+    sprite->setColor(blue);
+	m_sprites.push_back(sprite);
+
+	sprite = new age::Sprite();
+	sprite->init(200.0f, 40.0f, 100.0f, 100.0f);
+    //sprite->setTexture(texture);
+    sprite->setColor(blue);
+	m_sprites.push_back(sprite);
+
+	sprite = new age::Sprite();
 	sprite->init(300.0f, 50.0f, 100.0f, 100.0f);
-	m_sprites.push_back(sprite);
-
-	sprite = new age::Sprite();
-	sprite->init(500.0f, 50.0f, 100.0f, 100.0f);
-	m_sprites.push_back(sprite);
-
-	sprite = new age::Sprite();
-	sprite->init(700.0f, 50.0f, 100.0f, 100.0f);
-	m_sprites.push_back(sprite);
-
-	sprite = new age::Sprite();
-	sprite->init(400.0f, 100.0f, 100.0f, 100.0f);
-	m_sprites.push_back(sprite);
-
-	sprite = new age::Sprite();
-	sprite->init(600.0f, 100.0f, 100.0f, 100.0f);
+    sprite->setTexture(texture);
 	m_sprites.push_back(sprite);
     
-	//m_texture.load("res/textures/test.png");
-	//m_texture.load("res/textures/grass.png");
-    m_texture = age::ResourceManager::instance().loadTexture("mario-brick.png");
+    sprite = new age::Sprite();
+    sprite->init(400.0f, 50.0f, 100.0f, 100.0f);
+    sprite->setTexture(texture);
+    m_sprites.push_back(sprite);
+    
+    sprite = new age::Sprite();
+    sprite->init(500.0f, 50.0f, 100.0f, 100.0f);
+    sprite->setTexture(texture);
+    m_sprites.push_back(sprite);
+    
+    sprite = new age::Sprite();
+    sprite->init(600.0f, 50.0f, 100.0f, 100.0f);
+    sprite->setTexture(texture);
+    m_sprites.push_back(sprite);
+    
+    sprite = new age::Sprite();
+    sprite->init(700.0f, 50.0f, 100.0f, 100.0f);
+    sprite->setTexture(texture);
+    m_sprites.push_back(sprite);
 }
 
 void MyTestGame::onInput(SDL_Event evt) {
-	float speed = 0.015f;
+	float speed = 2.0f;
 
 	if (m_inputManager.isKeyPressed(SDLK_a)) {
 		age::Position2D currentPos = m_sprites.back()->getPosition();
@@ -103,7 +119,6 @@ void MyTestGame::onInput(SDL_Event evt) {
 		age::Position2D currentPos = m_sprites.back()->getPosition();
 		m_sprites.back()->setPosition(currentPos.x, currentPos.y - speed);
 	}
-
 }
 
 void MyTestGame::onUpdate() {
@@ -115,15 +130,11 @@ void MyTestGame::onRender() {
 	m_basicShaderProgram.bind();
 
 	m_basicShaderProgram.setUniform("projection", m_camera.getProjection());
-	
-	m_texture->bind();
-	m_basicShaderProgram.setUniform("fragTexture", 0);
+	m_basicShaderProgram.setUniform("texSampler", 0);
 
 	for (auto sprite : m_sprites) {
 		sprite->draw();
 	}
-
-	m_texture->unbind();
 
 	m_basicShaderProgram.unbind();
 }

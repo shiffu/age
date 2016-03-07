@@ -57,11 +57,11 @@ namespace age {
         SDL_version compile_version;
         const SDL_version *link_version = IMG_Linked_Version();
         SDL_IMAGE_VERSION(&compile_version);
-        printf("compiled with SDL_image version: %d.%d.%d\n",
+        printf("Compiled with SDL_image version: %d.%d.%d\n",
                compile_version.major,
                compile_version.minor,
                compile_version.patch);
-        printf("running with SDL_image version: %d.%d.%d\n",
+        printf("Running with SDL_image version: %d.%d.%d\n",
                link_version->major,
                link_version->minor,
                link_version->patch);
@@ -78,7 +78,7 @@ namespace age {
 #endif
 
 		Utils::logGlErrors("GLEW Init failed");
-		glClearColor(0.4f, 0.2f, 0.2f, 1.0f);
+		glClearColor(0.1f, 0.25f, 0.35f, 1.0f);
 
 		// Set VSYNC: 0 => FALSE, 1 => TRUE
 		SDL_GL_SetSwapInterval(0);
@@ -87,12 +87,6 @@ namespace age {
 		std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl;
 		std::cout << "GL Version: " << glGetString(GL_VERSION) << std::endl;
 		std::cout << "GLSL: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
-
-        // Temporary code. Without a default VAO,
-        // it doesn't work on MAC OS X
-        GLuint vao;
-        glGenVertexArrays(1, &vao);
-        glBindVertexArray(vao);
 
 		onInit();
 		m_isInitialized = true;
