@@ -15,6 +15,8 @@ namespace age {
 		Texture(GLuint textureId);
 		~Texture();
 
+        GLuint getId() {return m_textureId;}
+        
 		void bind(GLenum textureSlot = GL_TEXTURE0);
 		void unbind();
 

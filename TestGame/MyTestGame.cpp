@@ -51,50 +51,29 @@ void MyTestGame::onInit() {
     
     age::Texture* texture = age::ResourceManager::instance().loadTexture("mario-brick.png");
     age::Sprite* sprite = nullptr;
-    
-    sprite = new age::Sprite();
-    sprite->init(0.0f, 0.0f, 100.0f, 100.0f);
-    sprite->setTexture(texture);
-    m_sprites.push_back(sprite);
 
-	sprite = new age::Sprite();
-	sprite->init(100.0f, 30.0f, 100.0f, 100.0f);
-    sprite->setTexture(texture);
-    age::Color blue;
-    blue.value = 0x80FF5000;
-    sprite->setColor(blue);
-	m_sprites.push_back(sprite);
+    // Test BatchRenderer2D
+    unsigned int nbSpritesX = 30;
+    unsigned int nbSpritesY = 30;
+    float width = 800.0f / nbSpritesX;
+    float height = 600.0f / nbSpritesY;
 
-	sprite = new age::Sprite();
-	sprite->init(200.0f, 40.0f, 100.0f, 100.0f);
-    //sprite->setTexture(texture);
-    sprite->setColor(blue);
-	m_sprites.push_back(sprite);
-
-	sprite = new age::Sprite();
-	sprite->init(300.0f, 50.0f, 100.0f, 100.0f);
-    sprite->setTexture(texture);
-	m_sprites.push_back(sprite);
+    for(int i =  0; i < nbSpritesX; i++) {
+        for(int j =  0; j < nbSpritesY; j++) {
+            sprite = new age::Sprite();
+            sprite->init(i * width, j * height, width-2, height-2);
+            age::Color color;
+            color.rgba.r = (255/nbSpritesX) * i;
+            color.rgba.g = (255/nbSpritesY) * j;
+            color.rgba.b = (255/nbSpritesX) * i;
+            color.rgba.a = 255;
+            sprite->setColor(color);
+            sprite->setTexture(texture);
+            m_sprites.push_back(sprite);
+        }
+    }
     
-    sprite = new age::Sprite();
-    sprite->init(400.0f, 50.0f, 100.0f, 100.0f);
-    sprite->setTexture(texture);
-    m_sprites.push_back(sprite);
-    
-    sprite = new age::Sprite();
-    sprite->init(500.0f, 50.0f, 100.0f, 100.0f);
-    sprite->setTexture(texture);
-    m_sprites.push_back(sprite);
-    
-    sprite = new age::Sprite();
-    sprite->init(600.0f, 50.0f, 100.0f, 100.0f);
-    sprite->setTexture(texture);
-    m_sprites.push_back(sprite);
-    
-    sprite = new age::Sprite();
-    sprite->init(700.0f, 50.0f, 100.0f, 100.0f);
-    sprite->setTexture(texture);
-    m_sprites.push_back(sprite);
+    m_batchRenderer.init();
 }
 
 void MyTestGame::onInput(SDL_Event evt) {
@@ -132,10 +111,14 @@ void MyTestGame::onRender() {
 	m_basicShaderProgram.setUniform("projection", m_camera.getProjection());
 	m_basicShaderProgram.setUniform("texSampler", 0);
 
-	for (auto sprite : m_sprites) {
-		sprite->draw();
-	}
-
+    m_batchRenderer.begin();
+    for(auto sprite : m_sprites) {
+        m_batchRenderer.submit(sprite);
+    }
+    m_batchRenderer.end();
+    
+    m_batchRenderer.render();
+    
 	m_basicShaderProgram.unbind();
 }
 

@@ -31,6 +31,9 @@
 		E424E5CA1C8B9C9300EB34A8 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E424E5C91C8B9C9300EB34A8 /* Utils.cpp */; };
 		E4635B4A1C868AA100D0FECB /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4635B491C868AA100D0FECB /* GLUT.framework */; };
 		E4635B4C1C868B2E00D0FECB /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4635B4B1C868B2E00D0FECB /* SDL2.framework */; };
+		E4A2C3881C90FFAA000DDA78 /* BatchRenderer2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4A2C3861C90FFAA000DDA78 /* BatchRenderer2D.cpp */; };
+		E4A2C3891C90FFAA000DDA78 /* BatchRenderer2D.h in Headers */ = {isa = PBXBuildFile; fileRef = E4A2C3871C90FFAA000DDA78 /* BatchRenderer2D.h */; };
+		E4A2C38D1C9104EA000DDA78 /* SpriteBatch.h in Headers */ = {isa = PBXBuildFile; fileRef = E4A2C38B1C9104EA000DDA78 /* SpriteBatch.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +65,9 @@
 		E424E5C91C8B9C9300EB34A8 /* Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
 		E4635B491C868AA100D0FECB /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		E4635B4B1C868B2E00D0FECB /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
+		E4A2C3861C90FFAA000DDA78 /* BatchRenderer2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BatchRenderer2D.cpp; sourceTree = "<group>"; };
+		E4A2C3871C90FFAA000DDA78 /* BatchRenderer2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchRenderer2D.h; sourceTree = "<group>"; };
+		E4A2C38B1C9104EA000DDA78 /* SpriteBatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteBatch.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +89,9 @@
 		E40C6A621C867E5E006C84AB = {
 			isa = PBXGroup;
 			children = (
+				E4A2C38B1C9104EA000DDA78 /* SpriteBatch.h */,
+				E4A2C3861C90FFAA000DDA78 /* BatchRenderer2D.cpp */,
+				E4A2C3871C90FFAA000DDA78 /* BatchRenderer2D.h */,
 				E424E5C91C8B9C9300EB34A8 /* Utils.cpp */,
 				E424E5C81C8B9C2D00EB34A8 /* Utils.h */,
 				E424E5C41C88690B00EB34A8 /* SDL2_image.framework */,
@@ -129,9 +138,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4A2C38D1C9104EA000DDA78 /* SpriteBatch.h in Headers */,
 				E40032301C8687B30090BBCA /* ShaderProgram.h in Headers */,
 				E40032281C8687B30090BBCA /* Error.h in Headers */,
 				E40032351C8687B30090BBCA /* Vertex.h in Headers */,
+				E4A2C3891C90FFAA000DDA78 /* BatchRenderer2D.h in Headers */,
 				E400322C1C8687B30090BBCA /* InputManager.h in Headers */,
 				E40032261C8687B30090BBCA /* Color.h in Headers */,
 				E400322A1C8687B30090BBCA /* Game.h in Headers */,
@@ -200,6 +211,7 @@
 			files = (
 				E400322D1C8687B30090BBCA /* ResourceManager.cpp in Sources */,
 				E400322B1C8687B30090BBCA /* InputManager.cpp in Sources */,
+				E4A2C3881C90FFAA000DDA78 /* BatchRenderer2D.cpp in Sources */,
 				E40032291C8687B30090BBCA /* Game.cpp in Sources */,
 				E400322F1C8687B30090BBCA /* ShaderProgram.cpp in Sources */,
 				E424E5CA1C8B9C9300EB34A8 /* Utils.cpp in Sources */,
@@ -311,6 +323,7 @@
 		E40C6A781C867E5E006C84AB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				EXECUTABLE_PREFIX = lib;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

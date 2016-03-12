@@ -78,7 +78,7 @@ namespace age {
 #endif
 
 		Utils::logGlErrors("GLEW Init failed");
-		glClearColor(0.1f, 0.25f, 0.35f, 1.0f);
+		glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 
 		// Set VSYNC: 0 => FALSE, 1 => TRUE
 		SDL_GL_SetSwapInterval(0);

@@ -5,6 +5,7 @@
 #include <Game.h>
 #include <ShaderProgram.h>
 #include <Sprite.h>
+#include <BatchRenderer2D.h>
 #include <Texture.h>
 #include <Camera2D.h>
 
@@ -22,6 +23,7 @@ public:
 private:
 	age::ShaderProgram m_basicShaderProgram;
 	std::vector<age::Sprite*> m_sprites;
+    age::BatchRenderer2D m_batchRenderer;
 	age::Camera2D m_camera;
 };
 
