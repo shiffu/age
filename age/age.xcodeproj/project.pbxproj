@@ -26,6 +26,7 @@
 		E40032341C8687B30090BBCA /* Texture.h in Headers */ = {isa = PBXBuildFile; fileRef = E40032221C8687B30090BBCA /* Texture.h */; };
 		E40032351C8687B30090BBCA /* Vertex.h in Headers */ = {isa = PBXBuildFile; fileRef = E40032231C8687B30090BBCA /* Vertex.h */; };
 		E40032371C8687D00090BBCA /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E40032361C8687D00090BBCA /* OpenGL.framework */; };
+		E400D0541C979780004903F8 /* libBox2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E400D0531C979780004903F8 /* libBox2D.a */; };
 		E4060AC01C86923A0072A086 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4060ABF1C86923A0072A086 /* CoreFoundation.framework */; };
 		E424E5C51C88690B00EB34A8 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E424E5C41C88690B00EB34A8 /* SDL2_image.framework */; };
 		E424E5CA1C8B9C9300EB34A8 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E424E5C91C8B9C9300EB34A8 /* Utils.cpp */; };
@@ -58,6 +59,7 @@
 		E40032221C8687B30090BBCA /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture.h; sourceTree = "<group>"; };
 		E40032231C8687B30090BBCA /* Vertex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vertex.h; sourceTree = "<group>"; };
 		E40032361C8687D00090BBCA /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		E400D0531C979780004903F8 /* libBox2D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBox2D.a; path = ../../deps/libs/Debug/libBox2D.a; sourceTree = "<group>"; };
 		E4060ABF1C86923A0072A086 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		E40C6A6B1C867E5E006C84AB /* libage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libage.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E424E5C41C88690B00EB34A8 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E400D0541C979780004903F8 /* libBox2D.a in Frameworks */,
 				E424E5C51C88690B00EB34A8 /* SDL2_image.framework in Frameworks */,
 				E4060AC01C86923A0072A086 /* CoreFoundation.framework in Frameworks */,
 				E4635B4C1C868B2E00D0FECB /* SDL2.framework in Frameworks */,
@@ -89,6 +92,7 @@
 		E40C6A621C867E5E006C84AB = {
 			isa = PBXGroup;
 			children = (
+				E400D0531C979780004903F8 /* libBox2D.a */,
 				E4A2C38B1C9104EA000DDA78 /* SpriteBatch.h */,
 				E4A2C3861C90FFAA000DDA78 /* BatchRenderer2D.cpp */,
 				E4A2C3871C90FFAA000DDA78 /* BatchRenderer2D.h */,
@@ -315,7 +319,10 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/Users/jcpennel/Documents/code/deps,
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/jcpennel/Documents/code/deps/libs/Debug,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -337,7 +344,10 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/Users/jcpennel/Documents/code/deps,
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/jcpennel/Documents/code/deps/libs/Debug,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
