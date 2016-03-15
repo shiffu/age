@@ -16,6 +16,7 @@
 #include "Error.h"
 #include "Utils.h"
 
+
 namespace age {
 
 	Game::Game(std::string gameName) : m_gameName(gameName) {}
@@ -88,6 +89,7 @@ namespace age {
 		std::cout << "GL Version: " << glGetString(GL_VERSION) << std::endl;
 		std::cout << "GLSL: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
 
+        
 		onInit();
 		m_isInitialized = true;
 	}
@@ -118,7 +120,7 @@ namespace age {
 		const float capFPS = 60.0f;
 		const float capElapseTime = 1000.0f / capFPS;
 		float actualFPS = 0.0f;
-
+        
 		// Game loop
 		while (m_isRunning) {
 			frameCounter++;
@@ -126,7 +128,7 @@ namespace age {
 
 			// Update callback
 			onUpdate();
-
+            
 			// Draw
 			glClearDepth(1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

@@ -6,6 +6,8 @@
 #include "InputManager.h"
 
 struct SDL_Window;
+class b2World;
+class b2Body;
 
 namespace age {
 
