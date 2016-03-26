@@ -28,7 +28,7 @@ namespace age {
 
 		float getScale() const { return m_scale; }
 
-		glm::mat4 getProjection() { return m_viewTransform; }
+		glm::mat4 getProjection() const { return m_viewTransform; }
 
 	private:
 		bool m_isUpdateNeeded = true;

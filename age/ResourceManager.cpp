@@ -17,9 +17,7 @@
 
 namespace age {
 
-    ResourceManager::ResourceManager() {
-        
-    }
+    ResourceManager::ResourceManager() {}
     
     ResourceManager::~ResourceManager() {
         for(auto& it : m_texturesMap) {
@@ -27,7 +25,7 @@ namespace age {
         }
     }
     
-	bool ResourceManager::readFileToBuffer(const std::string& filename, std::vector<unsigned char>& buffer) {
+	bool ResourceManager::readFileToBuffer(const std::string& filename, std::vector<unsigned char>& buffer) const {
 
 		// Open the file
 		std::ifstream file(filename, std::ios::binary);
@@ -72,11 +70,11 @@ namespace age {
 
         const std::string filePath = cwd + "/" + m_rootFolder + "/" + m_texturesSubFolder + "/" + filename;
         
-        std::cout << "loading texture " << filePath << std::endl;
+        std::cout << "Loading texture " << filePath << std::endl;
         
         auto it = m_texturesMap.find(filePath);
         if (it != m_texturesMap.end()) {
-            std::cout << "Texture " << filePath << " returned from cache" << std::endl;
+            std::cout << "Texture " << filename << " returned from cache" << std::endl;
             return it->second;
         }
         
@@ -150,11 +148,13 @@ namespace age {
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
             Utils::logGlErrors("Wrap params failed");
             
-            glGenerateMipmap(GL_TEXTURE_2D);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glGenerateMipmap(GL_TEXTURE_2D);
             Utils::logGlErrors("MIN/MAG Filters failed");
             
+            glBindTexture(GL_TEXTURE_2D, 0);
+
             if (image) {
                 SDL_FreeSurface(image);
             }

@@ -17,8 +17,10 @@ namespace age {
 
         GLuint getId() {return m_textureId;}
         
-		void bind(GLenum textureSlot = GL_TEXTURE0);
-		void unbind();
+		void bind(GLenum textureSlot = GL_TEXTURE0) const;
+		void unbind() const;
+        //TODO: Remove this method, used for debugging
+        GLuint getId() const { return m_textureId; }
 
 	private:
 		GLuint m_textureId;

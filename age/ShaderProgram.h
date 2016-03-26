@@ -29,8 +29,8 @@ namespace age {
 		void setUniform(const std::string& name, float value);
 		void setUniform(const std::string& name, glm::mat4 value);
 
-		void bind();
-		void unbind();
+		void bind() const;
+		void unbind() const;
 
 	private:
 		static const GLuint NB_SHADER_INDEX = 2;

@@ -8,16 +8,22 @@
 
 namespace age {
 
-    struct RGBAColor {
+    struct Color {
         GLubyte r;
         GLubyte g;
         GLubyte b;
         GLubyte a;
-    };
-    
-    union Color {
-        RGBAColor rgba;
-        GLuint value;
+        
+        Color() {
+            r = g = b = a = 255;
+        }
+        
+        Color(unsigned char _r, unsigned char _g, unsigned char _b, unsigned char _a) {
+            r = _r;
+            g = _g;
+            b = _b;
+            a = _a;
+        }
     };
 
 }

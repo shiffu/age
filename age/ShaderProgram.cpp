@@ -9,7 +9,6 @@
 namespace age {
 
 	ShaderProgram::ShaderProgram() {}
-
 	ShaderProgram::~ShaderProgram() {}
 
 	void ShaderProgram::compileShaders(const std::string& name) {
@@ -139,11 +138,11 @@ namespace age {
 		glUniformMatrix4fv(location, 1, GL_FALSE, &(value[0][0]));
 	}
 
-	void ShaderProgram::bind() {
+	void ShaderProgram::bind() const {
 		glUseProgram(m_program);
 	}
 
-	void ShaderProgram::unbind() {
+	void ShaderProgram::unbind() const {
 		glUseProgram(0);
 	}
 }

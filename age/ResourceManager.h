@@ -23,7 +23,7 @@ namespace age {
         ResourceManager& operator=(ResourceManager const&) = delete;  // Copy assign
         ResourceManager& operator=(ResourceManager &&) = delete;      // Move assign
         
-        bool readFileToBuffer(const std::string& filename, std::vector<unsigned char>& buffer);
+        bool readFileToBuffer(const std::string& filename, std::vector<unsigned char>& buffer) const;
         void setRootFolder(const std::string& rootFolder);
         void setTextureSubFolder(const std::string& subFolder);
         

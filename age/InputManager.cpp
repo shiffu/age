@@ -2,14 +2,8 @@
 
 namespace age {
 
-	InputManager::InputManager()
-	{
-	}
-
-
-	InputManager::~InputManager()
-	{
-	}
+	InputManager::InputManager() {}
+	InputManager::~InputManager() {}
 
 	void InputManager::keyPressed(unsigned int keyId) {
 		m_keyMap[keyId] = true;
@@ -20,7 +14,7 @@ namespace age {
 		m_keyMap[keyId] = false;
 	}
 
-	bool InputManager::isKeyPressed(unsigned int keyId) {
+	bool InputManager::isKeyPressed(unsigned int keyId) const {
 		auto it = m_keyMap.find(keyId);
 		if (it != m_keyMap.end()) {
 			return it->second;

@@ -4,6 +4,7 @@
 
 #include "ShaderProgram.h"
 #include "InputManager.h"
+#include "IPhysicsEngine.h"
 
 struct SDL_Window;
 class b2World;
@@ -19,6 +20,7 @@ namespace age {
 
 		void init(unsigned int windowWidth, unsigned int windowHeight, unsigned int windowFlags = SDL_INIT_EVERYTHING);
 		void start();
+        void setPhysicsEngine(IPhysicsEngine* engine);
 
 		// Methods to be implemented in the child class
 		virtual void onInit() {}
@@ -38,5 +40,6 @@ namespace age {
 
 	protected:
 		InputManager m_inputManager;
+        IPhysicsEngine* m_physicsEngine = nullptr;
 	};
 }

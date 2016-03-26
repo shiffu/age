@@ -28,9 +28,10 @@ namespace age {
     private:
         RenderingSortType m_renderingSortType = RenderingSortType::NONE;
         std::vector<Sprite*> m_sprites;
-        std::vector<SpriteBatch> m_spriteBatches;
+        std::vector<SpriteBatch*> m_spriteBatches;
         GLuint m_vbo = 0;
         GLuint m_vao = 0;
+        GLuint m_ibo = 0;
     };
     
 }

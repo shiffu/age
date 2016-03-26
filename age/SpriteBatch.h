@@ -5,13 +5,13 @@
 namespace age {
     
     struct SpriteBatch {
-        SpriteBatch(GLuint aOffset, GLuint aNumVertices, const Texture& aTexture)
-                : offset(aOffset), numVertices(aNumVertices), texture(aTexture) {};
+        SpriteBatch(GLuint aNbIndices, unsigned int aIndicesOffset, const Texture* aTexture)
+                : nbIndices(aNbIndices), indicesOffset(aIndicesOffset), texture(aTexture) {};
         ~SpriteBatch() {};
         
-        GLuint offset;
-        GLuint numVertices;
-        Texture texture;
+        GLuint nbIndices;
+        GLuint indicesOffset;
+        const Texture* texture;
     };
     
 }

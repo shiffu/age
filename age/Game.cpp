@@ -94,6 +94,10 @@ namespace age {
 		m_isInitialized = true;
 	}
 
+    void Game::setPhysicsEngine(IPhysicsEngine* engine) {
+        m_physicsEngine = engine;
+    }
+    
 	void Game::start() {
 		if (m_isInitialized == false) {
 			fatalError("Error: Game must be initialized before start could be called!");
@@ -126,6 +130,11 @@ namespace age {
 			frameCounter++;
 			processInput();
 
+            // Physics update
+            if (m_physicsEngine) {
+                m_physicsEngine->update();
+            }
+            
 			// Update callback
 			onUpdate();
             

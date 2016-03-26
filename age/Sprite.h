@@ -7,10 +7,13 @@
 #endif
 
 #include <vector>
+#include <glm/glm.hpp>
 
 #include "Color.h"
 #include "Vertex.h"
 #include "Texture.h"
+#include "IRigidBody.h"
+#include "IPhysicsEngine.h"
 
 namespace age {
 
@@ -23,20 +26,30 @@ namespace age {
 		~Sprite();
 
 		void init(float x, float y, float width, float height);
+        
 		void setPosition(float x, float y);
-		Position2D getPosition() const { return m_pos; };
+        glm::vec2 getPosition() const { return m_pos; };
+        void setAngle(float angle);
+        
         void setColor(Color color);
         void setTexture(Texture* texture);
-
+        
+        void setRigidBody(IPhysicsEngine* physicsEngine, IRigidBody::Type bodyType,
+                          float density, float friction, float restitution);
+        void updateFromPhysics();
+        
 	private:
-        static const unsigned short SPRITE_SIZE = 6;
-		Position2D m_pos;
-		float m_width;
-		float m_height;
+        static const unsigned char SPRITE_SIZE = 4;
+        glm::vec2 rotateVertex(const glm::vec2& pos, float angle);
+
+        glm::vec2 m_pos;
+		float m_width = 0;
+		float m_height = 0;
         float m_depth = 0;
-		Color m_color;
-        Texture* m_texture = nullptr;
         std::vector<Vertex> m_vertexData;
+		Color m_color = Color();
+        Texture* m_texture = nullptr;
+        IRigidBody* m_rigidBody = nullptr;
 	};
 
 }
