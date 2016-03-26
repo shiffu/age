@@ -11,7 +11,7 @@ namespace age {
 		Camera2D();
 		~Camera2D();
 
-		void init(int screenWidth, int screeHeight);
+		void init(int viewWidth, int viewHeight);
 		void update();
 
 		void setPos(const glm::vec2& pos) {
@@ -36,8 +36,8 @@ namespace age {
 		glm::vec2 m_pos;
 		glm::mat4 m_viewTransform;
 		glm::mat4 m_orthoMatrix;
-		int m_screenWidth = 1280;
-		int m_screenHeight = 1024;
+		int m_viewWidth = 1280;
+		int m_viewHeight = 1024;
 	};
 
 }

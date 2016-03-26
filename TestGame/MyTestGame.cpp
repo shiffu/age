@@ -22,8 +22,6 @@ MyTestGame::~MyTestGame() {}
 
 
 void MyTestGame::onInit() {
-    
-    //glEnable(GL_TEXTURE_2D);        // TODO: Needed??
 
 	// Init Shader Program
 	// TODO: Do not hardcode the path to resources (resourceManager)
@@ -36,36 +34,43 @@ void MyTestGame::onInit() {
     m_basicShaderProgram.linkProgram();
 
 	m_camera.init(800, 600);
-    
     age::Texture* brickTexture = age::ResourceManager::instance().loadTexture("mario-brick.png");
     age::Texture* woodTexture = age::ResourceManager::instance().loadTexture("wood-texture.png");
     age::Texture* metalTexture = age::ResourceManager::instance().loadTexture("metal-texture.png");
 
-    m_groundSprite = new age::Sprite();
-    m_groundSprite->init(40, 30, 550, 60);
-    m_groundSprite->setTexture(woodTexture);
-    m_groundSprite->setRigidBody(m_physicsEngine, IRigidBody::Type::STATIC, 0, 0.3, 0.1);
+    age::Sprite* cSprite = new age::Sprite();
+    cSprite->init(40, 30, 550, 60);
+    cSprite->setTexture(woodTexture);
+    cSprite->setRigidBody(m_physicsEngine, IRigidBody::Type::STATIC, 0, 0.3, 0.1);
+    m_containerSprites.push_back(cSprite);
     
-    m_cubeSprite = new age::Sprite();
-    m_cubeSprite->init(60.0, 400.0, 60.0f, 60.0f);
-    m_cubeSprite->setTexture(metalTexture);
-    m_cubeSprite->setRigidBody(m_physicsEngine, IRigidBody::Type::DYNAMIC, 1.0, 0.25, 0.5);
+    cSprite = new age::Sprite();
+    cSprite->init(40, 30, 40, 150);
+    cSprite->setTexture(woodTexture);
+    cSprite->setRigidBody(m_physicsEngine, IRigidBody::Type::STATIC, 0, 0.3, 0.1);
+    m_containerSprites.push_back(cSprite);
+    
+    cSprite = new age::Sprite();
+    cSprite->init(590, 30, 40, 150);
+    cSprite->setTexture(woodTexture);
+    cSprite->setRigidBody(m_physicsEngine, IRigidBody::Type::STATIC, 0, 0.3, 0.1);
+    m_containerSprites.push_back(cSprite);
     
     age::Color colorSprite;
     for(int i = 0; i < NB_DYN_SPRITES; i++) {
         m_dynamicSprites.push_back(new age::Sprite());
-        m_dynamicSprites.back()->init(260 + i * 12, 400 + i * 10, 15 + i, 15 + i);
+        m_dynamicSprites.back()->init(220 + i * 2, 450 + i * 2, 12 + i/5, 12 + i/5);
         m_dynamicSprites.back()->setTexture(metalTexture);
-        colorSprite.r = 30 * i * 5;
-        colorSprite.g = 30 * i * 5;
-        colorSprite.b = 30 + i * 5;
+        colorSprite.r = 80 + i * 2;
+        colorSprite.g = 80 + i * 2;
+        colorSprite.b = 80 + i * 2;
         m_dynamicSprites.back()->setColor(colorSprite);
         m_dynamicSprites.back()->setRigidBody(m_physicsEngine, IRigidBody::Type::DYNAMIC, 1.0, 0.1, 0.5);
     }
     
     // Test BatchRenderer2D
-    unsigned int nbSpritesX = 10;
-    unsigned int nbSpritesY = 10;
+    unsigned int nbSpritesX = 25;
+    unsigned int nbSpritesY = 25;
     float width = 800.0f / nbSpritesX;
     float height = 600.0f / nbSpritesY;
 
@@ -80,7 +85,7 @@ void MyTestGame::onInit() {
             color.b = (255/nbSpritesX) * j;
             sprite->setColor(color);
             sprite->setTexture(brickTexture);
-            m_sprites.push_back(sprite);
+            m_backgroundSprites.push_back(sprite);
         }
     }
     
@@ -88,33 +93,43 @@ void MyTestGame::onInit() {
 }
 
 void MyTestGame::onInput(SDL_Event evt) {
-    /*
-    float speed = 3.0f;
-     
-	if (m_inputManager.isKeyPressed(SDLK_LEFT)) {
-        glm::vec2 currentPos = m_cubeSprite->getPosition();
-		m_cubeSprite->setPosition(currentPos.x - speed, currentPos.y);
-	}
-
-	if (m_inputManager.isKeyPressed(SDLK_RIGHT)) {
-		glm::vec2 currentPos = m_cubeSprite->getPosition();
-		m_cubeSprite->setPosition(currentPos.x + speed, currentPos.y);
-	}
+    glm::vec2 currentCameraPos = m_camera.getPos();
+    float currentCameraScale = m_camera.getScale();
+    float cameraSpeed = 8.0f;
+    
+    if (m_inputManager.isKeyPressed(SDLK_a)) {
+        m_camera.setScale(currentCameraScale + 0.01f);
+    }
+    else if (m_inputManager.isKeyPressed(SDLK_q)) {
+        m_camera.setScale(currentCameraScale - 0.01f);
+    }
+    
+    if (m_inputManager.isKeyPressed(SDLK_LEFT)) {
+        m_camera.setPos(currentCameraPos + glm::vec2(-cameraSpeed, 0.0f));
+    }
+    else if (m_inputManager.isKeyPressed(SDLK_RIGHT)) {
+        m_camera.setPos(currentCameraPos + glm::vec2(cameraSpeed, 0.0f));
+    }
 
 	if (m_inputManager.isKeyPressed(SDLK_UP)) {
-		glm::vec2 currentPos = m_cubeSprite->getPosition();
-		m_cubeSprite->setPosition(currentPos.x, currentPos.y + speed);
+        m_camera.setPos(currentCameraPos + glm::vec2(0.0f, cameraSpeed));
 	}
-
-	if (m_inputManager.isKeyPressed(SDLK_DOWN)) {
-		glm::vec2 currentPos = m_cubeSprite->getPosition();
-		m_cubeSprite->setPosition(currentPos.x, currentPos.y - speed);
+	else if (m_inputManager.isKeyPressed(SDLK_DOWN)) {
+        m_camera.setPos(currentCameraPos + glm::vec2(0.0f, -cameraSpeed));
 	}
-     */
 }
 
 void MyTestGame::onUpdate() {
-    m_cubeSprite->updateFromPhysics();
+    
+    /*
+    age::Texture* metalTexture = age::ResourceManager::instance().loadTexture("metal-texture.png");
+    m_dynamicSprites.push_back(new age::Sprite());
+    m_dynamicSprites.back()->init(300, 500, 10, 10);
+    m_dynamicSprites.back()->setTexture(metalTexture);
+    m_dynamicSprites.back()->setColor(age::Color());
+    m_dynamicSprites.back()->setRigidBody(m_physicsEngine, IRigidBody::Type::DYNAMIC, 1.0, 0.1, 0.5);
+     */
+
     for(auto sprite : m_dynamicSprites) {
         sprite->updateFromPhysics();
     }
@@ -130,17 +145,18 @@ void MyTestGame::onRender() {
     // set the texture unit
     m_basicShaderProgram.setUniform("texSampler", 0);
 
-    m_batchRenderer.begin(age::RenderingSortType::NONE);
-    for(auto sprite : m_sprites) {
-        m_batchRenderer.submit(sprite);
-    }
-    m_batchRenderer.submit(m_groundSprite);
-    m_batchRenderer.submit(m_cubeSprite);
-    for(auto sprite : m_dynamicSprites) {
-        m_batchRenderer.submit(sprite);
-    }
+    //m_batchRenderer.begin(age::RenderingSortType::NONE);
+    m_batchRenderer.begin();
+        for(auto sprite : m_backgroundSprites) {
+            m_batchRenderer.submit(sprite);
+        }
+        for(auto sprite : m_containerSprites) {
+            m_batchRenderer.submit(sprite);
+        }
+        for(auto sprite : m_dynamicSprites) {
+            m_batchRenderer.submit(sprite);
+        }
     m_batchRenderer.end();
-    
     m_batchRenderer.render();
     
 	m_basicShaderProgram.unbind();
