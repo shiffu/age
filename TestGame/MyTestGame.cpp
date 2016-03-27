@@ -23,7 +23,12 @@ MyTestGame::~MyTestGame() {}
 
 void MyTestGame::onInit() {
 
-	// Init Shader Program
+    age::Music* music = age::AudioEngine::instance().loadMusic("heroic.mp3");
+    music->play();
+
+    m_sound = age::AudioEngine::instance().loadSound("IceShatters/LedasLuzta.ogg");
+
+    // Init Shader Program
 	// TODO: Do not hardcode the path to resources (resourceManager)
     m_basicShaderProgram.compileShaders("../age/shaders/basic");
 
@@ -96,6 +101,10 @@ void MyTestGame::onInput(SDL_Event evt) {
     glm::vec2 currentCameraPos = m_camera.getPos();
     float currentCameraScale = m_camera.getScale();
     float cameraSpeed = 8.0f;
+
+    if (m_inputManager.isKeyPressed(SDLK_SPACE)) {
+        m_sound->play();
+    }
     
     if (m_inputManager.isKeyPressed(SDLK_a)) {
         m_camera.setScale(currentCameraScale + 0.01f);

@@ -8,6 +8,7 @@
 #include <BatchRenderer2D.h>
 #include <Texture.h>
 #include <Camera2D.h>
+#include <AudioEngine.h>
 
 class b2World;
 class b2Body;
@@ -28,6 +29,8 @@ private:
 	age::ShaderProgram m_basicShaderProgram;
     age::BatchRenderer2D m_batchRenderer;
 	age::Camera2D m_camera;
+    
+    age::Sound* m_sound;
     
     static const unsigned int NB_DYN_SPRITES = 80;
     std::vector<age::Sprite*> m_containerSprites;

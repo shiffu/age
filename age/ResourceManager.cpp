@@ -13,7 +13,6 @@
 #include <SDL2/SDL_opengl.h>
 
 #include "Utils.h"
-#include "Texture.h"
 
 namespace age {
 
@@ -53,22 +52,26 @@ namespace age {
         m_rootFolder = rootFolder;
     }
     
+    const std::string ResourceManager::getRootPath() const {
+        char buffer[256];
+#ifdef _WIN32
+        const std::string cwd = std::string(_getcwd(buffer, sizeof(buffer)));
+#else
+        const std::string cwd = std::string(getcwd(buffer, sizeof(buffer)));
+#endif
+        std::string filePath = cwd + "/" + m_rootFolder;
+        
+        return filePath;
+    }
+    
     void ResourceManager::setTextureSubFolder(const std::string& subFolder) {
-        m_texturesSubFolder = subFolder;
+        m_textureSubFolder = subFolder;
     }
     
     Texture* ResourceManager::loadTexture(const std::string& filename) {
 
         Texture* tex = nullptr;
-        //char *base_path = SDL_GetBasePath();
-        char buffer[256];
-#ifdef _WIN32
-        std::string cwd = std::string(_getcwd(buffer, sizeof(buffer)));
-#else
-		std::string cwd = std::string(getcwd(buffer, sizeof(buffer)));
-#endif
-
-        const std::string filePath = cwd + "/" + m_rootFolder + "/" + m_texturesSubFolder + "/" + filename;
+        const std::string filePath = getTexturePath(filename);
         
         std::cout << "Loading texture " << filePath << std::endl;
         
@@ -164,5 +167,13 @@ namespace age {
         }
         
         return tex;
+    }
+
+    const std::string ResourceManager::getTexturePath(const std::string& filename /* = ""*/) const {
+        return getRootPath() + "/" + m_textureSubFolder + "/" + filename;
+    }
+    
+    const std::string ResourceManager::getAudioPath(const std::string& filename /* = ""*/) const {
+        return getRootPath() + "/" + m_audioSubFolder + "/" + filename;
     }
 }
