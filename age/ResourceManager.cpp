@@ -137,8 +137,8 @@ namespace age {
                     break;
             }
             
-            GLenum imageFormat = GL_BGRA;
-            if (image->format->Rmask == 0xFF) {
+            GLenum imageFormat = internalFormat;
+            if (image->format->BitsPerPixel == 4 && image->format->Rmask == 0xFF) {
                 imageFormat = GL_RGBA;
             }
             
