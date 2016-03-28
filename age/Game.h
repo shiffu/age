@@ -25,7 +25,7 @@ namespace age {
 		// Methods to be implemented in the child class
 		virtual void onInit() {}
 		virtual void onInput(SDL_Event evt) {}
-		virtual void onUpdate() {}
+		virtual void onUpdate(unsigned int deltaTime) {}
 		virtual void onRender() {}
 		virtual void onExit() {}
 

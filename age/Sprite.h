@@ -27,7 +27,8 @@ namespace age {
 
 		void init(float x, float y, float width, float height);
         
-		void setPosition(float x, float y);
+        void setPosition(glm::vec2 pos);
+        void setPosition(float x, float y);
         glm::vec2 getPosition() const { return m_pos; };
         void setAngle(float angle);
         
@@ -37,6 +38,10 @@ namespace age {
         void setRigidBody(IPhysicsEngine* physicsEngine, IRigidBody::Type bodyType,
                           float density, float friction, float restitution);
         void updateFromPhysics();
+
+    protected:
+        std::vector<Vertex> m_vertexData;
+        Texture* m_texture = nullptr;
         
 	private:
         static const unsigned char SPRITE_SIZE = 4;
@@ -46,9 +51,7 @@ namespace age {
 		float m_width = 0;
 		float m_height = 0;
         float m_depth = 0;
-        std::vector<Vertex> m_vertexData;
 		Color m_color = Color();
-        Texture* m_texture = nullptr;
         IRigidBody* m_rigidBody = nullptr;
 	};
 

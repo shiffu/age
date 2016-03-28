@@ -115,7 +115,7 @@ namespace age {
 		unsigned int previousFrameTime = SDL_GetTicks();
 		unsigned int previousCumulatedTime = previousFrameTime;
 		unsigned int currentFrameTime;
-		unsigned int elapseTime;
+		unsigned int elapseTime = 0;
 		int delayTime;
 		unsigned int cumulatedElapseTime = 0;
 		unsigned int frameCounter = 0;
@@ -136,7 +136,7 @@ namespace age {
             }
             
 			// Update callback
-			onUpdate();
+			onUpdate(elapseTime);
             
 			// Draw
 			glClearDepth(1.0f);

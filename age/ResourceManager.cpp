@@ -157,13 +157,16 @@ namespace age {
             Utils::logGlErrors("MIN/MAG Filters failed");
             
             glBindTexture(GL_TEXTURE_2D, 0);
-
+            
+            tex = new Texture(textureId);
+            tex->m_width = image->w;
+            tex->m_height = image->h;
+            
+            m_texturesMap[filePath] = tex;
+            
             if (image) {
                 SDL_FreeSurface(image);
             }
-            
-            tex = new Texture(textureId);
-            m_texturesMap[filePath] = tex;
         }
         
         return tex;

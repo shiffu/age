@@ -9,6 +9,7 @@
 #include <Texture.h>
 #include <Camera2D.h>
 #include <AudioEngine.h>
+#include <AnimatedSprite.h>
 
 class b2World;
 class b2Body;
@@ -21,7 +22,7 @@ public:
 
 	virtual void onInit();
 	virtual void onInput(SDL_Event evt);
-	virtual void onUpdate();
+	virtual void onUpdate(unsigned int deltaTime);
 	virtual void onRender();
 	virtual void onExit();
 
@@ -33,6 +34,9 @@ private:
     age::Sound* m_sound;
     
     static const unsigned int NB_DYN_SPRITES = 80;
+    age::AnimatedSprite* m_player = nullptr;
+    float m_playerVelocity = 0.0f;
+    
     std::vector<age::Sprite*> m_containerSprites;
     std::vector<age::Sprite*> m_dynamicSprites;
     std::vector<age::Sprite*> m_backgroundSprites;

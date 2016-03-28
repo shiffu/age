@@ -47,6 +47,10 @@
 		E4C3BBAA1CA8117800D43F91 /* AudioEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C3BBA91CA8117800D43F91 /* AudioEngine.cpp */; };
 		E4C3BBB01CA8211900D43F91 /* Sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C3BBAF1CA8211900D43F91 /* Sound.cpp */; };
 		E4C3BBB21CA8214B00D43F91 /* Music.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C3BBB11CA8214B00D43F91 /* Music.cpp */; };
+		E4C3BBB51CA83C1B00D43F91 /* AnimatedSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C3BBB31CA83C1B00D43F91 /* AnimatedSprite.cpp */; };
+		E4C3BBB61CA83C1B00D43F91 /* AnimatedSprite.h in Headers */ = {isa = PBXBuildFile; fileRef = E4C3BBB41CA83C1B00D43F91 /* AnimatedSprite.h */; };
+		E4C3BBB91CA8437100D43F91 /* Animation2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C3BBB71CA8437100D43F91 /* Animation2D.cpp */; };
+		E4C3BBBA1CA8437100D43F91 /* Animation2D.h in Headers */ = {isa = PBXBuildFile; fileRef = E4C3BBB81CA8437100D43F91 /* Animation2D.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,6 +101,10 @@
 		E4C3BBAE1CA820EC00D43F91 /* Sound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sound.h; sourceTree = "<group>"; };
 		E4C3BBAF1CA8211900D43F91 /* Sound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sound.cpp; sourceTree = "<group>"; };
 		E4C3BBB11CA8214B00D43F91 /* Music.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Music.cpp; sourceTree = "<group>"; };
+		E4C3BBB31CA83C1B00D43F91 /* AnimatedSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnimatedSprite.cpp; sourceTree = "<group>"; };
+		E4C3BBB41CA83C1B00D43F91 /* AnimatedSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedSprite.h; sourceTree = "<group>"; };
+		E4C3BBB71CA8437100D43F91 /* Animation2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animation2D.cpp; sourceTree = "<group>"; };
+		E4C3BBB81CA8437100D43F91 /* Animation2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation2D.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +128,10 @@
 		E40C6A621C867E5E006C84AB = {
 			isa = PBXGroup;
 			children = (
+				E4C3BBB71CA8437100D43F91 /* Animation2D.cpp */,
+				E4C3BBB81CA8437100D43F91 /* Animation2D.h */,
+				E4C3BBB31CA83C1B00D43F91 /* AnimatedSprite.cpp */,
+				E4C3BBB41CA83C1B00D43F91 /* AnimatedSprite.h */,
 				E4C3BBB11CA8214B00D43F91 /* Music.cpp */,
 				E4C3BBAF1CA8211900D43F91 /* Sound.cpp */,
 				E4C3BBAE1CA820EC00D43F91 /* Sound.h */,
@@ -197,8 +209,10 @@
 				E40032261C8687B30090BBCA /* Color.h in Headers */,
 				E400D05C1C9CCB88004903F8 /* IPhysicsEngine.h in Headers */,
 				E400322A1C8687B30090BBCA /* Game.h in Headers */,
+				E4C3BBBA1CA8437100D43F91 /* Animation2D.h in Headers */,
 				E40032321C8687B30090BBCA /* Sprite.h in Headers */,
 				E40032341C8687B30090BBCA /* Texture.h in Headers */,
+				E4C3BBB61CA83C1B00D43F91 /* AnimatedSprite.h in Headers */,
 				E400D0681C9D112A004903F8 /* Box2DRigidBody.h in Headers */,
 				E400322E1C8687B30090BBCA /* ResourceManager.h in Headers */,
 				E40032251C8687B30090BBCA /* Camera2D.h in Headers */,
@@ -276,6 +290,8 @@
 				E40032311C8687B30090BBCA /* Sprite.cpp in Sources */,
 				E4C3BBAA1CA8117800D43F91 /* AudioEngine.cpp in Sources */,
 				E40032241C8687B30090BBCA /* Camera2D.cpp in Sources */,
+				E4C3BBB51CA83C1B00D43F91 /* AnimatedSprite.cpp in Sources */,
+				E4C3BBB91CA8437100D43F91 /* Animation2D.cpp in Sources */,
 				E4C3BBB01CA8211900D43F91 /* Sound.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

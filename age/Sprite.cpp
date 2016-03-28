@@ -35,6 +35,10 @@ namespace age {
 
         setPosition(x, y);
 	}
+    
+    void Sprite::setPosition(glm::vec2 pos) {
+        setPosition(pos.x, pos.y);
+    }
 
 	void Sprite::setPosition(float x, float y) {
 		m_pos.x = x;

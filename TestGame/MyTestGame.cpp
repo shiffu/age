@@ -26,7 +26,7 @@ void MyTestGame::onInit() {
     age::Music* music = age::AudioEngine::instance().loadMusic("heroic.mp3");
     music->play();
 
-    m_sound = age::AudioEngine::instance().loadSound("IceShatters/LedasLuzta.ogg");
+    m_sound = age::AudioEngine::instance().loadSound("IceShatters/LedasLuzta2.ogg");
 
     // Init Shader Program
 	// TODO: Do not hardcode the path to resources (resourceManager)
@@ -94,13 +94,20 @@ void MyTestGame::onInit() {
         }
     }
     
+    m_player = new age::AnimatedSprite("spelunky-sprite-sheet.png", 13, 13);
+    m_player->init(200, 200, 90, 80);
+    age::Animation2D* idleAnimation = new age::Animation2D(52, 3, 350);
+    m_player->addAnimation("idle", idleAnimation);
+    age::Animation2D* walkAnimation = new age::Animation2D(156, 9, 500);
+    m_player->addAnimation("walk", walkAnimation);
+    
     m_batchRenderer.init();
 }
 
 void MyTestGame::onInput(SDL_Event evt) {
-    glm::vec2 currentCameraPos = m_camera.getPos();
     float currentCameraScale = m_camera.getScale();
     float cameraSpeed = 8.0f;
+    float speed = 0.01f;
 
     if (m_inputManager.isKeyPressed(SDLK_SPACE)) {
         m_sound->play();
@@ -114,21 +121,21 @@ void MyTestGame::onInput(SDL_Event evt) {
     }
     
     if (m_inputManager.isKeyPressed(SDLK_LEFT)) {
-        m_camera.setPos(currentCameraPos + glm::vec2(-cameraSpeed, 0.0f));
+        if (m_playerVelocity > -1.0f) {
+            m_playerVelocity -= speed;
+        }
     }
     else if (m_inputManager.isKeyPressed(SDLK_RIGHT)) {
-        m_camera.setPos(currentCameraPos + glm::vec2(cameraSpeed, 0.0f));
+        if (m_playerVelocity < 1.0f) {
+            m_playerVelocity += speed;
+        }
     }
-
-	if (m_inputManager.isKeyPressed(SDLK_UP)) {
-        m_camera.setPos(currentCameraPos + glm::vec2(0.0f, cameraSpeed));
-	}
-	else if (m_inputManager.isKeyPressed(SDLK_DOWN)) {
-        m_camera.setPos(currentCameraPos + glm::vec2(0.0f, -cameraSpeed));
-	}
+    else {
+        m_playerVelocity *= 0.9f;
+    }
 }
 
-void MyTestGame::onUpdate() {
+void MyTestGame::onUpdate(unsigned int deltaTime) {
     
     /*
     age::Texture* metalTexture = age::ResourceManager::instance().loadTexture("metal-texture.png");
@@ -141,6 +148,20 @@ void MyTestGame::onUpdate() {
 
     for(auto sprite : m_dynamicSprites) {
         sprite->updateFromPhysics();
+    }
+
+    
+    glm::vec2 playerPos = m_player->getPosition();
+    m_player->setPosition(playerPos + glm::vec2(m_playerVelocity * deltaTime, 0.0f));
+
+    if (m_playerVelocity > 0.05f) {
+      m_player->playAnimation("walk", deltaTime);
+    }
+    else if (m_playerVelocity < -0.05f) {
+        m_player->playAnimation("walk", deltaTime, true);
+    }
+    else {
+        m_player->playAnimation("idle", deltaTime);
     }
     
     m_camera.update();
@@ -165,6 +186,7 @@ void MyTestGame::onRender() {
         for(auto sprite : m_dynamicSprites) {
             m_batchRenderer.submit(sprite);
         }
+        m_batchRenderer.submit(m_player);
     m_batchRenderer.end();
     m_batchRenderer.render();
     
