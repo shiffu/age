@@ -12,15 +12,14 @@
 #include "Color.h"
 #include "Vertex.h"
 #include "Texture.h"
+#include "IRenderable2D.h"
 #include "IRigidBody.h"
 #include "IPhysicsEngine.h"
 
 namespace age {
 
-	class Sprite
+    class Sprite : public IRenderable2D
 	{
-        friend class BatchRenderer2D;
-        
 	public:
 		Sprite();
 		~Sprite();
@@ -35,12 +34,18 @@ namespace age {
         void setColor(Color color);
         void setTexture(Texture* texture);
         
+        const std::vector<Vertex>& getVertices() const override;
+        const std::vector<unsigned short>& getIndices() const override;
+        GLuint getTextureId() const override;
+        unsigned int getDepth() const override;
+
         void setRigidBody(IPhysicsEngine* physicsEngine, IRigidBody::Type bodyType,
                           float density, float friction, float restitution);
         void updateFromPhysics();
 
     protected:
-        std::vector<Vertex> m_vertexData;
+        std::vector<Vertex> m_vertices;
+        std::vector<unsigned short> m_indices;
         Texture* m_texture = nullptr;
         
 	private:

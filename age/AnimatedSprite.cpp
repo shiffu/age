@@ -50,20 +50,20 @@ namespace age {
         //std::cout << "cellXIndex: " << cellXIndex << ", cellYIndex: " << cellYIndex << "deltaTime: " << deltaTime << std::endl;
         
         // bottom left
-        m_vertexData[0].uv.u = blOffset.x;
-        m_vertexData[0].uv.v = blOffset.y;
+        m_vertices[0].uv.u = blOffset.x;
+        m_vertices[0].uv.v = blOffset.y;
         
         // bottom right
-        m_vertexData[1].uv.u = blOffset.x + cellWidth;
-        m_vertexData[1].uv.v = blOffset.y;
+        m_vertices[1].uv.u = blOffset.x + cellWidth;
+        m_vertices[1].uv.v = blOffset.y;
         
         // top right
-        m_vertexData[2].uv.u = blOffset.x + cellWidth;
-        m_vertexData[2].uv.v = blOffset.y + cellHeight;
+        m_vertices[2].uv.u = blOffset.x + cellWidth;
+        m_vertices[2].uv.v = blOffset.y + cellHeight;
         
         // top left
-        m_vertexData[3].uv.u = blOffset.x;
-        m_vertexData[3].uv.v = blOffset.y + cellHeight;
+        m_vertices[3].uv.u = blOffset.x;
+        m_vertices[3].uv.v = blOffset.y + cellHeight;
     }
 
 }

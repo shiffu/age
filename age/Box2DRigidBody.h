@@ -14,9 +14,10 @@ namespace age {
     public:
         Box2DRigidBody(b2World* world, IRigidBody::Type bodyType,
                        glm::vec2 centerPos, float halfWidth, float halfHeight);
+        
         void setPhysicsParams(float density, float friction, float restitution) override;
         glm::vec2 getPosition() const override;
-        float getAngle() const;
+        float getAngle() const override;
         
     private:
         constexpr static const float W2P = 40.0f;

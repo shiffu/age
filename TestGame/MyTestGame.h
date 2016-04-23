@@ -3,13 +3,15 @@
 #include <vector>
 
 #include <Game.h>
-#include <ShaderProgram.h>
+#include <Basic2DShader.h>
 #include <Sprite.h>
 #include <BatchRenderer2D.h>
 #include <Texture.h>
 #include <Camera2D.h>
 #include <AudioEngine.h>
 #include <AnimatedSprite.h>
+#include <Layer.h>
+#include <Box2DPhysicsEngine.h>
 
 class b2World;
 class b2Body;
@@ -27,9 +29,12 @@ public:
 	virtual void onExit();
 
 private:
-	age::ShaderProgram m_basicShaderProgram;
+	age::Basic2DShader m_basicShader;
     age::BatchRenderer2D m_batchRenderer;
 	age::Camera2D m_camera;
+    age::Layer* m_sceneLayer = nullptr;
+    age::Box2DPhysicsEngine* m_scenePhysicsEngine = nullptr;
+    age::GameObject* m_testGO = nullptr;
     
     age::Sound* m_sound;
     

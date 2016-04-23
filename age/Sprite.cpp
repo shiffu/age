@@ -8,23 +8,23 @@
 namespace age {
 
 	Sprite::Sprite() {
-        m_vertexData.resize(SPRITE_SIZE);
+        m_vertices.resize(SPRITE_SIZE);
 
         // bottom left
-        m_vertexData[0].uv.u = 0.0f;
-        m_vertexData[0].uv.v = 0.0f;
+        m_vertices[0].uv.u = 0.0f;
+        m_vertices[0].uv.v = 0.0f;
         
         // bottom right
-        m_vertexData[1].uv.u = 1.0f;
-        m_vertexData[1].uv.v = 0.0f;
+        m_vertices[1].uv.u = 1.0f;
+        m_vertices[1].uv.v = 0.0f;
         
         // top right
-        m_vertexData[2].uv.u = 1.0f;
-        m_vertexData[2].uv.v = 1.0f;
+        m_vertices[2].uv.u = 1.0f;
+        m_vertices[2].uv.v = 1.0f;
         
         // top left
-        m_vertexData[3].uv.u = 0.0f;
-        m_vertexData[3].uv.v = 1.0f;
+        m_vertices[3].uv.u = 0.0f;
+        m_vertices[3].uv.v = 1.0f;
     }
 
 	Sprite::~Sprite() {}
@@ -46,20 +46,20 @@ namespace age {
 
 		// Generate the Quad
         // bottom left
-		m_vertexData[0].pos.x = m_pos.x;
-		m_vertexData[0].pos.y = m_pos.y;
+		m_vertices[0].pos.x = m_pos.x;
+		m_vertices[0].pos.y = m_pos.y;
 
         // bottom right
-		m_vertexData[1].pos.x = m_pos.x + m_width;
-		m_vertexData[1].pos.y = m_pos.y;
+		m_vertices[1].pos.x = m_pos.x + m_width;
+		m_vertices[1].pos.y = m_pos.y;
 
         // top right
-		m_vertexData[2].pos.x = m_pos.x + m_width;
-		m_vertexData[2].pos.y = m_pos.y + m_height;
+		m_vertices[2].pos.x = m_pos.x + m_width;
+		m_vertices[2].pos.y = m_pos.y + m_height;
 
         // top left
-		m_vertexData[3].pos.x = m_pos.x;
-		m_vertexData[3].pos.y = m_pos.y + m_height;
+		m_vertices[3].pos.x = m_pos.x;
+		m_vertices[3].pos.y = m_pos.y + m_height;
 	}
     
     void Sprite::setAngle(float angle) {
@@ -72,11 +72,11 @@ namespace age {
         glm::vec2 br(halfDims.x, -halfDims.y);
         glm::vec2 tr(halfDims.x, halfDims.y);
 
-        glm::vec2 blOffset(m_vertexData[0].pos.x, m_vertexData[0].pos.y);
-        m_vertexData[0].pos = rotateVertex(bl, angle) + halfDims + blOffset;
-        m_vertexData[1].pos = rotateVertex(br, angle) + halfDims + blOffset;
-        m_vertexData[2].pos = rotateVertex(tr, angle) + halfDims + blOffset;
-        m_vertexData[3].pos = rotateVertex(tl, angle) + halfDims + blOffset;
+        glm::vec2 blOffset(m_vertices[0].pos.x, m_vertices[0].pos.y);
+        m_vertices[0].pos = rotateVertex(bl, angle) + halfDims + blOffset;
+        m_vertices[1].pos = rotateVertex(br, angle) + halfDims + blOffset;
+        m_vertices[2].pos = rotateVertex(tr, angle) + halfDims + blOffset;
+        m_vertices[3].pos = rotateVertex(tl, angle) + halfDims + blOffset;
     }
     
     glm::vec2 Sprite::rotateVertex(const glm::vec2& pos, float angle) {
@@ -92,7 +92,7 @@ namespace age {
 
 		// Set Vertices colors
 		for (unsigned int i = 0; i < SPRITE_SIZE; i++) {
-			m_vertexData[i].color = m_color;
+			m_vertices[i].color = m_color;
         }
 	}
 
@@ -113,5 +113,21 @@ namespace age {
             float angle = m_rigidBody->getAngle();
             setAngle(angle);
         }
+    }
+    
+    const std::vector<Vertex>& Sprite::getVertices() const {
+        return m_vertices;
+    }
+    
+    const std::vector<unsigned short>& Sprite::getIndices() const {
+        return m_indices;
+    }
+    
+    GLuint Sprite::getTextureId() const {
+        return m_texture ? m_texture->getId() : 0;
+    }
+    
+    unsigned int Sprite::getDepth() const {
+        return m_depth;
     }
 }

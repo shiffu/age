@@ -6,9 +6,11 @@
 #include <random>
 
 #include <Utils.h>
-#include <Sprite.h>
 #include <ResourceManager.h>
 #include <Box2DPhysicsEngine.h>
+#include <GameObject.h>
+#include <SpriteComponent.h>
+#include <RigidBodyComponent.h>
 
 #include <Box2D/Box2D.h>
 
@@ -27,21 +29,42 @@ void MyTestGame::onInit() {
     music->play();
 
     m_sound = age::AudioEngine::instance().loadSound("IceShatters/LedasLuzta2.ogg");
-
+    
     // Init Shader Program
-	// TODO: Do not hardcode the path to resources (resourceManager)
-    m_basicShaderProgram.compileShaders("../age/shaders/basic");
-
-    m_basicShaderProgram.bindAttribute("position");
-    m_basicShaderProgram.bindAttribute("color");
-    m_basicShaderProgram.bindAttribute("uv");
-
-    m_basicShaderProgram.linkProgram();
-
-	m_camera.init(800, 600);
+    m_basicShader.init();
+    
+    m_camera.init(800, 600);
+    
     age::Texture* brickTexture = age::ResourceManager::instance().loadTexture("mario-brick.png");
-    age::Texture* woodTexture = age::ResourceManager::instance().loadTexture("wood-texture.png");
     age::Texture* metalTexture = age::ResourceManager::instance().loadTexture("metal-texture.png");
+    age::Texture* woodTexture = age::ResourceManager::instance().loadTexture("wood-texture.png");
+    
+
+
+    m_scenePhysicsEngine = new age::Box2DPhysicsEngine();
+    glm::vec2 gravity(0.0f, -20.0f);
+    {
+    m_sceneLayer = new age::Layer();
+    m_scenePhysicsEngine->init(gravity);
+    m_sceneLayer->setPhysicsEngine(m_scenePhysicsEngine);
+
+    glm::vec2 pos(260.0f, 350.0f);
+    float width = 50.0f;
+    float height = 50.0f;
+    m_testGO = m_sceneLayer->createGameObject();
+    m_testGO->setPosition(pos);
+
+    age::SpriteComponent* brickSpriteComp = new age::SpriteComponent(width, height);
+    brickSpriteComp->setTexture(metalTexture);
+    m_testGO->addComponent(brickSpriteComp);
+
+    age::RigidBodyComponent* rbc = m_testGO->createRigidBodyComponent(IRigidBody::Type::DYNAMIC,
+                                                                      pos, width, height);
+    rbc->setPhysicsParams(1.0f, 5.0f, 0.8f);
+    m_testGO->addComponent(rbc);
+    }
+    
+    
 
     age::Sprite* cSprite = new age::Sprite();
     cSprite->init(40, 30, 550, 60);
@@ -74,8 +97,8 @@ void MyTestGame::onInit() {
     }
     
     // Test BatchRenderer2D
-    unsigned int nbSpritesX = 25;
-    unsigned int nbSpritesY = 25;
+    unsigned int nbSpritesX = 15;
+    unsigned int nbSpritesY = 15;
     float width = 800.0f / nbSpritesX;
     float height = 600.0f / nbSpritesY;
 
@@ -135,6 +158,10 @@ void MyTestGame::onInput(SDL_Event evt) {
     }
 }
 
+namespace  {
+    static const float PI = 3.14159265359f;
+}
+
 void MyTestGame::onUpdate(unsigned int deltaTime) {
     
     /*
@@ -145,6 +172,11 @@ void MyTestGame::onUpdate(unsigned int deltaTime) {
     m_dynamicSprites.back()->setColor(age::Color());
     m_dynamicSprites.back()->setRigidBody(m_physicsEngine, IRigidBody::Type::DYNAMIC, 1.0, 0.1, 0.5);
      */
+
+    //float angle = m_testGO->getAngle() + 0.015f;
+    //if (angle > 2 * PI) angle = 0.0f;
+    //m_testGO->setAngle(angle);
+    m_sceneLayer->update(deltaTime);
 
     for(auto sprite : m_dynamicSprites) {
         sprite->updateFromPhysics();
@@ -169,14 +201,13 @@ void MyTestGame::onUpdate(unsigned int deltaTime) {
 
 void MyTestGame::onRender() {
 
-	m_basicShaderProgram.bind();
+	m_basicShader.bind();
+	m_basicShader.setProjectionMatrix(m_camera.getProjection());
 
-	m_basicShaderProgram.setUniform("projection", m_camera.getProjection());
-    // set the texture unit
-    m_basicShaderProgram.setUniform("texSampler", 0);
-
-    //m_batchRenderer.begin(age::RenderingSortType::NONE);
+    
     m_batchRenderer.begin();
+        m_sceneLayer->render(&m_batchRenderer);
+    
         for(auto sprite : m_backgroundSprites) {
             m_batchRenderer.submit(sprite);
         }
@@ -190,7 +221,7 @@ void MyTestGame::onRender() {
     m_batchRenderer.end();
     m_batchRenderer.render();
     
-	m_basicShaderProgram.unbind();
+	m_basicShader.unbind();
 }
 
 void MyTestGame::onExit() {}

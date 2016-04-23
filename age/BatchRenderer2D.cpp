@@ -52,52 +52,57 @@ namespace age {
     
     void BatchRenderer2D::begin(RenderingSortType sortType /* = RenderingSortType::TEXTURE */){
         m_renderingSortType = sortType;
-        m_sprites.clear();
+        m_renderables.clear();
         m_spriteBatches.clear();
     }
     
-    void BatchRenderer2D::submit(Sprite* sprite) {
-        m_sprites.push_back(sprite);
+    void BatchRenderer2D::submit(IRenderable2D* renderable) {
+        m_renderables.push_back(renderable);
     }
     
     void BatchRenderer2D::end() {
 
-        // Sort the Sprites
+        // Sort the IRenderable2Ds
         switch (m_renderingSortType) {
             case RenderingSortType::NONE:
                 break;
             case RenderingSortType::TEXTURE:
-                std::stable_sort(m_sprites.begin(), m_sprites.end(), [] (Sprite* a, Sprite* b) {
-                    return a->m_texture->getId() < b->m_texture->getId();
+                std::stable_sort(m_renderables.begin(), m_renderables.end(), [] (IRenderable2D* a, IRenderable2D* b) {
+                    return a->getTextureId() < b->getTextureId();
                 });
                 break;
             case RenderingSortType::FRONT_TO_BACK:
-                std::stable_sort(m_sprites.begin(), m_sprites.end(), [] (Sprite* a, Sprite* b) {return a->m_depth < b->m_depth;});
+                std::stable_sort(m_renderables.begin(), m_renderables.end(),
+                                 [] (IRenderable2D* a, IRenderable2D* b) { return a->getDepth() < b->getDepth(); });
                 break;
             case RenderingSortType::BACK_TO_FRONT:
-                std::stable_sort(m_sprites.begin(), m_sprites.end(), [] (Sprite* a, Sprite* b) {return a->m_depth > b->m_depth;});
+                std::stable_sort(m_renderables.begin(), m_renderables.end(),
+                                 [] (IRenderable2D* a, IRenderable2D* b) { return a->getDepth() > b->getDepth(); });
                 break;
         }
         
         // Create the SpriteBatches
         std::vector<Vertex> vertices;
         std::vector<GLuint> indices;
-        vertices.reserve(m_sprites.size() * 4 * sizeof(Vertex));
-        indices.resize(m_sprites.size() * 6);
+        vertices.reserve(m_renderables.size() * 4 * sizeof(Vertex));
+        indices.resize(m_renderables.size() * 6);
         GLuint currentTexId = 0;
         GLuint offset = 0;
         GLuint indiceIdx = 0;
-        for (auto sprite : m_sprites) {
-            if (sprite->m_texture->getId() != currentTexId) {
-                SpriteBatch* sb = new SpriteBatch(6, indiceIdx, sprite->m_texture);
+        
+        for (auto renderable : m_renderables) {
+            if (renderable->getTextureId() != currentTexId) {
+                SpriteBatch* sb = new SpriteBatch(6, indiceIdx, renderable->getTextureId());
                 m_spriteBatches.push_back(sb);
-                currentTexId = sprite->m_texture->getId();
+                currentTexId = renderable->getTextureId();
             }
             else {
                 m_spriteBatches.back()->nbIndices += 6;
             }
             
-            vertices.insert(vertices.end(), sprite->m_vertexData.begin(), sprite->m_vertexData.end());
+            auto srcVertices = renderable->getVertices();
+            vertices.insert(vertices.end(), srcVertices.begin(), srcVertices.end());
+            
             indices[indiceIdx++] = offset;
             indices[indiceIdx++] = offset + 1;
             indices[indiceIdx++] = offset + 2;
@@ -121,13 +126,18 @@ namespace age {
         glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, indices.size() * sizeof(GLuint), indices.data());
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
-    
+ 
     void BatchRenderer2D::render() {
         glBindVertexArray(m_vao);
-        for (auto spriteBatch : m_spriteBatches) {
-            spriteBatch->texture->bind();            
-            glDrawElements(GL_TRIANGLES, spriteBatch->nbIndices, GL_UNSIGNED_INT, (void*)(spriteBatch->indicesOffset * sizeof(GLuint)));
-            spriteBatch->texture->unbind();
+        for (auto batch : m_spriteBatches) {
+            //SpriteBatch->texture->bind();
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, batch->textureId);
+
+            glDrawElements(GL_TRIANGLES, batch->nbIndices, GL_UNSIGNED_INT, (void*)(batch->indicesOffset * sizeof(GLuint)));
+            //SpriteBatch->texture->unbind();
+            glBindTexture(GL_TEXTURE_2D, 0);
+
         }
         glBindVertexArray(0);
     }

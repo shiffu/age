@@ -4,30 +4,24 @@
 
 #include "Sprite.h"
 #include "SpriteBatch.h"
+#include "IRenderer.h"
 
 namespace age {
     
-    enum class RenderingSortType {
-        NONE,
-        BACK_TO_FRONT,
-        FRONT_TO_BACK,
-        TEXTURE
-    };
-    
-    class BatchRenderer2D {
+    class BatchRenderer2D : public IRenderer {
     public:
         BatchRenderer2D();
         ~BatchRenderer2D();
         
-        void init();
-        void begin(RenderingSortType sortType = RenderingSortType::TEXTURE);
-        void end();
-        void submit(Sprite* sprite);
-        void render();
+        void init() override;
+        void begin(RenderingSortType sortType = RenderingSortType::TEXTURE) override;
+        void end() override;
+        void submit(IRenderable2D* renderable) override;
+        void render() override;
         
     private:
         RenderingSortType m_renderingSortType = RenderingSortType::NONE;
-        std::vector<Sprite*> m_sprites;
+        std::vector<IRenderable2D*> m_renderables;
         std::vector<SpriteBatch*> m_spriteBatches;
         GLuint m_vbo = 0;
         GLuint m_vao = 0;

@@ -27,8 +27,8 @@ namespace age {
         Box2DRigidBody* rigidBody = nullptr;
         float halfWidth = width / 2.0f;
         float halfHeight = height / 2.0f;
-        glm::vec2 centralizedPos = glm::vec2(pos.x + halfWidth, pos.y + halfHeight);
-        rigidBody = new Box2DRigidBody(m_world, bodyType, centralizedPos, halfWidth, halfHeight);
+        glm::vec2 centralPos = glm::vec2(pos.x + halfWidth, pos.y + halfHeight);
+        rigidBody = new Box2DRigidBody(m_world, bodyType, centralPos, halfWidth, halfHeight);
         
         return rigidBody;
     }

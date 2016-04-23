@@ -17,8 +17,8 @@ namespace age {
         
         IRigidBody* createRigidBody(IRigidBody::Type bodyType, glm::vec2 pos, float width, float height) override;
 
-        // TODO: Remove this method which exposes the implementation
-        b2World* getB2World() const {return m_world;}
+        // TODO: Remove this debugging method which exposes the implementation
+        //b2World* getB2World() const {return m_world;}
         
     private:
         b2World* m_world = nullptr;

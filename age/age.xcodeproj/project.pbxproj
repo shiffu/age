@@ -51,6 +51,16 @@
 		E4C3BBB61CA83C1B00D43F91 /* AnimatedSprite.h in Headers */ = {isa = PBXBuildFile; fileRef = E4C3BBB41CA83C1B00D43F91 /* AnimatedSprite.h */; };
 		E4C3BBB91CA8437100D43F91 /* Animation2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4C3BBB71CA8437100D43F91 /* Animation2D.cpp */; };
 		E4C3BBBA1CA8437100D43F91 /* Animation2D.h in Headers */ = {isa = PBXBuildFile; fileRef = E4C3BBB81CA8437100D43F91 /* Animation2D.h */; };
+		E4F421CE1CC6EFEF00F11B7B /* Layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4F421CC1CC6EFEF00F11B7B /* Layer.cpp */; };
+		E4F421CF1CC6EFEF00F11B7B /* Layer.h in Headers */ = {isa = PBXBuildFile; fileRef = E4F421CD1CC6EFEF00F11B7B /* Layer.h */; };
+		E4F421D21CC7267200F11B7B /* Component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4F421D01CC7267200F11B7B /* Component.cpp */; };
+		E4F421D31CC7267200F11B7B /* Component.h in Headers */ = {isa = PBXBuildFile; fileRef = E4F421D11CC7267200F11B7B /* Component.h */; };
+		E4F421D61CC7293D00F11B7B /* SpriteComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4F421D41CC7293D00F11B7B /* SpriteComponent.cpp */; };
+		E4F421D71CC7293D00F11B7B /* SpriteComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = E4F421D51CC7293D00F11B7B /* SpriteComponent.h */; };
+		E4F421DC1CCA7D1400F11B7B /* Basic2DShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4F421DA1CCA7D1400F11B7B /* Basic2DShader.cpp */; };
+		E4F421DD1CCA7D1400F11B7B /* Basic2DShader.h in Headers */ = {isa = PBXBuildFile; fileRef = E4F421DB1CCA7D1400F11B7B /* Basic2DShader.h */; };
+		E4F421E01CCB0E0F00F11B7B /* RigidBodyComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4F421DE1CCB0E0F00F11B7B /* RigidBodyComponent.cpp */; };
+		E4F421E11CCB0E0F00F11B7B /* RigidBodyComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = E4F421DF1CCB0E0F00F11B7B /* RigidBodyComponent.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +115,18 @@
 		E4C3BBB41CA83C1B00D43F91 /* AnimatedSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedSprite.h; sourceTree = "<group>"; };
 		E4C3BBB71CA8437100D43F91 /* Animation2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animation2D.cpp; sourceTree = "<group>"; };
 		E4C3BBB81CA8437100D43F91 /* Animation2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation2D.h; sourceTree = "<group>"; };
+		E4F421CC1CC6EFEF00F11B7B /* Layer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Layer.cpp; sourceTree = "<group>"; };
+		E4F421CD1CC6EFEF00F11B7B /* Layer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Layer.h; sourceTree = "<group>"; };
+		E4F421D01CC7267200F11B7B /* Component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Component.cpp; sourceTree = "<group>"; };
+		E4F421D11CC7267200F11B7B /* Component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Component.h; sourceTree = "<group>"; };
+		E4F421D41CC7293D00F11B7B /* SpriteComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteComponent.cpp; sourceTree = "<group>"; };
+		E4F421D51CC7293D00F11B7B /* SpriteComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteComponent.h; sourceTree = "<group>"; };
+		E4F421D81CC9333800F11B7B /* IRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IRenderer.h; sourceTree = "<group>"; };
+		E4F421D91CC988AD00F11B7B /* IRenderable2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IRenderable2D.h; sourceTree = "<group>"; };
+		E4F421DA1CCA7D1400F11B7B /* Basic2DShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Basic2DShader.cpp; sourceTree = "<group>"; };
+		E4F421DB1CCA7D1400F11B7B /* Basic2DShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Basic2DShader.h; sourceTree = "<group>"; };
+		E4F421DE1CCB0E0F00F11B7B /* RigidBodyComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RigidBodyComponent.cpp; sourceTree = "<group>"; };
+		E4F421DF1CCB0E0F00F11B7B /* RigidBodyComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RigidBodyComponent.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +150,18 @@
 		E40C6A621C867E5E006C84AB = {
 			isa = PBXGroup;
 			children = (
+				E4F421DE1CCB0E0F00F11B7B /* RigidBodyComponent.cpp */,
+				E4F421DF1CCB0E0F00F11B7B /* RigidBodyComponent.h */,
+				E4F421DA1CCA7D1400F11B7B /* Basic2DShader.cpp */,
+				E4F421DB1CCA7D1400F11B7B /* Basic2DShader.h */,
+				E4F421D91CC988AD00F11B7B /* IRenderable2D.h */,
+				E4F421D81CC9333800F11B7B /* IRenderer.h */,
+				E4F421D41CC7293D00F11B7B /* SpriteComponent.cpp */,
+				E4F421D51CC7293D00F11B7B /* SpriteComponent.h */,
+				E4F421D01CC7267200F11B7B /* Component.cpp */,
+				E4F421D11CC7267200F11B7B /* Component.h */,
+				E4F421CC1CC6EFEF00F11B7B /* Layer.cpp */,
+				E4F421CD1CC6EFEF00F11B7B /* Layer.h */,
 				E4C3BBB71CA8437100D43F91 /* Animation2D.cpp */,
 				E4C3BBB81CA8437100D43F91 /* Animation2D.h */,
 				E4C3BBB31CA83C1B00D43F91 /* AnimatedSprite.cpp */,
@@ -197,12 +231,15 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4F421D31CC7267200F11B7B /* Component.h in Headers */,
 				E400D0601C9CE061004903F8 /* GameObject.h in Headers */,
 				E4A2C38D1C9104EA000DDA78 /* SpriteBatch.h in Headers */,
 				E40032301C8687B30090BBCA /* ShaderProgram.h in Headers */,
+				E4F421DD1CCA7D1400F11B7B /* Basic2DShader.h in Headers */,
 				E40032281C8687B30090BBCA /* Error.h in Headers */,
 				E400D0581C997A37004903F8 /* Box2DPhysicsEngine.h in Headers */,
 				E40032351C8687B30090BBCA /* Vertex.h in Headers */,
+				E4F421CF1CC6EFEF00F11B7B /* Layer.h in Headers */,
 				E4A2C3891C90FFAA000DDA78 /* BatchRenderer2D.h in Headers */,
 				E400322C1C8687B30090BBCA /* InputManager.h in Headers */,
 				E400D0641C9D102D004903F8 /* IRigidBody.h in Headers */,
@@ -212,7 +249,9 @@
 				E4C3BBBA1CA8437100D43F91 /* Animation2D.h in Headers */,
 				E40032321C8687B30090BBCA /* Sprite.h in Headers */,
 				E40032341C8687B30090BBCA /* Texture.h in Headers */,
+				E4F421E11CCB0E0F00F11B7B /* RigidBodyComponent.h in Headers */,
 				E4C3BBB61CA83C1B00D43F91 /* AnimatedSprite.h in Headers */,
+				E4F421D71CC7293D00F11B7B /* SpriteComponent.h in Headers */,
 				E400D0681C9D112A004903F8 /* Box2DRigidBody.h in Headers */,
 				E400322E1C8687B30090BBCA /* ResourceManager.h in Headers */,
 				E40032251C8687B30090BBCA /* Camera2D.h in Headers */,
@@ -280,18 +319,23 @@
 				E4A2C3881C90FFAA000DDA78 /* BatchRenderer2D.cpp in Sources */,
 				E40032291C8687B30090BBCA /* Game.cpp in Sources */,
 				E400D0671C9D112A004903F8 /* Box2DRigidBody.cpp in Sources */,
+				E4F421E01CCB0E0F00F11B7B /* RigidBodyComponent.cpp in Sources */,
 				E400322F1C8687B30090BBCA /* ShaderProgram.cpp in Sources */,
 				E424E5CA1C8B9C9300EB34A8 /* Utils.cpp in Sources */,
 				E40032271C8687B30090BBCA /* Error.cpp in Sources */,
 				E400D0571C997A37004903F8 /* Box2DPhysicsEngine.cpp in Sources */,
+				E4F421D21CC7267200F11B7B /* Component.cpp in Sources */,
 				E400D05F1C9CE061004903F8 /* GameObject.cpp in Sources */,
 				E40032331C8687B30090BBCA /* Texture.cpp in Sources */,
 				E4C3BBB21CA8214B00D43F91 /* Music.cpp in Sources */,
+				E4F421DC1CCA7D1400F11B7B /* Basic2DShader.cpp in Sources */,
+				E4F421CE1CC6EFEF00F11B7B /* Layer.cpp in Sources */,
 				E40032311C8687B30090BBCA /* Sprite.cpp in Sources */,
 				E4C3BBAA1CA8117800D43F91 /* AudioEngine.cpp in Sources */,
 				E40032241C8687B30090BBCA /* Camera2D.cpp in Sources */,
 				E4C3BBB51CA83C1B00D43F91 /* AnimatedSprite.cpp in Sources */,
 				E4C3BBB91CA8437100D43F91 /* Animation2D.cpp in Sources */,
+				E4F421D61CC7293D00F11B7B /* SpriteComponent.cpp in Sources */,
 				E4C3BBB01CA8211900D43F91 /* Sound.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
