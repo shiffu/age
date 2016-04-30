@@ -38,7 +38,7 @@ namespace age {
         m_vertices[3].pos = glm::vec2(-halfWidth, halfHeight);
         m_tranformedVertices[3] = m_vertices[3];
         
-        m_indices.reserve(SPRITE_NB_INDICES);
+        m_indices.resize(SPRITE_NB_INDICES);
         m_indices[0] = 0;
         m_indices[1] = 1;
         m_indices[2] = 2;

@@ -34,7 +34,7 @@ private:
 	age::Camera2D m_camera;
     age::Layer* m_sceneLayer = nullptr;
     age::Box2DPhysicsEngine* m_scenePhysicsEngine = nullptr;
-    age::GameObject* m_testGO = nullptr;
+    age::GameObject* m_cubeGO = nullptr;
     
     age::Sound* m_sound;
     

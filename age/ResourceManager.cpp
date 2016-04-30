@@ -138,8 +138,8 @@ namespace age {
             }
             
             GLenum imageFormat = internalFormat;
-            if (image->format->BitsPerPixel == 4 && image->format->Rmask == 0xFF) {
-                imageFormat = GL_RGBA;
+            if (channels == 4 && image->format->Rmask == 0x00FF0000) {
+                imageFormat = GL_BGRA;
             }
             
             glTexImage2D(GL_TEXTURE_2D, 0, internalFormat,

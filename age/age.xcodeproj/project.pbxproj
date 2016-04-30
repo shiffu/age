@@ -61,6 +61,8 @@
 		E4F421DD1CCA7D1400F11B7B /* Basic2DShader.h in Headers */ = {isa = PBXBuildFile; fileRef = E4F421DB1CCA7D1400F11B7B /* Basic2DShader.h */; };
 		E4F421E01CCB0E0F00F11B7B /* RigidBodyComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4F421DE1CCB0E0F00F11B7B /* RigidBodyComponent.cpp */; };
 		E4F421E11CCB0E0F00F11B7B /* RigidBodyComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = E4F421DF1CCB0E0F00F11B7B /* RigidBodyComponent.h */; };
+		E4F421E41CCC6E5800F11B7B /* TileComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4F421E21CCC6E5800F11B7B /* TileComponent.cpp */; };
+		E4F421E51CCC6E5800F11B7B /* TileComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = E4F421E31CCC6E5800F11B7B /* TileComponent.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -127,6 +129,8 @@
 		E4F421DB1CCA7D1400F11B7B /* Basic2DShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Basic2DShader.h; sourceTree = "<group>"; };
 		E4F421DE1CCB0E0F00F11B7B /* RigidBodyComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RigidBodyComponent.cpp; sourceTree = "<group>"; };
 		E4F421DF1CCB0E0F00F11B7B /* RigidBodyComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RigidBodyComponent.h; sourceTree = "<group>"; };
+		E4F421E21CCC6E5800F11B7B /* TileComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TileComponent.cpp; sourceTree = "<group>"; };
+		E4F421E31CCC6E5800F11B7B /* TileComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileComponent.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +154,8 @@
 		E40C6A621C867E5E006C84AB = {
 			isa = PBXGroup;
 			children = (
+				E4F421E21CCC6E5800F11B7B /* TileComponent.cpp */,
+				E4F421E31CCC6E5800F11B7B /* TileComponent.h */,
 				E4F421DE1CCB0E0F00F11B7B /* RigidBodyComponent.cpp */,
 				E4F421DF1CCB0E0F00F11B7B /* RigidBodyComponent.h */,
 				E4F421DA1CCA7D1400F11B7B /* Basic2DShader.cpp */,
@@ -252,6 +258,7 @@
 				E4F421E11CCB0E0F00F11B7B /* RigidBodyComponent.h in Headers */,
 				E4C3BBB61CA83C1B00D43F91 /* AnimatedSprite.h in Headers */,
 				E4F421D71CC7293D00F11B7B /* SpriteComponent.h in Headers */,
+				E4F421E51CCC6E5800F11B7B /* TileComponent.h in Headers */,
 				E400D0681C9D112A004903F8 /* Box2DRigidBody.h in Headers */,
 				E400322E1C8687B30090BBCA /* ResourceManager.h in Headers */,
 				E40032251C8687B30090BBCA /* Camera2D.h in Headers */,
@@ -333,6 +340,7 @@
 				E40032311C8687B30090BBCA /* Sprite.cpp in Sources */,
 				E4C3BBAA1CA8117800D43F91 /* AudioEngine.cpp in Sources */,
 				E40032241C8687B30090BBCA /* Camera2D.cpp in Sources */,
+				E4F421E41CCC6E5800F11B7B /* TileComponent.cpp in Sources */,
 				E4C3BBB51CA83C1B00D43F91 /* AnimatedSprite.cpp in Sources */,
 				E4C3BBB91CA8437100D43F91 /* Animation2D.cpp in Sources */,
 				E4F421D61CC7293D00F11B7B /* SpriteComponent.cpp in Sources */,

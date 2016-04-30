@@ -84,25 +84,34 @@ namespace age {
         // Create the SpriteBatches
         std::vector<Vertex> vertices;
         std::vector<GLuint> indices;
-        vertices.reserve(m_renderables.size() * 4 * sizeof(Vertex));
-        indices.resize(m_renderables.size() * 6);
+        //vertices.reserve(m_renderables.size() * 4 * sizeof(Vertex));
+        //indices.resize(m_renderables.size() * 6);
         GLuint currentTexId = 0;
         GLuint offset = 0;
         GLuint indiceIdx = 0;
         
         for (auto renderable : m_renderables) {
+            auto srcIndices = renderable->getIndices();
+            auto nbSrcIndices = srcIndices.size();
+            
             if (renderable->getTextureId() != currentTexId) {
-                SpriteBatch* sb = new SpriteBatch(6, indiceIdx, renderable->getTextureId());
+                SpriteBatch* sb = new SpriteBatch(nbSrcIndices, indiceIdx, renderable->getTextureId());
                 m_spriteBatches.push_back(sb);
                 currentTexId = renderable->getTextureId();
             }
             else {
-                m_spriteBatches.back()->nbIndices += 6;
+                m_spriteBatches.back()->nbIndices += nbSrcIndices;
             }
             
             auto srcVertices = renderable->getVertices();
             vertices.insert(vertices.end(), srcVertices.begin(), srcVertices.end());
-            
+
+            for (auto srcIndice : srcIndices) {
+                indices.push_back(offset + srcIndice);
+                indiceIdx++;
+            }
+            offset += srcVertices.size();
+/*
             indices[indiceIdx++] = offset;
             indices[indiceIdx++] = offset + 1;
             indices[indiceIdx++] = offset + 2;
@@ -110,6 +119,7 @@ namespace age {
             indices[indiceIdx++] = offset + 3;
             indices[indiceIdx++] = offset;
             offset += 4;
+ */
         }
 
         glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
