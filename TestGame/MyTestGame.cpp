@@ -72,7 +72,7 @@ void MyTestGame::onInit() {
         age::GameObject* tileGO = m_sceneLayer->createGameObject();
         tileGO->setPosition(tilePos);
         
-        age::TileComponent* tileComp = new age::TileComponent(tileDims.x, tileDims.y, 5);
+        age::TileComponent* tileComp = new age::TileComponent(tileDims.x, tileDims.y, 10);
         tileComp->setTexture(brickTexture);
         tileGO->addComponent(tileComp);
         
