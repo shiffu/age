@@ -140,8 +140,8 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="Animation2D.h" />
+    <ClInclude Include="Animator.h" />
     <ClInclude Include="AudioEngine.h" />
     <ClInclude Include="Basic2DShader.h" />
     <ClInclude Include="BatchRenderer2D.h" />
@@ -168,12 +168,14 @@
     <ClInclude Include="SpriteBatch.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TextureAtlas.h" />
+    <ClInclude Include="TileComponent.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="Animation2D.cpp" />
+    <ClCompile Include="Animator.cpp" />
     <ClCompile Include="AudioEngine.cpp" />
     <ClCompile Include="Basic2DShader.cpp" />
     <ClCompile Include="BatchRenderer2D.cpp" />
@@ -194,6 +196,8 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TextureAtlas.cpp" />
+    <ClCompile Include="TileComponent.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

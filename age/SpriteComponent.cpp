@@ -8,37 +8,29 @@
 namespace age {
 
     SpriteComponent::SpriteComponent(float width, float height) : m_width(width), m_height(height) {
-        m_vertices.resize(SPRITE_NB_VERTICES);
-        m_tranformedVertices.resize(SPRITE_NB_VERTICES);
+        m_vertices.resize(NB_VERTICES);
+        m_tranformedVertices.resize(NB_VERTICES);
 
         float halfWidth = width / 2.0f;
         float halfHeight = height / 2.0f;
         
         // bottom left
-        m_vertices[0].uv.u = 0.0f;
-        m_vertices[0].uv.v = 0.0f;
         m_vertices[0].pos = glm::vec2(-halfWidth, -halfHeight);
         m_tranformedVertices[0] = m_vertices[0];
         
         // bottom right
-        m_vertices[1].uv.u = 1.0f;
-        m_vertices[1].uv.v = 0.0f;
         m_vertices[1].pos = glm::vec2(halfWidth, -halfHeight);
         m_tranformedVertices[1] = m_vertices[1];
         
         // top right
-        m_vertices[2].uv.u = 1.0f;
-        m_vertices[2].uv.v = 1.0f;
         m_vertices[2].pos = glm::vec2(halfWidth, halfHeight);
         m_tranformedVertices[2] = m_vertices[2];
         
         // top left
-        m_vertices[3].uv.u = 0.0f;
-        m_vertices[3].uv.v = 1.0f;
         m_vertices[3].pos = glm::vec2(-halfWidth, halfHeight);
         m_tranformedVertices[3] = m_vertices[3];
         
-        m_indices.resize(SPRITE_NB_INDICES);
+        m_indices.resize(NB_INDICES);
         m_indices[0] = 0;
         m_indices[1] = 1;
         m_indices[2] = 2;
@@ -49,7 +41,45 @@ namespace age {
     
     SpriteComponent::~SpriteComponent() {}
     
+	void SpriteComponent::setTexture(Texture* texture) {
+		m_texture = texture;
+		m_uvs = m_texture->getUVs();
+		updateVerticesUVs();
+	}
+
+	void SpriteComponent::updateVerticesUVs() {
+		// bottom left
+		m_vertices[0].uv.u = m_uvs.x;
+		m_vertices[0].uv.v = m_uvs.y;
+		m_tranformedVertices[0].uv = m_vertices[0].uv;
+
+		// bottom right
+		m_vertices[1].uv.u = m_uvs.z;
+		m_vertices[1].uv.v = m_uvs.y;
+		m_tranformedVertices[1].uv = m_vertices[1].uv;
+
+		// top right
+		m_vertices[2].uv.u = m_uvs.z;
+		m_vertices[2].uv.v = m_uvs.w;
+		m_tranformedVertices[2].uv = m_vertices[2].uv;
+
+		// top left
+		m_vertices[3].uv.u = m_uvs.x;
+		m_vertices[3].uv.v = m_uvs.w;
+		m_tranformedVertices[3].uv = m_vertices[3].uv;
+	}
+
     void SpriteComponent::render(IRenderer* renderer) {
+
+		// Check for UVs updates (needed in case an animator has been set)
+		if (m_animator && m_texture) {
+			const glm::vec4& uvs = m_texture->getUVs();
+			if (m_uvs != uvs) {
+				m_uvs = uvs;
+				updateVerticesUVs();
+			}
+		}
+
         glm::mat3 m2wTransform = m_parent->getTransform();
         glm::vec3 tmpPos;
         for (int i = 0; i < m_vertices.size(); i++) {

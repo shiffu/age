@@ -150,6 +150,7 @@ namespace age {
 			// FPS and elapse time updates
 			currentFrameTime = SDL_GetTicks();
 			elapseTime = currentFrameTime - previousFrameTime;
+			previousFrameTime = currentFrameTime;
 
 			// FPS Capping
 			delayTime = capElapseTime - elapseTime;
@@ -162,7 +163,6 @@ namespace age {
 				currentFrameTime = SDL_GetTicks();
 			}
 
-			previousFrameTime = currentFrameTime;
 
 			cumulatedElapseTime  = currentFrameTime - previousCumulatedTime;
 			// Display FPS every 0.5 sec

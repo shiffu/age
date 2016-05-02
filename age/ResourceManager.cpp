@@ -68,22 +68,31 @@ namespace age {
         m_textureSubFolder = subFolder;
     }
     
-    Texture* ResourceManager::loadTexture(const std::string& filename) {
+	Texture* ResourceManager::fetchTextureFromCache(const std::string& filepath) {
+		
+		Texture* ret = nullptr;
+		std::cout << "Loading texture " << filepath << std::endl;
 
-        Texture* tex = nullptr;
-        const std::string filePath = getTexturePath(filename);
-        
-        std::cout << "Loading texture " << filePath << std::endl;
-        
-        auto it = m_texturesMap.find(filePath);
-        if (it != m_texturesMap.end()) {
-            std::cout << "Texture " << filename << " returned from cache" << std::endl;
-            return it->second;
-        }
-        
-        // If not in the cache yet
-        SDL_Surface *image = IMG_Load(filePath.c_str());
-        
+		auto it = m_texturesMap.find(filepath);
+		if (it != m_texturesMap.end()) {
+			std::cout << "Texture " << filepath << " returned from cache" << std::endl;
+			ret = it->second;
+		}
+		else {
+			std::cout << "Texture " << filepath << " not returned from cache (cache miss)" << std::endl;
+		}
+
+		return ret;
+	}
+
+	Texture* ResourceManager::loadTexture(const std::string& filename) {
+
+		const std::string filepath = getTexturePath(filename);
+		Texture* texture = fetchTextureFromCache(filepath);
+		if (texture)
+			return texture;
+		
+		SDL_Surface *image = IMG_Load(filepath.c_str());
         if(!image) {
             std::cerr << "IMG_Load: " << IMG_GetError() << std::endl;
         }
@@ -158,18 +167,18 @@ namespace age {
             
             glBindTexture(GL_TEXTURE_2D, 0);
             
-            tex = new Texture(textureId);
-            tex->m_width = image->w;
-            tex->m_height = image->h;
-            
-            m_texturesMap[filePath] = tex;
+			// Update the texture dimensions and store it in the cache
+			texture = new Texture(textureId);
+			texture->m_width = image->w;
+			texture->m_height = image->h;
+            m_texturesMap[filepath] = texture;
             
             if (image) {
                 SDL_FreeSurface(image);
             }
         }
-        
-        return tex;
+
+		return texture;
     }
 
     const std::string ResourceManager::getTexturePath(const std::string& filename /* = ""*/) const {

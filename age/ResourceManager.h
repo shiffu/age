@@ -5,6 +5,7 @@
 #include <unordered_map>
 
 #include "Texture.h"
+#include "TextureAtlas.h"
 
 namespace age {
 
@@ -34,12 +35,15 @@ namespace age {
         void setAudioSubFolder(const std::string& subFolder);
         const std::string getAudioPath(const std::string& filename = "") const;
         
-        Texture* loadTexture(const std::string& filename);
-        
+		Texture* loadTexture(const std::string& filename);
+
     protected:
         ResourceManager();
         ~ResourceManager();
-        
+
+	private:
+		Texture* fetchTextureFromCache(const std::string& filename);
+
     private:
         std::string m_rootFolder = "res";
         std::string m_textureSubFolder = "textures";

@@ -9,12 +9,9 @@
 #include <Texture.h>
 #include <Camera2D.h>
 #include <AudioEngine.h>
-#include <AnimatedSprite.h>
 #include <Layer.h>
 #include <Box2DPhysicsEngine.h>
-
-class b2World;
-class b2Body;
+#include <Animator.h>
 
 
 class MyTestGame : public age::Game {
@@ -32,16 +29,20 @@ private:
 	age::Basic2DShader m_basicShader;
     age::BatchRenderer2D m_batchRenderer;
 	age::Camera2D m_camera;
-    age::Layer* m_sceneLayer = nullptr;
+
+	age::Layer* m_sceneLayer = nullptr;
     age::Box2DPhysicsEngine* m_scenePhysicsEngine = nullptr;
     age::GameObject* m_cubeGO = nullptr;
-    
+	age::GameObject* m_player = nullptr;
+
+	age::Animator* m_playerAnimator = nullptr;
+
     age::Sound* m_sound;
     
     static const unsigned int NB_DYN_SPRITES = 80;
-    age::AnimatedSprite* m_player = nullptr;
-    float m_playerVelocity = 0.0f;
-    
+	float m_playerVelocity = 0.0f;
+	bool m_playerFlipped = false;
+
     std::vector<age::Sprite*> m_containerSprites;
     std::vector<age::Sprite*> m_dynamicSprites;
     std::vector<age::Sprite*> m_backgroundSprites;

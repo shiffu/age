@@ -12,8 +12,15 @@
 #include <SpriteComponent.h>
 #include <TileComponent.h>
 #include <RigidBodyComponent.h>
+#include <TextureAtlas.h>
+#include <Animator.h>
+#include <Animation2D.h>
 
-#include <Box2D/Box2D.h>
+
+namespace {
+	static const float PI = 3.14159265359f;
+}
+
 
 MyTestGame::MyTestGame() : age::Game("My First Test Game") {
     age::Box2DPhysicsEngine* physicsEngine = new age::Box2DPhysicsEngine();
@@ -22,7 +29,6 @@ MyTestGame::MyTestGame() : age::Game("My First Test Game") {
 }
 
 MyTestGame::~MyTestGame() {}
-
 
 void MyTestGame::onInit() {
     
@@ -34,114 +40,66 @@ void MyTestGame::onInit() {
     // Init Shader Program
     m_basicShader.init();
     
-    m_camera.init(800, 600);
+    m_camera.init(400, 300);
     
     age::Texture* brickTexture = age::ResourceManager::instance().loadTexture("mario-brick.png");
-    //age::Texture* brickTexture = age::ResourceManager::instance().loadTexture("test.png");
     age::Texture* metalTexture = age::ResourceManager::instance().loadTexture("metal-texture.png");
     age::Texture* woodTexture = age::ResourceManager::instance().loadTexture("wood-texture.png");
     
-    
-    
     m_scenePhysicsEngine = new age::Box2DPhysicsEngine();
     glm::vec2 gravity(0.0f, -14.0f);
-    {
-        m_sceneLayer = new age::Layer();
-        m_scenePhysicsEngine->init(gravity);
-        m_sceneLayer->setPhysicsEngine(m_scenePhysicsEngine);
+
+    m_sceneLayer = new age::Layer();
+    m_scenePhysicsEngine->init(gravity);
+    m_sceneLayer->setPhysicsEngine(m_scenePhysicsEngine);
         
-        // Cube
-        glm::vec2 pos(260.0f, 400.0f);
-        float width = 40.0f;
-        float height = 40.0f;
-        m_cubeGO = m_sceneLayer->createGameObject();
-        m_cubeGO->setPosition(pos);
+    // Cube
+    glm::vec2 pos(260.0f, 400.0f);
+    float width = 40.0f;
+    float height = 40.0f;
+    m_cubeGO = m_sceneLayer->createGameObject();
+    m_cubeGO->setPosition(pos);
         
-        age::SpriteComponent* brickSpriteComp = new age::SpriteComponent(width, height);
-        brickSpriteComp->setTexture(metalTexture);
-        m_cubeGO->addComponent(brickSpriteComp);
+    age::SpriteComponent* cubeSpriteComp = new age::SpriteComponent(width, height);
+	cubeSpriteComp->setTexture(metalTexture);
+    m_cubeGO->addComponent(cubeSpriteComp);
         
-        age::RigidBodyComponent* cubeRBC = m_cubeGO->createRigidBodyComponent(IRigidBody::Type::DYNAMIC,
-                                                                          pos, width, height);
-        cubeRBC->setPhysicsParams(2.0f, 2.0f, 0.6f);
-        m_cubeGO->addComponent(cubeRBC);
+    age::RigidBodyComponent* cubeRBC = m_cubeGO->createRigidBodyComponent(IRigidBody::Type::DYNAMIC,
+                                                                        pos, width, height);
+    cubeRBC->setPhysicsParams(2.0f, 2.0f, 0.6f);
+    m_cubeGO->addComponent(cubeRBC);
         
-        // Tile
-        glm::vec2 tilePos = glm::vec2(200, 20);
-        glm::vec2 tileDims = glm::vec2(400, 40);
-        age::GameObject* tileGO = m_sceneLayer->createGameObject();
-        tileGO->setPosition(tilePos);
+    // Tile
+    glm::vec2 tilePos = glm::vec2(200, 20);
+    glm::vec2 tileDims = glm::vec2(400, 40);
+    age::GameObject* tileGO = m_sceneLayer->createGameObject();
+    tileGO->setPosition(tilePos);
         
-        age::TileComponent* tileComp = new age::TileComponent(tileDims.x, tileDims.y, 10);
-        tileComp->setTexture(brickTexture);
-        tileGO->addComponent(tileComp);
+    age::TileComponent* tileComp = new age::TileComponent(tileDims.x, tileDims.y, 10);
+    tileComp->setTexture(brickTexture);
+    tileGO->addComponent(tileComp);
         
-        age::RigidBodyComponent* tileRBC = tileGO->createRigidBodyComponent(IRigidBody::Type::STATIC,
-                                                                            tilePos, tileDims.x, tileDims.y);
-        tileRBC->setPhysicsParams(1.0f, 3.0f, 0.4f);
-        tileGO->addComponent(tileRBC);
-    }
-    
-    /*
-    
-    age::Sprite* cSprite = new age::Sprite();
-    cSprite->init(40, 30, 550, 60);
-    cSprite->setTexture(woodTexture);
-    cSprite->setRigidBody(m_physicsEngine, IRigidBody::Type::STATIC, 0, 0.3, 0.1);
-    m_containerSprites.push_back(cSprite);
-    
-    cSprite = new age::Sprite();
-    cSprite->init(40, 30, 40, 150);
-    cSprite->setTexture(woodTexture);
-    cSprite->setRigidBody(m_physicsEngine, IRigidBody::Type::STATIC, 0, 0.3, 0.1);
-    m_containerSprites.push_back(cSprite);
-    
-    cSprite = new age::Sprite();
-    cSprite->init(590, 30, 40, 150);
-    cSprite->setTexture(woodTexture);
-    cSprite->setRigidBody(m_physicsEngine, IRigidBody::Type::STATIC, 0, 0.3, 0.1);
-    m_containerSprites.push_back(cSprite);
-    
-    age::Color colorSprite;
-    for(int i = 0; i < NB_DYN_SPRITES; i++) {
-        m_dynamicSprites.push_back(new age::Sprite());
-        m_dynamicSprites.back()->init(220 + i * 2, 450 + i * 2, 12 + i/5, 12 + i/5);
-        m_dynamicSprites.back()->setTexture(metalTexture);
-        colorSprite.r = 80 + i * 2;
-        colorSprite.g = 80 + i * 2;
-        colorSprite.b = 80 + i * 2;
-        m_dynamicSprites.back()->setColor(colorSprite);
-        m_dynamicSprites.back()->setRigidBody(m_physicsEngine, IRigidBody::Type::DYNAMIC, 1.0, 0.1, 0.5);
-    }
-    
-    // Test BatchRenderer2D
-    unsigned int nbSpritesX = 15;
-    unsigned int nbSpritesY = 15;
-    float width = 800.0f / nbSpritesX;
-    float height = 600.0f / nbSpritesY;
-    
-    age::Color color;
-    age::Sprite* sprite = nullptr;
-    for(int i =  0; i < nbSpritesX; i++) {
-        for(int j =  0; j < nbSpritesY; j++) {
-            sprite = new age::Sprite();
-            sprite->init(i * width, j * height, width-2, height-2);
-            color.r = (255/nbSpritesX) * j;
-            color.g = (255/nbSpritesY) * j;
-            color.b = (255/nbSpritesX) * j;
-            sprite->setColor(color);
-            sprite->setTexture(brickTexture);
-            m_backgroundSprites.push_back(sprite);
-        }
-    }
-    
-    m_player = new age::AnimatedSprite("spelunky-sprite-sheet.png", 13, 13);
-    m_player->init(200, 200, 90, 80);
-    age::Animation2D* idleAnimation = new age::Animation2D(52, 3, 350);
-    m_player->addAnimation("idle", idleAnimation);
-    age::Animation2D* walkAnimation = new age::Animation2D(156, 9, 500);
-    m_player->addAnimation("walk", walkAnimation);
-    */
+    age::RigidBodyComponent* tileRBC = tileGO->createRigidBodyComponent(IRigidBody::Type::STATIC,
+                                                                        tilePos, tileDims.x, tileDims.y);
+    tileRBC->setPhysicsParams(1.0f, 3.0f, 0.4f);
+    tileGO->addComponent(tileRBC);
+
+	// Player
+	m_player = m_sceneLayer->createGameObject();
+	m_player->setPosition(glm::vec2(50, 60));
+
+	age::SpriteComponent* playerSpriteComp = new age::SpriteComponent(width, height);
+	//age::Texture* playerTextureSheet = age::ResourceManager::instance().loadTexture("spelunky-sprite-sheet.png");
+	age::Texture* playerTextureSheet = age::ResourceManager::instance().loadTexture("mygame-sheet.png");
+	playerSpriteComp->setTexture(playerTextureSheet);
+
+	m_playerAnimator = new age::Animator(new age::TextureAtlas(playerTextureSheet, 64, 64));
+	m_playerAnimator->addAnimation("idle", new age::Animation2D(0, 7, 650));
+	m_playerAnimator->addAnimation("walk", new age::Animation2D(9, 9, 850));
+
+	playerSpriteComp->setAnimator(m_playerAnimator);
+	m_player->addComponent(playerSpriteComp);
+
     m_batchRenderer.init();
 }
 
@@ -149,7 +107,6 @@ void MyTestGame::onInput(SDL_Event evt) {
     /*
     float currentCameraScale = m_camera.getScale();
     float cameraSpeed = 8.0f;
-    float speed = 0.01f;
     
     if (m_inputManager.isKeyPressed(SDLK_SPACE)) {
         m_sound->play();
@@ -161,8 +118,10 @@ void MyTestGame::onInput(SDL_Event evt) {
     else if (m_inputManager.isKeyPressed(SDLK_q)) {
         m_camera.setScale(currentCameraScale - 0.01f);
     }
-    
-    if (m_inputManager.isKeyPressed(SDLK_LEFT)) {
+	*/
+
+	float speed = 0.0013f;
+	if (m_inputManager.isKeyPressed(SDLK_LEFT)) {
         if (m_playerVelocity > -1.0f) {
             m_playerVelocity -= speed;
         }
@@ -173,73 +132,42 @@ void MyTestGame::onInput(SDL_Event evt) {
         }
     }
     else {
-        m_playerVelocity *= 0.9f;
+        m_playerVelocity *= 0.95f;
     }
-     */
-}
-
-namespace  {
-    static const float PI = 3.14159265359f;
 }
 
 void MyTestGame::onUpdate(unsigned int deltaTime) {
     
-    /*
-     age::Texture* metalTexture = age::ResourceManager::instance().loadTexture("metal-texture.png");
-     m_dynamicSprites.push_back(new age::Sprite());
-     m_dynamicSprites.back()->init(300, 500, 10, 10);
-     m_dynamicSprites.back()->setTexture(metalTexture);
-     m_dynamicSprites.back()->setColor(age::Color());
-     m_dynamicSprites.back()->setRigidBody(m_physicsEngine, IRigidBody::Type::DYNAMIC, 1.0, 0.1, 0.5);
-     */
-    
-    //float angle = m_testGO->getAngle() + 0.015f;
-    //if (angle > 2 * PI) angle = 0.0f;
-    //m_testGO->setAngle(angle);
     m_sceneLayer->update(deltaTime);
-    /*
-    for(auto sprite : m_dynamicSprites) {
-        sprite->updateFromPhysics();
-    }
-    
-    
-    glm::vec2 playerPos = m_player->getPosition();
+
+	glm::vec2 playerPos = m_player->getPosition();
     m_player->setPosition(playerPos + glm::vec2(m_playerVelocity * deltaTime, 0.0f));
     
-    if (m_playerVelocity > 0.05f) {
-        m_player->playAnimation("walk", deltaTime);
+	if (m_playerVelocity > 0.02f) {
+		m_playerFlipped = false;
+		m_playerAnimator->playAnimation("walk", deltaTime);
     }
-    else if (m_playerVelocity < -0.05f) {
-        m_player->playAnimation("walk", deltaTime, true);
+    else if (m_playerVelocity < -0.02f) {
+		m_playerFlipped = true;
+		m_playerAnimator->playAnimation("walk", deltaTime, m_playerFlipped);
     }
     else {
-        m_player->playAnimation("idle", deltaTime);
+		m_playerAnimator->playAnimation("idle", deltaTime, m_playerFlipped);
     }
-    */
+
     m_camera.update();
 }
 
 void MyTestGame::onRender() {
     
     m_basicShader.bind();
-    m_basicShader.setProjectionMatrix(m_camera.getProjection());
-    
+    m_basicShader.setProjectionMatrix(m_camera.getProjection());    
     
     m_batchRenderer.begin();
-    m_sceneLayer->render(&m_batchRenderer);
-    /*
-    for(auto sprite : m_backgroundSprites) {
-        m_batchRenderer.submit(sprite);
-    }
-    for(auto sprite : m_containerSprites) {
-        m_batchRenderer.submit(sprite);
-    }
-    for(auto sprite : m_dynamicSprites) {
-        m_batchRenderer.submit(sprite);
-    }
-    m_batchRenderer.submit(m_player);
-     */
-    m_batchRenderer.end();
+
+	m_sceneLayer->render(&m_batchRenderer);
+    
+	m_batchRenderer.end();
     m_batchRenderer.render();
     
     m_basicShader.unbind();
