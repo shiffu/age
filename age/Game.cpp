@@ -12,7 +12,6 @@
 #include <SDL2_image/SDL_image.h>
 
 #include "Game.h"
-#include "Sprite.h"
 #include "Error.h"
 #include "Utils.h"
 
@@ -143,7 +142,7 @@ namespace age {
 			previousFrameTime = currentFrameTime;
 
 			// FPS Capping
-			delayTime = capElapseTime - elapseTime;
+			delayTime = static_cast<int>(capElapseTime - elapseTime);
 
 			// Delay only if it is for more than 2ms
 			if (delayTime > 2) {

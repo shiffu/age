@@ -2,6 +2,8 @@
 
 #include <algorithm>
 #include <iostream>
+#include "Vertex.h"
+#include "IRenderable2D.h"
 
 namespace age {
     

@@ -82,7 +82,7 @@ namespace age {
 
         glm::mat3 m2wTransform = m_parent->getTransform();
         glm::vec3 tmpPos;
-        for (int i = 0; i < m_vertices.size(); i++) {
+        for (unsigned int i = 0; i < m_vertices.size(); i++) {
             tmpPos = m2wTransform * glm::vec3(m_vertices[i].pos, 1.0f);
             m_tranformedVertices[i].pos = tmpPos.xy();
         }

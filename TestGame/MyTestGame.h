@@ -4,7 +4,6 @@
 
 #include <Game.h>
 #include <Basic2DShader.h>
-#include <Sprite.h>
 #include <BatchRenderer2D.h>
 #include <Texture.h>
 #include <Camera2D.h>
@@ -42,9 +41,5 @@ private:
     static const unsigned int NB_DYN_SPRITES = 80;
 	float m_playerVelocity = 0.0f;
 	bool m_playerFlipped = false;
-
-    std::vector<age::Sprite*> m_containerSprites;
-    std::vector<age::Sprite*> m_dynamicSprites;
-    std::vector<age::Sprite*> m_backgroundSprites;
 };
 

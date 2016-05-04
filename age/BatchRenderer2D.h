@@ -2,7 +2,6 @@
 
 #include <vector>
 
-#include "Sprite.h"
 #include "SpriteBatch.h"
 #include "IRenderer.h"
 
