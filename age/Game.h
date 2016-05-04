@@ -5,10 +5,9 @@
 #include "ShaderProgram.h"
 #include "InputManager.h"
 #include "IPhysicsEngine.h"
+#include "Color.h"
 
 struct SDL_Window;
-class b2World;
-class b2Body;
 
 namespace age {
 
@@ -19,8 +18,8 @@ namespace age {
 		virtual ~Game();
 
 		void init(unsigned int windowWidth, unsigned int windowHeight, unsigned int windowFlags = SDL_INIT_EVERYTHING);
+		void setBackgroundColor(Color color) { m_backgroundColor = color;  };
 		void start();
-        void setPhysicsEngine(IPhysicsEngine* engine);
 
 		// Methods to be implemented in the child class
 		virtual void onInit() {}
@@ -35,11 +34,12 @@ namespace age {
 
 		std::string m_gameName;
 		SDL_Window*	m_window = nullptr;
+		// Default: Black background
+		Color m_backgroundColor = Color(0x000000FF);
 		bool m_isRunning = false;
 		bool m_isInitialized = false;
 
 	protected:
 		InputManager m_inputManager;
-        IPhysicsEngine* m_physicsEngine = nullptr;
 	};
 }

@@ -21,13 +21,7 @@ namespace {
 	static const float PI = 3.14159265359f;
 }
 
-
-MyTestGame::MyTestGame() : age::Game("My First Test Game") {
-    age::Box2DPhysicsEngine* physicsEngine = new age::Box2DPhysicsEngine();
-    physicsEngine->init(glm::vec2(0.0f, -18.0f));
-    setPhysicsEngine(physicsEngine);
-}
-
+MyTestGame::MyTestGame() : age::Game("My First Test Game") {}
 MyTestGame::~MyTestGame() {}
 
 void MyTestGame::onInit() {
@@ -40,7 +34,8 @@ void MyTestGame::onInit() {
     // Init Shader Program
     m_basicShader.init();
     
-    m_camera.init(400, 300);
+    m_camera.init(600, 450);
+	m_camera.setScale(0.738f);
     
     age::Texture* brickTexture = age::ResourceManager::instance().loadTexture("mario-brick.png");
     age::Texture* metalTexture = age::ResourceManager::instance().loadTexture("metal-texture.png");
@@ -54,9 +49,9 @@ void MyTestGame::onInit() {
     m_sceneLayer->setPhysicsEngine(m_scenePhysicsEngine);
         
     // Cube
-    glm::vec2 pos(260.0f, 400.0f);
-    float width = 40.0f;
-    float height = 40.0f;
+    glm::vec2 pos(200.0f, 500.0f);
+    float width = 60.0f;
+    float height = 60.0f;
     m_cubeGO = m_sceneLayer->createGameObject();
     m_cubeGO->setPosition(pos);
         
@@ -70,12 +65,12 @@ void MyTestGame::onInit() {
     m_cubeGO->addComponent(cubeRBC);
         
     // Tile
-    glm::vec2 tilePos = glm::vec2(200, 20);
-    glm::vec2 tileDims = glm::vec2(400, 40);
+    glm::vec2 tilePos = glm::vec2(400, 20);
+    glm::vec2 tileDims = glm::vec2(800, 40);
     age::GameObject* tileGO = m_sceneLayer->createGameObject();
     tileGO->setPosition(tilePos);
         
-    age::TileComponent* tileComp = new age::TileComponent(tileDims.x, tileDims.y, 10);
+    age::TileComponent* tileComp = new age::TileComponent(tileDims.x, tileDims.y, 20);
     tileComp->setTexture(brickTexture);
     tileGO->addComponent(tileComp);
         
@@ -86,16 +81,15 @@ void MyTestGame::onInit() {
 
 	// Player
 	m_player = m_sceneLayer->createGameObject();
-	m_player->setPosition(glm::vec2(50, 60));
+	m_player->setPosition(glm::vec2(0.0f, 62.0f));
 
-	age::SpriteComponent* playerSpriteComp = new age::SpriteComponent(width, height);
-	//age::Texture* playerTextureSheet = age::ResourceManager::instance().loadTexture("spelunky-sprite-sheet.png");
+	age::SpriteComponent* playerSpriteComp = new age::SpriteComponent(40.0f, 44.0f);
 	age::Texture* playerTextureSheet = age::ResourceManager::instance().loadTexture("mygame-sheet.png");
 	playerSpriteComp->setTexture(playerTextureSheet);
 
 	m_playerAnimator = new age::Animator(new age::TextureAtlas(playerTextureSheet, 64, 64));
 	m_playerAnimator->addAnimation("idle", new age::Animation2D(0, 7, 650));
-	m_playerAnimator->addAnimation("walk", new age::Animation2D(9, 9, 850));
+	m_playerAnimator->addAnimation("walk", new age::Animation2D(8, 9, 850));
 
 	playerSpriteComp->setAnimator(m_playerAnimator);
 	m_player->addComponent(playerSpriteComp);
@@ -104,7 +98,7 @@ void MyTestGame::onInit() {
 }
 
 void MyTestGame::onInput(SDL_Event evt) {
-    /*
+	// Camera
     float currentCameraScale = m_camera.getScale();
     float cameraSpeed = 8.0f;
     
@@ -113,21 +107,21 @@ void MyTestGame::onInput(SDL_Event evt) {
     }
     
     if (m_inputManager.isKeyPressed(SDLK_a)) {
-        m_camera.setScale(currentCameraScale + 0.01f);
+        m_camera.setScale(currentCameraScale + 0.004f);
     }
     else if (m_inputManager.isKeyPressed(SDLK_q)) {
-        m_camera.setScale(currentCameraScale - 0.01f);
+        m_camera.setScale(currentCameraScale - 0.004f);
     }
-	*/
 
-	float speed = 0.0013f;
+	// Player
+	float speed = 0.0015f;
 	if (m_inputManager.isKeyPressed(SDLK_LEFT)) {
-        if (m_playerVelocity > -1.0f) {
+        if (m_playerVelocity > -0.095f) {
             m_playerVelocity -= speed;
         }
     }
     else if (m_inputManager.isKeyPressed(SDLK_RIGHT)) {
-        if (m_playerVelocity < 1.0f) {
+        if (m_playerVelocity < 0.095f) {
             m_playerVelocity += speed;
         }
     }
@@ -155,6 +149,8 @@ void MyTestGame::onUpdate(unsigned int deltaTime) {
 		m_playerAnimator->playAnimation("idle", deltaTime, m_playerFlipped);
     }
 
+	// Set and update the camera
+	m_camera.setPos(m_player->getPosition());
     m_camera.update();
 }
 

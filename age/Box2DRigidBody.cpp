@@ -54,8 +54,9 @@ namespace age {
     
     glm::vec2 Box2DRigidBody::getPosition() const {
         b2Vec2 pos = m_body->GetPosition();
-        glm::vec2 returnedPosition = glm::vec2((pos.x - m_halfWidth) * W2P, (pos.y - m_halfHeight) * W2P);
-        
+		//glm::vec2 returnedPosition = glm::vec2((pos.x - m_halfWidth) * W2P, (pos.y - m_halfHeight) * W2P);
+		glm::vec2 returnedPosition = glm::vec2(pos.x * W2P, pos.y * W2P);
+
         return returnedPosition;
     }
     

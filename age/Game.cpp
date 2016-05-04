@@ -30,13 +30,12 @@ namespace age {
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-        //SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG); //Not needed apparently
-
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
         // Create the Window
 		m_window = SDL_CreateWindow(m_gameName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 										windowWidth, windowHeight, SDL_WINDOW_OPENGL);
+
 		if (m_window == nullptr) {
 			fatalError("Error creating the window!");
 		}
@@ -79,7 +78,8 @@ namespace age {
 #endif
 
 		Utils::logGlErrors("GLEW Init failed");
-		glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
+		glm::vec4 backgroundColor = m_backgroundColor.toVec4();
+		glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 
 		// Set VSYNC: 0 => FALSE, 1 => TRUE
 		SDL_GL_SetSwapInterval(0);
@@ -89,14 +89,9 @@ namespace age {
 		std::cout << "GL Version: " << glGetString(GL_VERSION) << std::endl;
 		std::cout << "GLSL: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
 
-        
 		onInit();
 		m_isInitialized = true;
 	}
-
-    void Game::setPhysicsEngine(IPhysicsEngine* engine) {
-        m_physicsEngine = engine;
-    }
     
 	void Game::start() {
 		if (m_isInitialized == false) {
@@ -130,11 +125,6 @@ namespace age {
 			frameCounter++;
 			processInput();
 
-            // Physics update
-            if (m_physicsEngine) {
-                m_physicsEngine->update();
-            }
-            
 			// Update callback
 			onUpdate(elapseTime);
             
@@ -162,7 +152,6 @@ namespace age {
 				// In case of delay, we need to calculate one more time the currentFrameTime
 				currentFrameTime = SDL_GetTicks();
 			}
-
 
 			cumulatedElapseTime  = currentFrameTime - previousCumulatedTime;
 			// Display FPS every 0.5 sec
