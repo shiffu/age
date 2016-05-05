@@ -34,9 +34,10 @@ void MyTestGame::onInit() {
     // Init Shader Program
     m_basicShader.init();
     
-    m_camera.init(600, 450);
-	m_camera.setScale(0.738f);
-    
+    m_camera.init(400, 300);
+	m_camera.setPos(400, 300);
+	m_camera.setScale(0.5f);
+
     age::Texture* brickTexture = age::ResourceManager::instance().loadTexture("mario-brick.png");
     age::Texture* metalTexture = age::ResourceManager::instance().loadTexture("metal-texture.png");
     age::Texture* woodTexture = age::ResourceManager::instance().loadTexture("wood-texture.png");
@@ -81,15 +82,15 @@ void MyTestGame::onInit() {
 
 	// Player
 	m_player = m_sceneLayer->createGameObject();
-	m_player->setPosition(glm::vec2(0.0f, 62.0f));
+	m_player->setPosition(glm::vec2(20.0f, 61.0f));
 
-	age::SpriteComponent* playerSpriteComp = new age::SpriteComponent(40.0f, 44.0f);
+	age::SpriteComponent* playerSpriteComp = new age::SpriteComponent(40.0f, 42.0f);
 	age::Texture* playerTextureSheet = age::ResourceManager::instance().loadTexture("mygame-sheet.png");
 	playerSpriteComp->setTexture(playerTextureSheet);
 
 	m_playerAnimator = new age::Animator(new age::TextureAtlas(playerTextureSheet, 64, 64));
-	m_playerAnimator->addAnimation("idle", new age::Animation2D(0, 7, 650));
-	m_playerAnimator->addAnimation("walk", new age::Animation2D(8, 9, 850));
+	m_playerAnimator->addAnimation("idle", new age::Animation2D(0, 7, 620));
+	m_playerAnimator->addAnimation("walk", new age::Animation2D(8, 9, 820));
 
 	playerSpriteComp->setAnimator(m_playerAnimator);
 	m_player->addComponent(playerSpriteComp);
@@ -100,8 +101,6 @@ void MyTestGame::onInit() {
 void MyTestGame::onInput(SDL_Event evt) {
 	// Camera
     float currentCameraScale = m_camera.getScale();
-    float cameraSpeed = 8.0f;
-    
     if (m_inputManager.isKeyPressed(SDLK_SPACE)) {
         m_sound->play();
     }
@@ -114,14 +113,14 @@ void MyTestGame::onInput(SDL_Event evt) {
     }
 
 	// Player
-	float speed = 0.0015f;
+	float speed = 0.002f;
 	if (m_inputManager.isKeyPressed(SDLK_LEFT)) {
-        if (m_playerVelocity > -0.095f) {
+        if (m_playerVelocity > -0.1f) {
             m_playerVelocity -= speed;
         }
     }
     else if (m_inputManager.isKeyPressed(SDLK_RIGHT)) {
-        if (m_playerVelocity < 0.095f) {
+        if (m_playerVelocity < 0.1f) {
             m_playerVelocity += speed;
         }
     }
@@ -149,8 +148,11 @@ void MyTestGame::onUpdate(unsigned int deltaTime) {
 		m_playerAnimator->playAnimation("idle", deltaTime, m_playerFlipped);
     }
 
-	// Set and update the camera
-	m_camera.setPos(m_player->getPosition());
+	// Make the camera follow the player
+	age::Camera2D::Constraint followConstraint;
+	followConstraint.onlyX = true;
+	followConstraint.xMinBoundary = 200;
+	m_camera.follow(m_player, &followConstraint);
     m_camera.update();
 }
 

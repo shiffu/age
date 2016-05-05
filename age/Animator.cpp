@@ -30,7 +30,7 @@ namespace age {
 
 		animation->m_playTime += deltaTime;
 		unsigned int frameIdx = animation->m_startIndex
-			+ static_cast<unsigned int>((animation->m_playTime % animation->m_duration) / (float)animation->m_duration) * animation->m_nbTiles;
+			+ static_cast<unsigned int>(((animation->m_playTime % animation->m_duration) / (float)animation->m_duration) * animation->m_nbTiles);
 
 		m_textureAtlas->setCurrentFrameIndex(frameIdx, flip);
 	}

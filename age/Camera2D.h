@@ -2,17 +2,44 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <climits>
 
 namespace age {
 
+	class GameObject;
+
 	class Camera2D
 	{
+	public:
+		struct Constraint {
+			bool onlyX = false;
+			bool onlyY = false;
+			int xMinBoundary = INT_MIN;
+			int xMaxBoundary = INT_MAX;
+			int yMinBoundary = INT_MIN;
+			int yMaxBoundary = INT_MAX;
+		};
+
 	public:
 		Camera2D();
 		~Camera2D();
 
 		void init(int viewWidth, int viewHeight);
 		void update();
+
+		void setX(float x) {
+			m_pos.x = x;
+			m_isUpdateNeeded = true;
+		}
+
+		void setY(float y) {
+			m_pos.y = y;
+			m_isUpdateNeeded = true;
+		}
+
+		void setPos(float x, float y) {
+			setPos(glm::vec2(x, y));
+		}
 
 		void setPos(const glm::vec2& pos) {
 			m_pos = pos;
@@ -29,6 +56,8 @@ namespace age {
 		float getScale() const { return m_scale; }
 
 		glm::mat4 getProjection() const { return m_viewTransform; }
+
+		void follow(const GameObject* go, const Constraint* constraint = nullptr);
 
 	private:
 		bool m_isUpdateNeeded = true;
