@@ -106,10 +106,10 @@ namespace age {
 		m_isRunning = true;
 		
 		// FPS / Time variables
-		unsigned int previousFrameTime = SDL_GetTicks();
-		unsigned int previousCumulatedTime = previousFrameTime;
-		unsigned int currentFrameTime;
+		unsigned int previousCumulatedTime = SDL_GetTicks();
+		unsigned int startFrameTime;
 		unsigned int elapseTime = 0;
+		unsigned int deltaTime = 0;
 		int delayTime;
 		unsigned int cumulatedElapseTime = 0;
 		unsigned int frameCounter = 0;
@@ -121,45 +121,42 @@ namespace age {
         
 		// Game loop
 		while (m_isRunning) {
+			startFrameTime = SDL_GetTicks();
 			frameCounter++;
 			processInput();
 
 			// Update callback
-			onUpdate(elapseTime);
+			onUpdate(deltaTime);
             
-			// Draw
+			// Clear buffers
 			glClearDepth(1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			// Render callback
 			onRender();
 
+			// Swap back and front buffers (display)
 			SDL_GL_SwapWindow(m_window);
 
+			// Display FPS every 1.5 sec
+			cumulatedElapseTime = SDL_GetTicks() - previousCumulatedTime;
+			if (cumulatedElapseTime > 1500) {
+				actualFPS = frameCounter / (float)cumulatedElapseTime * 1000.0f;
+				frameCounter = 0;
+				previousCumulatedTime = SDL_GetTicks();
+				printf("FPS: %f\n", actualFPS);
+			}
+
 			// FPS and elapse time updates
-			currentFrameTime = SDL_GetTicks();
-			elapseTime = currentFrameTime - previousFrameTime;
-			previousFrameTime = currentFrameTime;
+			elapseTime = SDL_GetTicks() - startFrameTime;
 
 			// FPS Capping
 			delayTime = static_cast<int>(capElapseTime - elapseTime);
-
 			// Delay only if it is for more than 2ms
 			if (delayTime > 2) {
 				SDL_Delay(delayTime);
-
-				// In case of delay, we need to calculate one more time the currentFrameTime
-				currentFrameTime = SDL_GetTicks();
 			}
-
-			cumulatedElapseTime  = currentFrameTime - previousCumulatedTime;
-			// Display FPS every 0.5 sec
-			if (cumulatedElapseTime > 500) {
-				actualFPS = (float)frameCounter * 1000.0f / (float)cumulatedElapseTime;
-				printf("FPS: %f\n", actualFPS);
-				frameCounter = 0;
-				previousCumulatedTime = currentFrameTime;
-			}
+			deltaTime = SDL_GetTicks() - startFrameTime;
 		}
         
         IMG_Quit();
