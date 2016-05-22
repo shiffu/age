@@ -214,3 +214,6 @@ ModelManifest.xml
 # Ignore Mac Files
 .DS_Store
 
+/age/deps
+/AgeSolution.VC.VC.opendb
+/AgeSolution.VC.db

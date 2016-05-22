@@ -31,4 +31,8 @@ namespace age {
         }
     }
 
+	IRigidBody* RigidBodyComponent::getRigidBody() const {
+		return m_rigidBody;
+	}
+
 }

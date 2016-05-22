@@ -13,22 +13,23 @@ namespace age {
     GameObject::GameObject(Layer* parent) : m_parentLayer(parent) {}
     GameObject::~GameObject() {}
 
-    RigidBodyComponent* GameObject::createRigidBodyComponent(IRigidBody::Type bodyType,
-                                                 glm::vec2 pos, float width, float height) {
+	RigidBodyComponent* GameObject::createRigidBodyComponent(IRigidBody::Type bodyType,
+		glm::vec2 pos, float width, float height) {
 
-        RigidBodyComponent* rigidBodyComponent = new RigidBodyComponent;
-        rigidBodyComponent->setGameObject(this);
-        IPhysicsEngine* physicsEngine = m_parentLayer->getPhysicsEngine();
-        if (physicsEngine) {
-            rigidBodyComponent->init(bodyType, pos, width, height);
-        }
-        else {
-            //TODO: log Error
-            std::cerr << "No Physics Engine binded to parent Layer" << std::endl;
-        }
-        
-        return rigidBodyComponent;
-    }
+		RigidBodyComponent* rigidBodyComponent = new RigidBodyComponent;
+		addComponent(rigidBodyComponent);
+
+		IPhysicsEngine* physicsEngine = m_parentLayer->getPhysicsEngine();
+		if (physicsEngine) {
+			rigidBodyComponent->init(bodyType, pos, width, height);
+		}
+		else {
+			//TODO: log Error
+			std::cerr << "No Physics Engine binded to parent Layer" << std::endl;
+		}
+
+		return rigidBodyComponent;
+	}
 
     void GameObject::update(unsigned int deltaTime) {
         for (Component* comp : m_components) {
@@ -58,7 +59,7 @@ namespace age {
     const glm::vec2& GameObject::getPosition() const {
         return m_position;
     }
-    
+
     void GameObject::setAngle(float angleInRadian) {
         m_angle = angleInRadian;
     }

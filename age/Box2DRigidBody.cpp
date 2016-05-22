@@ -27,6 +27,8 @@ namespace age {
         }
         
         bodyDef.position.Set(centerPos.x * P2W, centerPos.y * P2W);
+		//TODO: Remove this hardcoded fixedRotation = true
+		bodyDef.fixedRotation = true;
         m_body = world->CreateBody(&bodyDef);
     }
  
@@ -43,6 +45,8 @@ namespace age {
         b2PolygonShape bodyShape;
         bodyShape.SetAsBox(m_halfWidth, m_halfHeight);
         
+		// Fixture hold: user data, density, friction, restitution, isSensor
+		// collision filter and shape
         b2FixtureDef fixtureDef;
         fixtureDef.shape = &bodyShape;
         fixtureDef.density = density;
@@ -57,11 +61,37 @@ namespace age {
 		//glm::vec2 returnedPosition = glm::vec2((pos.x - m_halfWidth) * W2P, (pos.y - m_halfHeight) * W2P);
 		glm::vec2 returnedPosition = glm::vec2(pos.x * W2P, pos.y * W2P);
 
-        return returnedPosition;
+		return returnedPosition;
     }
+
+	glm::vec2 Box2DRigidBody::getVelocity() const {
+		b2Vec2 v = m_body->GetLinearVelocity();
+		return glm::vec2(v.x, v.y);
+	}
     
     float Box2DRigidBody::getAngle() const {
         return m_body->GetAngle();
     }
 
+	void Box2DRigidBody::applyForce(const glm::vec2& force) {
+		/*
+		force = mass * acceleration OR force = mass * (dv/dt)
+		
+		dv = newVelocity - previousVelocity;
+			=> newVelocity = previousVelocity + dv
+		AND
+		dv/dt = force / mass
+			=> dv = (force / mass) * dt
+		*/
+		//TODO: Remove this hardcoded 1/60 time and make it configurable
+		glm::vec2 deltaVelocity = force / m_body->GetMass() * (1 / 60.0f);
+		b2Vec2 v = m_body->GetLinearVelocity();
+		glm::vec2 newVelocity =  glm::vec2(v.x, v.y) + deltaVelocity;
+
+		m_body->ApplyForce(b2Vec2(force.x, force.y), m_body->GetWorldCenter(), true);
+	}
+
+	void Box2DRigidBody::applyLinearImpulse(const glm::vec2& force) {
+		m_body->ApplyLinearImpulse(b2Vec2(force.x, force.y), m_body->GetWorldCenter(), true);
+	}
 }

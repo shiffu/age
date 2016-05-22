@@ -20,6 +20,7 @@ namespace age {
     private:
         b2World* m_world = nullptr;
         
+		//TODO: Make the Step constant configurable
         const float m_timeStep = 1.0f / 60.0f;
         const int m_velocityIterations = 6;
         const int m_positionIterations = 2;

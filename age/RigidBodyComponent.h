@@ -14,6 +14,8 @@ namespace age {
         void setPhysicsParams(float density, float friction, float restitution);
         void update(unsigned int deltaTime);
 
+		IRigidBody* getRigidBody() const;
+
     private:
         IRigidBody* m_rigidBody = nullptr;
     };

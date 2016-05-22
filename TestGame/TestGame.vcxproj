@@ -72,7 +72,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)age/deps/include;$(SolutionDir)age;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Debug;$(SolutionDir)age/deps/lib/Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>

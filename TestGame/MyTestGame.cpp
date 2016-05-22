@@ -62,8 +62,7 @@ void MyTestGame::onInit() {
         
     age::RigidBodyComponent* cubeRBC = m_cubeGO->createRigidBodyComponent(IRigidBody::Type::DYNAMIC,
                                                                         pos, width, height);
-    cubeRBC->setPhysicsParams(2.0f, 2.0f, 0.6f);
-    m_cubeGO->addComponent(cubeRBC);
+    cubeRBC->setPhysicsParams(1.0f, 0.2f, 0.4f);
         
     // Tile
     glm::vec2 tilePos = glm::vec2(400, 20);
@@ -74,17 +73,18 @@ void MyTestGame::onInit() {
     age::TileComponent* tileComp = new age::TileComponent(tileDims.x, tileDims.y, 20);
     tileComp->setTexture(brickTexture);
     tileGO->addComponent(tileComp);
-        
+
     age::RigidBodyComponent* tileRBC = tileGO->createRigidBodyComponent(IRigidBody::Type::STATIC,
                                                                         tilePos, tileDims.x, tileDims.y);
     tileRBC->setPhysicsParams(1.0f, 3.0f, 0.4f);
-    tileGO->addComponent(tileRBC);
 
 	// Player
+	glm::vec2 playerPos = glm::vec2(20, 61);
+	glm::vec2 playerDims = glm::vec2(40, 42);
 	m_player = m_sceneLayer->createGameObject();
-	m_player->setPosition(glm::vec2(20.0f, 61.0f));
+	m_player->setPosition(playerPos);
 
-	age::SpriteComponent* playerSpriteComp = new age::SpriteComponent(40.0f, 42.0f);
+	age::SpriteComponent* playerSpriteComp = new age::SpriteComponent(playerDims.x, playerDims.y);
 	age::Texture* playerTextureSheet = age::ResourceManager::instance().loadTexture("mygame-sheet.png");
 	playerSpriteComp->setTexture(playerTextureSheet);
 
@@ -95,16 +95,17 @@ void MyTestGame::onInit() {
 	playerSpriteComp->setAnimator(m_playerAnimator);
 	m_player->addComponent(playerSpriteComp);
 
+	age::RigidBodyComponent* playerRBC = m_player->createRigidBodyComponent(IRigidBody::Type::DYNAMIC,
+																playerPos, playerDims.x, playerDims.y);
+
+	playerRBC->setPhysicsParams(1.2f, 0.6f, 0.001f);
+
     m_batchRenderer.init();
 }
 
 void MyTestGame::onInput(SDL_Event evt) {
 	// Camera
-    float currentCameraScale = m_camera.getScale();
-    if (m_inputManager.isKeyPressed(SDLK_SPACE)) {
-        m_sound->play();
-    }
-    
+    float currentCameraScale = m_camera.getScale();    
     if (m_inputManager.isKeyPressed(SDLK_a)) {
         m_camera.setScale(currentCameraScale + 0.004f);
     }
@@ -113,40 +114,48 @@ void MyTestGame::onInput(SDL_Event evt) {
     }
 
 	// Player
-	float speed = 0.002f;
-	if (m_inputManager.isKeyPressed(SDLK_LEFT)) {
-        if (m_playerVelocity > -0.1f) {
-            m_playerVelocity -= speed;
-        }
-    }
-    else if (m_inputManager.isKeyPressed(SDLK_RIGHT)) {
-        if (m_playerVelocity < 0.1f) {
-            m_playerVelocity += speed;
-        }
-    }
-    else {
-        m_playerVelocity *= 0.95f;
-    }
+	float xForceMagnitude = 45.0f;
+	float yForceMagnitude = 1.1f;
+	float maxSpeed = 6.0f;
+	age::RigidBodyComponent* playerRBC = m_player->getComponent<age::RigidBodyComponent>();
+	if (playerRBC) {
+
+		if (m_inputManager.isKeyPressed(SDLK_SPACE)) {
+			m_sound->play();
+			playerRBC->getRigidBody()->applyLinearImpulse(glm::vec2(0, yForceMagnitude));
+		}
+
+		if (m_inputManager.isKeyPressed(SDLK_LEFT) && playerRBC->getRigidBody()->getVelocity().x > -maxSpeed) {
+			playerRBC->getRigidBody()->applyForce(glm::vec2(-xForceMagnitude, 0));
+		}
+		else if (m_inputManager.isKeyPressed(SDLK_RIGHT) && playerRBC->getRigidBody()->getVelocity().x < maxSpeed) {
+			playerRBC->getRigidBody()->applyForce(glm::vec2(xForceMagnitude, 0));
+		}
+		else {
+			playerRBC->getRigidBody()->applyForce(glm::vec2(0, 0));
+		}
+	}
+
 }
 
 void MyTestGame::onUpdate(unsigned int deltaTime) {
     
     m_sceneLayer->update(deltaTime);
 
-	glm::vec2 playerPos = m_player->getPosition();
-    m_player->setPosition(playerPos + glm::vec2(m_playerVelocity * deltaTime, 0.0f));
-    
-	if (m_playerVelocity > 0.02f) {
+	// Update the player velocity and animation
+	float walkTriggerSpeed = 1.0f;
+	age::RigidBodyComponent* playerRBC = m_player->getComponent<age::RigidBodyComponent>();
+	if (playerRBC->getRigidBody()->getVelocity().x > walkTriggerSpeed) {
 		m_playerFlipped = false;
 		m_playerAnimator->playAnimation("walk", deltaTime);
-    }
-    else if (m_playerVelocity < -0.02f) {
+	}
+	else if (playerRBC->getRigidBody()->getVelocity().x < -walkTriggerSpeed) {
 		m_playerFlipped = true;
 		m_playerAnimator->playAnimation("walk", deltaTime, m_playerFlipped);
-    }
-    else {
+	}
+	else {
 		m_playerAnimator->playAnimation("idle", deltaTime, m_playerFlipped);
-    }
+	}
 
 	// Make the camera follow the player
 	age::Camera2D::Constraint followConstraint;
