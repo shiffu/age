@@ -21,13 +21,19 @@ namespace age {
         }
     }
     
-    IRigidBody* Box2DPhysicsEngine::createRigidBody(IRigidBody::Type bodyType,
-                                                   glm::vec2 pos, float width, float height) {
+    ICollisionDispatcher* Box2DPhysicsEngine::getCollisionDispatcher() {
+        if (m_collisionDispatcher == nullptr) {
+            m_collisionDispatcher = new Box2DCollisionDispatcher();
+            m_world->SetContactListener(m_collisionDispatcher);
+        }
+        
+        return m_collisionDispatcher;
+    }
+
+    IRigidBody* Box2DPhysicsEngine::createRigidBody(IRigidBody::Type bodyType, glm::vec2 pos, bool fixedRotation) {
         
         Box2DRigidBody* rigidBody = nullptr;
-        float halfWidth = width / 2.0f;
-        float halfHeight = height / 2.0f;
-        rigidBody = new Box2DRigidBody(m_world, bodyType, pos, halfWidth, halfHeight);
+        rigidBody = new Box2DRigidBody(this, m_world, bodyType, pos);
         
         return rigidBody;
     }

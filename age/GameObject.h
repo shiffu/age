@@ -18,8 +18,7 @@ namespace age {
         
         Layer* getLayer() const { return m_parentLayer; }
         
-        RigidBodyComponent* createRigidBodyComponent(IRigidBody::Type bodyType,
-                                 glm::vec2 pos, float width, float height);
+        RigidBodyComponent* createRigidBodyComponent(IRigidBody::Type bodyType, glm::vec2 pos);
         
         void update(unsigned int deltaTime);
         void render(IRenderer* renderer);

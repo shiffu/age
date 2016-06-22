@@ -13,15 +13,14 @@ namespace age {
     GameObject::GameObject(Layer* parent) : m_parentLayer(parent) {}
     GameObject::~GameObject() {}
 
-	RigidBodyComponent* GameObject::createRigidBodyComponent(IRigidBody::Type bodyType,
-		glm::vec2 pos, float width, float height) {
+	RigidBodyComponent* GameObject::createRigidBodyComponent(IRigidBody::Type bodyType, glm::vec2 pos) {
 
 		RigidBodyComponent* rigidBodyComponent = new RigidBodyComponent;
 		addComponent(rigidBodyComponent);
 
 		IPhysicsEngine* physicsEngine = m_parentLayer->getPhysicsEngine();
 		if (physicsEngine) {
-			rigidBodyComponent->init(bodyType, pos, width, height);
+			rigidBodyComponent->init(bodyType, pos);
 		}
 		else {
 			//TODO: log Error

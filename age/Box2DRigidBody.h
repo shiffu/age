@@ -1,7 +1,9 @@
 #pragma once
 
-#include "IRigidBody.h"
+#include <vector>
 #include "glm/glm.hpp"
+#include "IRigidBody.h"
+#include "Box2DPhysicsEngine.h"
 
 class b2Body;
 class b2World;
@@ -12,10 +14,11 @@ namespace age {
     class Box2DRigidBody : public IRigidBody {
         
     public:
-        Box2DRigidBody(b2World* world, IRigidBody::Type bodyType,
-                       glm::vec2 centerPos, float halfWidth, float halfHeight);
+        Box2DRigidBody(Box2DPhysicsEngine* engine, b2World* world, IRigidBody::Type bodyType, glm::vec2 centerPos);
+        ~Box2DRigidBody();
         
-        void setPhysicsParams(float density, float friction, float restitution) override;
+        void setFixedRotation(bool fixedRotation) override;
+        void addCollider(Collider* collider) override;
 
 		glm::vec2 getPosition() const override;
 		glm::vec2 getVelocity() const override;
@@ -29,17 +32,13 @@ namespace age {
         constexpr static const float W2P = 40.0f;
         constexpr static const float P2W = 1 / W2P;
         
-        glm::vec2 m_pos;
-		glm::vec2 m_velocity = glm::vec2();
-        float m_halfWidth = 0;
-        float m_halfHeight = 0;
-        
         // Physics
         float m_density = 0;
         float m_friction = 0;
         float m_restitution = 0;
         b2Body* m_body = nullptr;
-        b2Fixture* m_fixture = nullptr;
+        Box2DPhysicsEngine* m_engine;
+        std::vector<b2Fixture*> m_fixtures;
     };
     
 }

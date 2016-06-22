@@ -22,9 +22,9 @@ namespace age {
 		// Set color as an int: 0xRRGGBBAA
 		Color(unsigned int value) {
 			r = value >> 24;
-			g = value >> 16 && 0xFF;
-			b = value >> 8 && 0xFF;
-			a = value && 0xFF;
+			g = (value >> 16) & 0xFF;
+			b = (value >> 8) & 0xFF;
+			a = value & 0xFF;
 		}
 
 		Color(unsigned char _r, unsigned char _g, unsigned char _b, unsigned char _a) {

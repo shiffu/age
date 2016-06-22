@@ -4,11 +4,8 @@
 
 namespace age {
     
-    Box2DRigidBody::Box2DRigidBody(b2World* world, IRigidBody::Type bodyType,
-                                   glm::vec2 centerPos, float halfWidth, float halfHeight) {
-
-        m_halfWidth = halfWidth * P2W;
-        m_halfHeight = halfHeight * P2W;
+    Box2DRigidBody::Box2DRigidBody(Box2DPhysicsEngine* engine, b2World* world, IRigidBody::Type bodyType,
+                                   glm::vec2 centerPos) : m_engine(engine) {
 
         b2BodyDef bodyDef;
         switch (bodyType) {
@@ -27,38 +24,56 @@ namespace age {
         }
         
         bodyDef.position.Set(centerPos.x * P2W, centerPos.y * P2W);
-		//TODO: Remove this hardcoded fixedRotation = true
-		bodyDef.fixedRotation = true;
         m_body = world->CreateBody(&bodyDef);
     }
  
-    void Box2DRigidBody::setPhysicsParams(float density, float friction, float restitution) {
-        m_density = density;
-        m_friction = friction;
-        m_restitution = restitution;
-
-        if (m_fixture) {
-            m_body->DestroyFixture(m_fixture);
-            m_fixture = nullptr;
+    Box2DRigidBody::~Box2DRigidBody() {
+        for(auto fixture : m_fixtures) {
+            m_body->DestroyFixture(fixture);
         }
+        m_fixtures.clear();
+    }
+    
+    void Box2DRigidBody::setFixedRotation(bool fixedRotation) {
+        m_body->SetFixedRotation(fixedRotation);
+    }
+    
+    void Box2DRigidBody::addCollider(Collider* collider) {
         
         b2PolygonShape bodyShape;
-        bodyShape.SetAsBox(m_halfWidth, m_halfHeight);
+        const BoxDef boxDef = collider->getBoxDef();
+        const PhysicsDef physicsDef = collider->getPhysicsDef();
         
-		// Fixture hold: user data, density, friction, restitution, isSensor
-		// collision filter and shape
+        float halfWidth = (boxDef.width / 2.0f) * P2W;
+        float halfHeight = (boxDef.height / 2.0f) * P2W;
+        
+        if (boxDef.pos.x == 0.0f && boxDef.pos.y == 0.0f) {
+            bodyShape.SetAsBox(halfWidth, halfHeight);
+        }
+        else {
+            const b2Vec2 center(boxDef.pos.x * P2W, boxDef.pos.y * P2W);
+            bodyShape.SetAsBox(halfWidth, halfHeight, center, boxDef.angle);
+        }
+        
+        // Fixture holds: user data, density, friction, restitution, isSensor
+        // collision filter and shape
         b2FixtureDef fixtureDef;
+        fixtureDef.isSensor = collider->isSensor();
         fixtureDef.shape = &bodyShape;
-        fixtureDef.density = density;
-        fixtureDef.friction = friction;
-        fixtureDef.restitution = restitution;
+        fixtureDef.density = physicsDef.density;
+        fixtureDef.friction = physicsDef.friction;
+        fixtureDef.restitution = physicsDef.restitution;
+        fixtureDef.userData = static_cast<void*>(collider);
         
-        m_fixture = m_body->CreateFixture(&fixtureDef);
+        m_fixtures.push_back(m_body->CreateFixture(&fixtureDef));
+        
+        if (collider->isCollisionAware()) {
+            m_engine->getCollisionDispatcher()->addCollider(collider);
+        }
     }
     
     glm::vec2 Box2DRigidBody::getPosition() const {
         b2Vec2 pos = m_body->GetPosition();
-		//glm::vec2 returnedPosition = glm::vec2((pos.x - m_halfWidth) * W2P, (pos.y - m_halfHeight) * W2P);
 		glm::vec2 returnedPosition = glm::vec2(pos.x * W2P, pos.y * W2P);
 
 		return returnedPosition;
@@ -74,20 +89,6 @@ namespace age {
     }
 
 	void Box2DRigidBody::applyForce(const glm::vec2& force) {
-		/*
-		force = mass * acceleration OR force = mass * (dv/dt)
-		
-		dv = newVelocity - previousVelocity;
-			=> newVelocity = previousVelocity + dv
-		AND
-		dv/dt = force / mass
-			=> dv = (force / mass) * dt
-		*/
-		//TODO: Remove this hardcoded 1/60 time and make it configurable
-		glm::vec2 deltaVelocity = force / m_body->GetMass() * (1 / 60.0f);
-		b2Vec2 v = m_body->GetLinearVelocity();
-		glm::vec2 newVelocity =  glm::vec2(v.x, v.y) + deltaVelocity;
-
 		m_body->ApplyForce(b2Vec2(force.x, force.y), m_body->GetWorldCenter(), true);
 	}
 

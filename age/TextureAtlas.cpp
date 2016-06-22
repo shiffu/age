@@ -17,7 +17,6 @@ namespace age {
 		unsigned short tileXIndex = index % m_nbCols;
 		unsigned short tileYIndex = index / m_nbCols;
 
-		unsigned short tileWidth = m_tileWidth;
 		glm::vec2 blOffset(tileXIndex * m_tileWidth, m_texture->m_height - tileYIndex * m_tileHeight - m_tileHeight);
 		
 		float x1 = (float)(blOffset.x) / m_texture->m_width;

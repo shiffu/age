@@ -40,7 +40,7 @@ void MyTestGame::onInit() {
 
     age::Texture* brickTexture = age::ResourceManager::instance().loadTexture("mario-brick.png");
     age::Texture* metalTexture = age::ResourceManager::instance().loadTexture("metal-texture.png");
-    age::Texture* woodTexture = age::ResourceManager::instance().loadTexture("wood-texture.png");
+    //age::Texture* woodTexture = age::ResourceManager::instance().loadTexture("wood-texture.png");
     
     m_scenePhysicsEngine = new age::Box2DPhysicsEngine();
     glm::vec2 gravity(0.0f, -14.0f);
@@ -60,9 +60,9 @@ void MyTestGame::onInit() {
 	cubeSpriteComp->setTexture(metalTexture);
     m_cubeGO->addComponent(cubeSpriteComp);
         
-    age::RigidBodyComponent* cubeRBC = m_cubeGO->createRigidBodyComponent(IRigidBody::Type::DYNAMIC,
-                                                                        pos, width, height);
-    cubeRBC->setPhysicsParams(1.0f, 0.2f, 0.4f);
+    age::RigidBodyComponent* cubeRBC = m_cubeGO->createRigidBodyComponent(age::IRigidBody::Type::DYNAMIC, pos);
+    age::Collider* cubeCollider = new age::Collider(age::PhysicsDef(1.0f, 0.2f, 0.4f), age::BoxDef(width, height));
+    cubeRBC->getRigidBody()->addCollider(cubeCollider);
         
     // Tile
     glm::vec2 tilePos = glm::vec2(400, 20);
@@ -74,9 +74,9 @@ void MyTestGame::onInit() {
     tileComp->setTexture(brickTexture);
     tileGO->addComponent(tileComp);
 
-    age::RigidBodyComponent* tileRBC = tileGO->createRigidBodyComponent(IRigidBody::Type::STATIC,
-                                                                        tilePos, tileDims.x, tileDims.y);
-    tileRBC->setPhysicsParams(1.0f, 3.0f, 0.4f);
+    age::RigidBodyComponent* tileRBC = tileGO->createRigidBodyComponent(age::IRigidBody::Type::STATIC, tilePos);
+    /*age::Collider* */m_tileCollider = new age::Collider(age::PhysicsDef(1.0f, 3.0f, 0.4f), age::BoxDef(tileDims.x, tileDims.y));
+    tileRBC->getRigidBody()->addCollider(m_tileCollider);
 
 	// Player
 	glm::vec2 playerPos = glm::vec2(20, 61);
@@ -95,10 +95,14 @@ void MyTestGame::onInit() {
 	playerSpriteComp->setAnimator(m_playerAnimator);
 	m_player->addComponent(playerSpriteComp);
 
-	age::RigidBodyComponent* playerRBC = m_player->createRigidBodyComponent(IRigidBody::Type::DYNAMIC,
-																playerPos, playerDims.x, playerDims.y);
+	age::RigidBodyComponent* playerRBC = m_player->createRigidBodyComponent(age::IRigidBody::Type::DYNAMIC, playerPos);
+    playerRBC->getRigidBody()->setFixedRotation(true);
 
-	playerRBC->setPhysicsParams(1.2f, 0.6f, 0.001f);
+    age::Collider* playerCollider = new age::Collider(age::PhysicsDef(1.2f, 0.6f, 0.001f), age::BoxDef(playerDims.x, playerDims.y));
+    playerRBC->getRigidBody()->addCollider(playerCollider);
+    /*age::Collider* */m_playerFeetCollider = new age::Collider(age::PhysicsDef(1.2f, 0.6f, 0.001f), age::BoxDef(glm::vec2(20, -20), 20, 5));
+    m_playerFeetCollider->setCollisionAware(true);
+    playerRBC->getRigidBody()->addCollider(m_playerFeetCollider);
 
     m_batchRenderer.init();
 }
@@ -115,12 +119,12 @@ void MyTestGame::onInput(SDL_Event evt) {
 
 	// Player
 	float xForceMagnitude = 45.0f;
-	float yForceMagnitude = 1.1f;
+	float yForceMagnitude = 6.0f;
 	float maxSpeed = 6.0f;
 	age::RigidBodyComponent* playerRBC = m_player->getComponent<age::RigidBodyComponent>();
 	if (playerRBC) {
 
-		if (m_inputManager.isKeyPressed(SDLK_SPACE)) {
+		if (m_inputManager.isKeyPressed(SDLK_SPACE) && m_playerFeetCollider->isTouching(m_tileCollider)) {
 			m_sound->play();
 			playerRBC->getRigidBody()->applyLinearImpulse(glm::vec2(0, yForceMagnitude));
 		}

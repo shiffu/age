@@ -33,6 +33,10 @@ private:
     age::Box2DPhysicsEngine* m_scenePhysicsEngine = nullptr;
     age::GameObject* m_cubeGO = nullptr;
 	age::GameObject* m_player = nullptr;
+    
+    //TODO: Delete
+    age::Collider* m_playerFeetCollider = nullptr;
+    age::Collider* m_tileCollider = nullptr;
 
 	age::Animator* m_playerAnimator = nullptr;
 

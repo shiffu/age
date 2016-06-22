@@ -6,21 +6,14 @@
 
 namespace age {
 
-    void RigidBodyComponent::init(IRigidBody::Type bodyType,
-              glm::vec2 pos, float width, float height) {
+    void RigidBodyComponent::init(IRigidBody::Type bodyType, glm::vec2 pos, bool fixedRotation) {
         
         IPhysicsEngine* physicsEngine = m_parent->getLayer()->getPhysicsEngine();
         if (physicsEngine) {
-            m_rigidBody = physicsEngine->createRigidBody(bodyType, pos, width, height);
+            m_rigidBody = physicsEngine->createRigidBody(bodyType, pos, fixedRotation);
         }
         else {
             //TODO: Log error
-        }
-    }
-
-    void RigidBodyComponent::setPhysicsParams(float density, float friction, float restitution) {
-        if (m_rigidBody) {
-            m_rigidBody->setPhysicsParams(density, friction, restitution);
         }
     }
 

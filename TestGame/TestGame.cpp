@@ -5,7 +5,7 @@
 int main(int argc, char** argv) {
 	
 	MyTestGame testGame;
-	testGame.init(1280, 1024);
+	testGame.init(800, 600);
 
 	testGame.start();
 
