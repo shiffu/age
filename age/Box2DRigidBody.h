@@ -1,5 +1,6 @@
 #pragma once
 
+#include <map>
 #include <vector>
 #include "glm/glm.hpp"
 #include "IRigidBody.h"
@@ -18,7 +19,8 @@ namespace age {
         ~Box2DRigidBody();
         
         void setFixedRotation(bool fixedRotation) override;
-        void addCollider(Collider* collider) override;
+        void addCollider(const char* name, Collider* collider) override;
+        const Collider* getCollider(const char* name) const override;
 
 		glm::vec2 getPosition() const override;
 		glm::vec2 getVelocity() const override;
@@ -39,6 +41,7 @@ namespace age {
         b2Body* m_body = nullptr;
         Box2DPhysicsEngine* m_engine;
         std::vector<b2Fixture*> m_fixtures;
+        std::map<std::string, Collider*> m_colliders;
     };
     
 }

@@ -45,5 +45,6 @@ private:
     static const unsigned int NB_DYN_SPRITES = 80;
 	float m_playerVelocity = 0.0f;
 	bool m_playerFlipped = false;
+    unsigned int m_jumpThreshold = 4;
 };
 

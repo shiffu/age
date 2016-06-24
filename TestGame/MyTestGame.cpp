@@ -2,7 +2,6 @@
 
 #include "MyTestGame.h"
 
-#include <iostream>
 #include <random>
 
 #include <Utils.h>
@@ -61,8 +60,9 @@ void MyTestGame::onInit() {
     m_cubeGO->addComponent(cubeSpriteComp);
         
     age::RigidBodyComponent* cubeRBC = m_cubeGO->createRigidBodyComponent(age::IRigidBody::Type::DYNAMIC, pos);
-    age::Collider* cubeCollider = new age::Collider(age::PhysicsDef(1.0f, 0.2f, 0.4f), age::BoxDef(width, height));
-    cubeRBC->getRigidBody()->addCollider(cubeCollider);
+    age::Collider* cubeCollider = new age::Collider(age::PhysicsDef(1.0f, 0.7f, 0.4f), age::BoxDef(width, height));
+    cubeCollider->addLabel("cube");
+    cubeRBC->getRigidBody()->addCollider("cube", cubeCollider);
         
     // Tile
     glm::vec2 tilePos = glm::vec2(400, 20);
@@ -75,8 +75,9 @@ void MyTestGame::onInit() {
     tileGO->addComponent(tileComp);
 
     age::RigidBodyComponent* tileRBC = tileGO->createRigidBodyComponent(age::IRigidBody::Type::STATIC, tilePos);
-    /*age::Collider* */m_tileCollider = new age::Collider(age::PhysicsDef(1.0f, 3.0f, 0.4f), age::BoxDef(tileDims.x, tileDims.y));
-    tileRBC->getRigidBody()->addCollider(m_tileCollider);
+    /*age::Collider* */m_tileCollider = new age::Collider(age::PhysicsDef(1.0f, 0.2f, 0.1f), age::BoxDef(tileDims.x, tileDims.y));
+    m_tileCollider->addLabel("ground");
+    tileRBC->getRigidBody()->addCollider("ground", m_tileCollider);
 
 	// Player
 	glm::vec2 playerPos = glm::vec2(20, 61);
@@ -98,11 +99,13 @@ void MyTestGame::onInit() {
 	age::RigidBodyComponent* playerRBC = m_player->createRigidBodyComponent(age::IRigidBody::Type::DYNAMIC, playerPos);
     playerRBC->getRigidBody()->setFixedRotation(true);
 
-    age::Collider* playerCollider = new age::Collider(age::PhysicsDef(1.2f, 0.6f, 0.001f), age::BoxDef(playerDims.x, playerDims.y));
-    playerRBC->getRigidBody()->addCollider(playerCollider);
-    /*age::Collider* */m_playerFeetCollider = new age::Collider(age::PhysicsDef(1.2f, 0.6f, 0.001f), age::BoxDef(glm::vec2(20, -20), 20, 5));
+    age::PhysicsDef playerPhysicsDef(1.0f, 0.3f, 0);
+    age::Collider* playerCollider = new age::Collider(playerPhysicsDef, age::BoxDef(playerDims.x, playerDims.y));
+    playerRBC->getRigidBody()->addCollider("playerMain", playerCollider);
+    /*age::Collider* */m_playerFeetCollider = new age::Collider(playerPhysicsDef, age::BoxDef(glm::vec2(0, -21), 12, 2), true);
+    m_playerFeetCollider->addLabel("playerFeet");
     m_playerFeetCollider->setCollisionAware(true);
-    playerRBC->getRigidBody()->addCollider(m_playerFeetCollider);
+    playerRBC->getRigidBody()->addCollider("playerFeet", m_playerFeetCollider);
 
     m_batchRenderer.init();
 }
@@ -118,15 +121,23 @@ void MyTestGame::onInput(SDL_Event evt) {
     }
 
 	// Player
-	float xForceMagnitude = 45.0f;
-	float yForceMagnitude = 6.0f;
-	float maxSpeed = 6.0f;
+	float xForceMagnitude = 18.0f;
+	float yForceMagnitude = 10.0f;
+	float maxSpeed = 3.5f;
 	age::RigidBodyComponent* playerRBC = m_player->getComponent<age::RigidBodyComponent>();
 	if (playerRBC) {
 
-		if (m_inputManager.isKeyPressed(SDLK_SPACE) && m_playerFeetCollider->isTouching(m_tileCollider)) {
-			m_sound->play();
-			playerRBC->getRigidBody()->applyLinearImpulse(glm::vec2(0, yForceMagnitude));
+        if (m_inputManager.isKeyPressed(SDLK_SPACE) && playerRBC->getRigidBody()->getCollider("playerFeet")->isTouchingAny({"ground", "cube"})) {
+        //if (m_inputManager.isKeyPressed(SDLK_SPACE) && m_playerFeetCollider->isTouchingAny({"ground", "cube"})) {
+        //if (m_inputManager.isKeyPressed(SDLK_SPACE) && m_playerFeetCollider->isTouching("ground")) {
+            if (m_jumpThreshold == 0) {
+                m_jumpThreshold = 2;
+                m_sound->play();
+                playerRBC->getRigidBody()->applyLinearImpulse(glm::vec2(0, yForceMagnitude));
+            }
+            else {
+                m_jumpThreshold--;
+            }
 		}
 
 		if (m_inputManager.isKeyPressed(SDLK_LEFT) && playerRBC->getRigidBody()->getVelocity().x > -maxSpeed) {

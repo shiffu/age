@@ -38,7 +38,7 @@ namespace age {
         m_body->SetFixedRotation(fixedRotation);
     }
     
-    void Box2DRigidBody::addCollider(Collider* collider) {
+    void Box2DRigidBody::addCollider(const char* name, Collider* collider) {
         
         b2PolygonShape bodyShape;
         const BoxDef boxDef = collider->getBoxDef();
@@ -70,6 +70,16 @@ namespace age {
         if (collider->isCollisionAware()) {
             m_engine->getCollisionDispatcher()->addCollider(collider);
         }
+        
+        m_colliders[name] = collider;
+    }
+    
+    const Collider* Box2DRigidBody::getCollider(const char* name) const {
+        auto it = m_colliders.find(name);
+        if (it != m_colliders.end())
+            return it->second;
+        
+        return nullptr;
     }
     
     glm::vec2 Box2DRigidBody::getPosition() const {
