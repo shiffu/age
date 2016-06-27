@@ -2,10 +2,10 @@
 
 #include <SDL2/SDL.h>
 
-#include "ShaderProgram.h"
-#include "InputManager.h"
-#include "IPhysicsEngine.h"
-#include "Color.h"
+#include "../rendering/ShaderProgram.h"
+#include "../input/InputManager.h"
+#include "../physics/IPhysicsEngine.h"
+#include "../rendering/Color.h"
 
 struct SDL_Window;
 

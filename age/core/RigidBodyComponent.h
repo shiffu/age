@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Component.h"
-#include "IRigidBody.h"
+#include "../physics/IRigidBody.h"
 
 namespace age {
     

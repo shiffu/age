@@ -1,6 +1,6 @@
 #include "AudioEngine.h"
-#include "Error.h"
-#include "ResourceManager.h"
+#include "../core/Error.h"
+#include "../core/ResourceManager.h"
 
 #include <SDL2_mixer/SDL_mixer.h>
 

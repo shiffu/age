@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E40465D11D20BEA900C6A189 /* TestGame in CopyFiles */ = {isa = PBXBuildFile; fileRef = E4060AA51C868C6A0072A086 /* TestGame */; };
+		E40465D21D20BEAF00C6A189 /* libage.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = E4060ABA1C868D0D0072A086 /* libage.a */; };
 		E4060AB81C868CFB0072A086 /* MyTestGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4060AB51C868CFB0072A086 /* MyTestGame.cpp */; };
 		E4060AB91C868CFB0072A086 /* TestGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4060AB71C868CFB0072A086 /* TestGame.cpp */; };
 		E4060ABB1C868D0D0072A086 /* libage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4060ABA1C868D0D0072A086 /* libage.a */; };
@@ -21,9 +23,11 @@
 		E4060AA31C868C6A0072A086 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
+			dstPath = /Users/jcpennel/Documents/code/AgeMacWorkspace;
 			dstSubfolderSpec = 0;
 			files = (
+				E40465D21D20BEAF00C6A189 /* libage.a in CopyFiles */,
+				E40465D11D20BEA900C6A189 /* TestGame in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};

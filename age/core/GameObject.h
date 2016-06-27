@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <glm/glm.hpp>
-#include "IRigidBody.h"
+#include "../physics/IRigidBody.h"
 
 namespace age {
     

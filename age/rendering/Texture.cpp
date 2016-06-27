@@ -5,7 +5,7 @@
 #include <SDL2_image/SDL_image.h>
 #include <SDL2/SDL_opengl.h>
 
-#include "Utils.h"
+#include "../core/Utils.h"
 
 namespace age {
 

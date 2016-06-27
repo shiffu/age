@@ -1,5 +1,5 @@
 #include "Camera2D.h"
-#include "GameObject.h"
+#include "../core/GameObject.h"
 
 namespace age {
 

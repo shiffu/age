@@ -4,8 +4,8 @@
 #include <vector>
 #include <unordered_map>
 
-#include "Texture.h"
-#include "TextureAtlas.h"
+#include "../rendering/Texture.h"
+#include "../rendering/TextureAtlas.h"
 
 namespace age {
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "Vertex.h"
+#include "../rendering/Vertex.h"
 #include "SpriteComponent.h"
 
 

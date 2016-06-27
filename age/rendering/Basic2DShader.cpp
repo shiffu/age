@@ -3,7 +3,7 @@
 namespace age {
     
     void Basic2DShader::init() {
-        compileShaders("../age/shaders/basic");
+        compileShaders("../age/rendering/shaders/basic");
         
         bindAttribute("position");
         bindAttribute("color");

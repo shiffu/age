@@ -4,16 +4,16 @@
 
 #include <random>
 
-#include <Utils.h>
-#include <ResourceManager.h>
-#include <Box2DPhysicsEngine.h>
-#include <GameObject.h>
-#include <SpriteComponent.h>
-#include <TileComponent.h>
-#include <RigidBodyComponent.h>
-#include <TextureAtlas.h>
-#include <Animator.h>
-#include <Animation2D.h>
+#include <core/Utils.h>
+#include <core/ResourceManager.h>
+#include <physics/Box2DPhysicsEngine.h>
+#include <core/GameObject.h>
+#include <core/SpriteComponent.h>
+#include <core/TileComponent.h>
+#include <core/RigidBodyComponent.h>
+#include <rendering/TextureAtlas.h>
+#include <rendering/Animator.h>
+#include <rendering/Animation2D.h>
 
 
 namespace {

@@ -1,9 +1,9 @@
 #pragma once
 
 #include <vector>
-#include "Vertex.h"
+#include "../rendering/Vertex.h"
 #include "Component.h"
-#include "IRenderable2D.h"
+#include "../rendering/IRenderable2D.h"
 
 namespace age {
 

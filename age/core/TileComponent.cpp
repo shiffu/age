@@ -2,9 +2,9 @@
 
 #include "TileComponent.h"
 
-#include "IRenderer.h"
+#include "../rendering/IRenderer.h"
 #include "GameObject.h"
-#include "Texture.h"
+#include "../rendering/Texture.h"
 
 namespace age {
     

@@ -2,15 +2,15 @@
 
 #include <vector>
 
-#include <Game.h>
-#include <Basic2DShader.h>
-#include <BatchRenderer2D.h>
-#include <Texture.h>
-#include <Camera2D.h>
-#include <AudioEngine.h>
-#include <Layer.h>
-#include <Box2DPhysicsEngine.h>
-#include <Animator.h>
+#include <core/Game.h>
+#include <rendering/Basic2DShader.h>
+#include <rendering/BatchRenderer2D.h>
+#include <rendering/Texture.h>
+#include <rendering/Camera2D.h>
+#include <audio/AudioEngine.h>
+#include <core/Layer.h>
+#include <physics/Box2DPhysicsEngine.h>
+#include <rendering/Animator.h>
 
 
 class MyTestGame : public age::Game {
