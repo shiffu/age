@@ -11,6 +11,7 @@
 #include <core/Layer.h>
 #include <physics/Box2DPhysicsEngine.h>
 #include <rendering/Animator.h>
+#include <rendering/ParticleEngine2D.h>
 
 
 class MyTestGame : public age::Game {
@@ -33,6 +34,9 @@ private:
     age::Box2DPhysicsEngine* m_scenePhysicsEngine = nullptr;
     age::GameObject* m_cubeGO = nullptr;
 	age::GameObject* m_player = nullptr;
+    
+    age::ParticleEngine2D* m_particuleEngine = nullptr;
+    age::ParticleBatch2D* m_playerParticuleBatch = nullptr;
     
     //TODO: Delete
     age::Collider* m_playerFeetCollider = nullptr;

@@ -49,23 +49,19 @@ namespace age {
 
 	void SpriteComponent::updateVerticesUVs() {
 		// bottom left
-		m_vertices[0].uv.u = m_uvs.x;
-		m_vertices[0].uv.v = m_uvs.y;
+		m_vertices[0].uv = m_uvs.xy();
 		m_tranformedVertices[0].uv = m_vertices[0].uv;
 
 		// bottom right
-		m_vertices[1].uv.u = m_uvs.z;
-		m_vertices[1].uv.v = m_uvs.y;
+		m_vertices[1].uv = m_uvs.zy();
 		m_tranformedVertices[1].uv = m_vertices[1].uv;
 
 		// top right
-		m_vertices[2].uv.u = m_uvs.z;
-		m_vertices[2].uv.v = m_uvs.w;
+		m_vertices[2].uv = m_uvs.zw();
 		m_tranformedVertices[2].uv = m_vertices[2].uv;
 
 		// top left
-		m_vertices[3].uv.u = m_uvs.x;
-		m_vertices[3].uv.v = m_uvs.w;
+		m_vertices[3].uv = m_uvs.xw();
 		m_tranformedVertices[3].uv = m_vertices[3].uv;
 	}
 
@@ -91,11 +87,11 @@ namespace age {
     }
     
     // IRenderable2D Methodes
-    const std::vector<Vertex>& SpriteComponent::getVertices() const {
+    std::vector<Vertex> SpriteComponent::getVertices() const {
         return m_tranformedVertices;
     }
     
-    const std::vector<unsigned short>& SpriteComponent::getIndices() const {
+    std::vector<unsigned short> SpriteComponent::getIndices() const {
         return m_indices;
     }
     

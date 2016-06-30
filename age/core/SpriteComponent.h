@@ -21,8 +21,8 @@ namespace age {
 
         virtual void render(IRenderer* renderer);
  
-        const std::vector<Vertex>& getVertices() const;
-        const std::vector<unsigned short>& getIndices() const;
+        std::vector<Vertex> getVertices() const;
+        std::vector<unsigned short> getIndices() const;
         GLuint getTextureId() const;
         unsigned int getDepth() const;
 	

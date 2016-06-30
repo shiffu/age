@@ -75,6 +75,10 @@
 		E45D911B1D2070C600BC7883 /* Vertex.h in Headers */ = {isa = PBXBuildFile; fileRef = E45D91061D2070C500BC7883 /* Vertex.h */; };
 		E4635B4A1C868AA100D0FECB /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4635B491C868AA100D0FECB /* GLUT.framework */; };
 		E4635B4C1C868B2E00D0FECB /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4635B4B1C868B2E00D0FECB /* SDL2.framework */; };
+		E472C48A1D21E6FF00E135DB /* ParticleEngine2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E472C4881D21E6FF00E135DB /* ParticleEngine2D.cpp */; };
+		E472C48B1D21E6FF00E135DB /* ParticleEngine2D.h in Headers */ = {isa = PBXBuildFile; fileRef = E472C4891D21E6FF00E135DB /* ParticleEngine2D.h */; };
+		E472C48E1D21E75800E135DB /* ParticleBatch2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E472C48C1D21E75800E135DB /* ParticleBatch2D.cpp */; };
+		E472C48F1D21E75800E135DB /* ParticleBatch2D.h in Headers */ = {isa = PBXBuildFile; fileRef = E472C48D1D21E75800E135DB /* ParticleBatch2D.h */; };
 		E4C3BBA71CA810CA00D43F91 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C3BBA61CA810CA00D43F91 /* SDL2_mixer.framework */; };
 /* End PBXBuildFile section */
 
@@ -151,6 +155,10 @@
 		E45D91061D2070C500BC7883 /* Vertex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vertex.h; sourceTree = "<group>"; };
 		E4635B491C868AA100D0FECB /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		E4635B4B1C868B2E00D0FECB /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
+		E472C4881D21E6FF00E135DB /* ParticleEngine2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleEngine2D.cpp; sourceTree = "<group>"; };
+		E472C4891D21E6FF00E135DB /* ParticleEngine2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleEngine2D.h; sourceTree = "<group>"; };
+		E472C48C1D21E75800E135DB /* ParticleBatch2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleBatch2D.cpp; sourceTree = "<group>"; };
+		E472C48D1D21E75800E135DB /* ParticleBatch2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleBatch2D.h; sourceTree = "<group>"; };
 		E4C3BBA61CA810CA00D43F91 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../../../../../Library/Frameworks/SDL2_mixer.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -294,6 +302,10 @@
 				E45D91041D2070C500BC7883 /* TextureAtlas.cpp */,
 				E45D91051D2070C500BC7883 /* TextureAtlas.h */,
 				E45D91061D2070C500BC7883 /* Vertex.h */,
+				E472C4881D21E6FF00E135DB /* ParticleEngine2D.cpp */,
+				E472C4891D21E6FF00E135DB /* ParticleEngine2D.h */,
+				E472C48C1D21E75800E135DB /* ParticleBatch2D.cpp */,
+				E472C48D1D21E75800E135DB /* ParticleBatch2D.h */,
 			);
 			path = rendering;
 			sourceTree = "<group>";
@@ -319,6 +331,7 @@
 				E45D90EB1D2070BC00BC7883 /* IPhysicsEngine.h in Headers */,
 				E45D910E1D2070C500BC7883 /* BatchRenderer2D.h in Headers */,
 				E45D909C1D20704300BC7883 /* Sound.h in Headers */,
+				E472C48F1D21E75800E135DB /* ParticleBatch2D.h in Headers */,
 				E45D91121D2070C500BC7883 /* IRenderable2D.h in Headers */,
 				E45D90E41D2070BC00BC7883 /* Box2DPhysicsEngine.h in Headers */,
 				E45D90C31D2070A200BC7883 /* Layer.h in Headers */,
@@ -335,6 +348,7 @@
 				E45D909A1D20704300BC7883 /* Music.h in Headers */,
 				E45D90EC1D2070BC00BC7883 /* IRigidBody.h in Headers */,
 				E45D90ED1D2070BC00BC7883 /* PhysicsDef.h in Headers */,
+				E472C48B1D21E6FF00E135DB /* ParticleEngine2D.h in Headers */,
 				E45D91181D2070C500BC7883 /* Texture.h in Headers */,
 				E45D91151D2070C500BC7883 /* ShaderProgram.h in Headers */,
 				E45D90E71D2070BC00BC7883 /* BoxDef.h in Headers */,
@@ -409,6 +423,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E472C48E1D21E75800E135DB /* ParticleBatch2D.cpp in Sources */,
 				E45D91091D2070C500BC7883 /* Animator.cpp in Sources */,
 				E45D910B1D2070C500BC7883 /* Basic2DShader.cpp in Sources */,
 				E45D90971D20704300BC7883 /* AudioEngine.cpp in Sources */,
@@ -428,6 +443,7 @@
 				E45D90CC1D2070A200BC7883 /* Utils.cpp in Sources */,
 				E45D90C01D2070A200BC7883 /* GameObject.cpp in Sources */,
 				E45D90C21D2070A200BC7883 /* Layer.cpp in Sources */,
+				E472C48A1D21E6FF00E135DB /* ParticleEngine2D.cpp in Sources */,
 				E45D90D11D2070B300BC7883 /* InputManager.cpp in Sources */,
 				E45D91071D2070C500BC7883 /* Animation2D.cpp in Sources */,
 				E45D90C41D2070A200BC7883 /* ResourceManager.cpp in Sources */,

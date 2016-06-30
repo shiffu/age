@@ -114,15 +114,6 @@ namespace age {
                 indiceIdx++;
             }
             offset += srcVertices.size();
-/*
-            indices[indiceIdx++] = offset;
-            indices[indiceIdx++] = offset + 1;
-            indices[indiceIdx++] = offset + 2;
-            indices[indiceIdx++] = offset + 2;
-            indices[indiceIdx++] = offset + 3;
-            indices[indiceIdx++] = offset;
-            offset += 4;
- */
         }
 
         glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
@@ -143,6 +134,7 @@ namespace age {
     void BatchRenderer2D::render() {
         glBindVertexArray(m_vao);
         for (auto batch : m_spriteBatches) {
+            //TODO: Reintroduce Texture Activation and Binding in Texture class
             //SpriteBatch->texture->bind();
             glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, batch->textureId);

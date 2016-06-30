@@ -30,29 +30,25 @@ namespace age {
                 blSpriteOffset = glm::vec2(-halfWidth + spriteWidth * i, -halfHeight + spriteHeight * j);
                 
                 // bottom left
-                m_vertices[verticesIndex].uv.u = m_uvs.x;
-                m_vertices[verticesIndex].uv.v = 0.0f;
+                m_vertices[verticesIndex].uv = {m_uvs.x, 0.0f};
                 m_vertices[verticesIndex].pos = blSpriteOffset + glm::vec2(0.0f, 0.0f);
                 m_tranformedVertices[verticesIndex] = m_vertices[verticesIndex];
                 verticesIndex++;
                 
                 // bottom right
-                m_vertices[verticesIndex].uv.u = 1.0f;
-                m_vertices[verticesIndex].uv.v = 0.0f;
+                m_vertices[verticesIndex].uv = {1.0f, 0.0f};
                 m_vertices[verticesIndex].pos = blSpriteOffset + glm::vec2(spriteWidth, 0.0f);
                 m_tranformedVertices[verticesIndex] = m_vertices[verticesIndex];
                 verticesIndex++;
                 
                 // top right
-                m_vertices[verticesIndex].uv.u = 1.0f;
-                m_vertices[verticesIndex].uv.v = 1.0f;
+                m_vertices[verticesIndex].uv = glm::vec2(1.0f);
                 m_vertices[verticesIndex].pos = blSpriteOffset + glm::vec2(spriteWidth, spriteHeight);
                 m_tranformedVertices[verticesIndex] = m_vertices[verticesIndex];
                 verticesIndex++;
                 
                 // top left
-                m_vertices[verticesIndex].uv.u = 0.0f;
-                m_vertices[verticesIndex].uv.v = 1.0f;
+                m_vertices[verticesIndex].uv = {0.0f, 1.0f};
                 m_vertices[verticesIndex].pos = blSpriteOffset + glm::vec2(0.0f, spriteHeight);
                 m_tranformedVertices[verticesIndex] = m_vertices[verticesIndex];
                 verticesIndex++;
@@ -77,26 +73,22 @@ namespace age {
 		for (int j = 0; j < m_nbYTiles; j++) {
 			for (int i = 0; i < m_nbXTiles; i++) {
 				// bottom left
-				m_vertices[verticesIndex].uv.u = m_uvs.x;
-				m_vertices[verticesIndex].uv.v = m_uvs.y;
+				m_vertices[verticesIndex].uv = m_uvs.xy();
 				m_tranformedVertices[verticesIndex].uv = m_vertices[verticesIndex].uv;
 				verticesIndex++;
 
 				// bottom right
-				m_vertices[verticesIndex].uv.u = m_uvs.z;
-				m_vertices[verticesIndex].uv.v = m_uvs.y;
+				m_vertices[verticesIndex].uv = m_uvs.zy();
 				m_tranformedVertices[verticesIndex].uv = m_vertices[verticesIndex].uv;
 				verticesIndex++;
 
 				// top right
-				m_vertices[verticesIndex].uv.u = m_uvs.z;
-				m_vertices[verticesIndex].uv.v = m_uvs.w;
+				m_vertices[verticesIndex].uv = m_uvs.zw();
 				m_tranformedVertices[verticesIndex].uv = m_vertices[verticesIndex].uv;
 				verticesIndex++;
 
 				// top left
-				m_vertices[verticesIndex].uv.u = m_uvs.x;
-				m_vertices[verticesIndex].uv.v = m_uvs.w;
+				m_vertices[verticesIndex].uv = m_uvs.xw();
 				m_tranformedVertices[verticesIndex].uv = m_vertices[verticesIndex].uv;
 				verticesIndex++;
 			}

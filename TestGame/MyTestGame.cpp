@@ -3,6 +3,7 @@
 #include "MyTestGame.h"
 
 #include <random>
+#include <glm/gtx/rotate_vector.hpp>
 
 #include <core/Utils.h>
 #include <core/ResourceManager.h>
@@ -39,6 +40,7 @@ void MyTestGame::onInit() {
 
     age::Texture* brickTexture = age::ResourceManager::instance().loadTexture("mario-brick.png");
     age::Texture* metalTexture = age::ResourceManager::instance().loadTexture("metal-texture.png");
+    age::Texture* particuleTexture = age::ResourceManager::instance().loadTexture("fadedCircle.png");
     //age::Texture* woodTexture = age::ResourceManager::instance().loadTexture("wood-texture.png");
     
     m_scenePhysicsEngine = new age::Box2DPhysicsEngine();
@@ -107,6 +109,13 @@ void MyTestGame::onInit() {
     m_playerFeetCollider->setCollisionAware(true);
     playerRBC->getRigidBody()->addCollider("playerFeet", m_playerFeetCollider);
 
+    m_particuleEngine = new age::ParticleEngine2D();
+    m_playerParticuleBatch = m_particuleEngine->createParticuleBatch(100, particuleTexture->getId(), 0.0025f,
+                                    [](age::Particle2D& particule, float deltaTime) {
+                                        particule.position += particule.velocity * deltaTime;
+                                        particule.color.a = static_cast<GLubyte>(particule.life * 255.0f);
+                                    });
+
     m_batchRenderer.init();
 }
 
@@ -125,6 +134,12 @@ void MyTestGame::onInput(SDL_Event evt) {
 	float yForceMagnitude = 10.0f;
 	float maxSpeed = 3.5f;
 	age::RigidBodyComponent* playerRBC = m_player->getComponent<age::RigidBodyComponent>();
+    age::Color particuleColor(0xFFEEEEFF);
+    
+    // Randome engine init
+    static std::mt19937 randomGenerator(time(nullptr));
+    static std::uniform_real_distribution<float> randomAngle(0.0f, 360.0f);
+
 	if (playerRBC) {
 
         if (m_inputManager.isKeyPressed(SDLK_SPACE) && playerRBC->getRigidBody()->getCollider("playerFeet")->isTouchingAny({"ground", "cube"})) {
@@ -134,6 +149,13 @@ void MyTestGame::onInput(SDL_Event evt) {
                 m_jumpThreshold = 2;
                 m_sound->play();
                 playerRBC->getRigidBody()->applyLinearImpulse(glm::vec2(0, yForceMagnitude));
+                for(int i = 0; i < 30; i++) {
+                    glm::vec2 velocity = glm::vec2(0.001f, -0.055f);
+                    velocity = glm::rotate(velocity, randomAngle(randomGenerator));
+                    
+                    m_playerParticuleBatch->addParticle(m_player->getPosition() + glm::vec2(i * 1.2f, -22.0f),
+                                                10, velocity, particuleColor);
+                }
             }
             else {
                 m_jumpThreshold--;
@@ -156,7 +178,8 @@ void MyTestGame::onInput(SDL_Event evt) {
 void MyTestGame::onUpdate(unsigned int deltaTime) {
     
     m_sceneLayer->update(deltaTime);
-
+    m_particuleEngine->update(deltaTime);
+    
 	// Update the player velocity and animation
 	float walkTriggerSpeed = 1.0f;
 	age::RigidBodyComponent* playerRBC = m_player->getComponent<age::RigidBodyComponent>();
@@ -188,6 +211,7 @@ void MyTestGame::onRender() {
     m_batchRenderer.begin();
 
 	m_sceneLayer->render(&m_batchRenderer);
+    m_particuleEngine->render(m_batchRenderer);
     
 	m_batchRenderer.end();
     m_batchRenderer.render();
