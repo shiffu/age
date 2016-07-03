@@ -22,51 +22,47 @@ namespace age {
 
 	Game::~Game() {}
 
-	void Game::init(unsigned int windowWidth, unsigned int windowHeight, unsigned int windowFlags /*= SDL_INIT_EVERYTHING*/) {
-		std::cout << "Initializing game " + m_gameName << std::endl;
+	void Game::init(Window* window) {
 
-        SDL_Init(windowFlags);
+        m_window = window;
+
+        //TODO: use a proper logging lib
+		std::cout << "Initializing game " + m_gameName << "\n";
+
+        // Initialize SDL sub systems
+        SDL_Init(SDL_INIT_EVERYTHING);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
-        // Create the Window
-		m_window = SDL_CreateWindow(m_gameName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-										windowWidth, windowHeight, SDL_WINDOW_OPENGL);
-
-		if (m_window == nullptr) {
-			fatalError("Error creating the window!");
-		}
-
-		// Create the OpenGL Context
-		SDL_GLContext glContext = SDL_GL_CreateContext(m_window);
-		if (glContext == nullptr) {
-            fatalError(std::string("Error creating the OpenGL Context: ") + SDL_GetError());
-		}
-		Utils::logGlErrors("SDL Init or GL Context creation failed");
-
-        int flags = IMG_INIT_JPG|IMG_INIT_PNG;
-        int initted = IMG_Init(flags);
-        if((initted & flags) != flags) {
+        m_window->init();
+        // Do not do any openGl call before the OpenGL Context
+        // is created (in the window.init() method)
+        Utils::logGlErrors("SDL Init failed");
+        
+        // TODO: configure the image format accepted (enum)
+        int flags = IMG_INIT_JPG | IMG_INIT_PNG;
+        int initializedFlags = IMG_Init(flags);
+        if((initializedFlags & flags) != flags) {
             std::cerr << "IMG_Init: Failed to init required jpg and png support!\n";
             std::cerr << "IMG_Init: " << IMG_GetError() << std::endl;
         }
+        Utils::logGlErrors("SDL_Image Init failed");
         
         SDL_version compile_version;
         const SDL_version *link_version = IMG_Linked_Version();
         SDL_IMAGE_VERSION(&compile_version);
+        
         printf("Compiled with SDL_image version: %d.%d.%d\n",
                compile_version.major,
                compile_version.minor,
                compile_version.patch);
+        
         printf("Running with SDL_image version: %d.%d.%d\n",
                link_version->major,
                link_version->minor,
                link_version->patch);
-
-		Utils::logGlErrors("SDL_Image Init failed");
-
 
 #ifndef __APPLE__
 		glewExperimental = true;
@@ -75,18 +71,30 @@ namespace age {
 			fatalError("GLEW init failed!");
 		}
 #endif
+		//Utils::logGlErrors("GLEW Init failed");
 
-		Utils::logGlErrors("GLEW Init failed");
-		glm::vec4 backgroundColor = m_backgroundColor.toVec4();
+        glm::vec4 backgroundColor = m_backgroundColor.toVec4();
 		glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 
-		// Set VSYNC: 0 => FALSE, 1 => TRUE
+		// OpenGL Context - Set VSYNC: 0 => FALSE, 1 => TRUE
 		SDL_GL_SetSwapInterval(0);
 
-		std::cout << "Vendor: " << glGetString(GL_VENDOR) << std::endl;
-		std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl;
-		std::cout << "GL Version: " << glGetString(GL_VERSION) << std::endl;
-		std::cout << "GLSL: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+        std::cout << "OpenGL information: \n";
+        std::cout << "================== \n";
+
+        std::string unknown("Unknown");
+        const GLubyte* glVendor = glGetString(GL_VENDOR) ? glGetString(GL_VENDOR) : (const GLubyte*)unknown.c_str();
+        std::cout << " + Vendor: "     <<  glVendor << "\n";
+        
+        const GLubyte* glRenderer = glGetString(GL_RENDERER) ? glGetString(GL_RENDERER) : (const GLubyte*)unknown.c_str();
+		std::cout << " + Renderer: "   << glRenderer << "\n";
+        
+        const GLubyte* glVersion = glGetString(GL_VERSION) ? glGetString(GL_VERSION) : (const GLubyte*)unknown.c_str();
+		std::cout << " + GL Version: " << glVersion << "\n";
+        
+        const GLubyte* glGLSL = glGetString(GL_SHADING_LANGUAGE_VERSION)
+                                    ? glGetString(GL_SHADING_LANGUAGE_VERSION) : (const GLubyte*)unknown.c_str();
+		std::cout << " + GLSL: "       << glGLSL << std::endl;
 
 		onInit();
 		m_isInitialized = true;
@@ -136,7 +144,7 @@ namespace age {
 			onRender();
 
 			// Swap back and front buffers (display)
-			SDL_GL_SwapWindow(m_window);
+            m_window->swapBuffers();
 
 			// Display FPS every 1.5 sec
 			cumulatedElapseTime = SDL_GetTicks() - previousCumulatedTime;
@@ -158,38 +166,48 @@ namespace age {
 			}
 			deltaTime = SDL_GetTicks() - startFrameTime;
 		}
-        
-        IMG_Quit();
 
 		// Exit callback
 		onExit();
+        
+        IMG_Quit();
+        m_window->destroy();
 	}
-
-	void Game::processInput() {
-		
-		SDL_Event evt;
-		while (SDL_PollEvent(&evt)) {
-
-			switch(evt.type) {
-			case SDL_QUIT:
-				std::cout << "Exit requested" << std::endl;
-				m_isRunning = false;
-				break;
-
-			case SDL_KEYDOWN:
-				m_inputManager.keyPressed(evt.key.keysym.sym);
-				break;
-			case SDL_KEYUP:
-				m_inputManager.keyReleased(evt.key.keysym.sym);
-				break;
-
-			case SDL_MOUSEMOTION:
-				//std::cout << evt.motion.x << ", " << evt.motion.y << std::endl;
-				break;
-			default:
-				break;
-			}
-		}
+    
+    void Game::processInput() {
+        
+        SDL_Event evt;
+        while (SDL_PollEvent(&evt)) {
+            
+            switch(evt.type) {
+                case SDL_QUIT:
+                    std::cout << "Exit requested" << std::endl;
+                    m_isRunning = false;
+                    break;
+                    
+                case SDL_WINDOWEVENT:
+                    switch (evt.window.event) {
+                        case SDL_WINDOWEVENT_RESIZED:
+                        case SDL_WINDOWEVENT_SIZE_CHANGED:
+                            m_window->setSize(evt.window.data1, evt.window.data2);
+                            break;
+                    }
+                    break;
+                    
+                case SDL_KEYDOWN:
+                    m_inputManager.keyPressed(evt.key.keysym.sym);
+                    break;
+                case SDL_KEYUP:
+                    m_inputManager.keyReleased(evt.key.keysym.sym);
+                    break;
+                    
+                case SDL_MOUSEMOTION:
+                    //std::cout << evt.motion.x << ", " << evt.motion.y << std::endl;
+                    break;
+                default:
+                    break;
+            }
+        }
 
 		// Input callback
 		onInput(evt);

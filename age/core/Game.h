@@ -6,6 +6,7 @@
 #include "../input/InputManager.h"
 #include "../physics/IPhysicsEngine.h"
 #include "../rendering/Color.h"
+#include "Window.h"
 
 struct SDL_Window;
 
@@ -17,7 +18,7 @@ namespace age {
 		Game(std::string gameName);
 		virtual ~Game();
 
-		void init(unsigned int windowWidth, unsigned int windowHeight, unsigned int windowFlags = SDL_INIT_EVERYTHING);
+		void init(Window* window);
 		void setBackgroundColor(Color color) { m_backgroundColor = color;  };
 		void start();
 
@@ -33,7 +34,7 @@ namespace age {
 		void processInput();
 
 		std::string m_gameName;
-		SDL_Window*	m_window = nullptr;
+		Window* m_window;
 		// Default: Black background
 		Color m_backgroundColor = Color(0x000000FF);
 		bool m_isRunning = false;

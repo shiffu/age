@@ -3,11 +3,12 @@
 #include "MyTestGame.h"
 
 int main(int argc, char** argv) {
-	
-	MyTestGame testGame;
-	testGame.init(800, 600);
-
-	testGame.start();
-
+    age::Window myWindow("My Awesome Test Game", 1024, 960, age::WindowFlag::FULLSCREEN);
+    
+    MyTestGame testGame;
+    testGame.init(&myWindow);
+    
+    testGame.start();
+    
     return 0;
 }

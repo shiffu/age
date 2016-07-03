@@ -17,11 +17,7 @@
 #include <rendering/Animation2D.h>
 
 
-namespace {
-	static const float PI = 3.14159265359f;
-}
-
-MyTestGame::MyTestGame() : age::Game("My First Test Game") {}
+MyTestGame::MyTestGame() : age::Game("Test Game") {}
 MyTestGame::~MyTestGame() {}
 
 void MyTestGame::onInit() {
