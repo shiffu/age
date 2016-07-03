@@ -19,6 +19,7 @@ public:
 	MyTestGame();
 	~MyTestGame();
 
+    // Game virtual methods
 	virtual void onInit();
 	virtual void onInput(SDL_Event evt);
 	virtual void onUpdate(unsigned int deltaTime);
@@ -38,10 +39,6 @@ private:
     age::ParticleEngine2D* m_particuleEngine = nullptr;
     age::ParticleBatch2D* m_playerParticuleBatch = nullptr;
     
-    //TODO: Delete
-    age::Collider* m_playerFeetCollider = nullptr;
-    age::Collider* m_tileCollider = nullptr;
-
 	age::Animator* m_playerAnimator = nullptr;
 
     age::Sound* m_sound;

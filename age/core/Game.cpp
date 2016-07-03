@@ -131,7 +131,7 @@ namespace age {
 		while (m_isRunning) {
 			startFrameTime = SDL_GetTicks();
 			frameCounter++;
-			processInput();
+			checkEvents();
 
 			// Update callback
 			onUpdate(deltaTime);
@@ -174,8 +174,7 @@ namespace age {
         m_window->destroy();
 	}
     
-    void Game::processInput() {
-        
+    void Game::checkEvents() {
         SDL_Event evt;
         while (SDL_PollEvent(&evt)) {
             
@@ -184,7 +183,6 @@ namespace age {
                     std::cout << "Exit requested" << std::endl;
                     m_isRunning = false;
                     break;
-                    
                 case SDL_WINDOWEVENT:
                     switch (evt.window.event) {
                         case SDL_WINDOWEVENT_RESIZED:
@@ -193,14 +191,12 @@ namespace age {
                             break;
                     }
                     break;
-                    
                 case SDL_KEYDOWN:
                     m_inputManager.keyPressed(evt.key.keysym.sym);
                     break;
                 case SDL_KEYUP:
                     m_inputManager.keyReleased(evt.key.keysym.sym);
                     break;
-                    
                 case SDL_MOUSEMOTION:
                     //std::cout << evt.motion.x << ", " << evt.motion.y << std::endl;
                     break;
@@ -208,8 +204,7 @@ namespace age {
                     break;
             }
         }
-
-		// Input callback
-		onInput(evt);
+        
+        onInput(evt);
 	}
 }

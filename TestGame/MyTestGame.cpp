@@ -64,18 +64,18 @@ void MyTestGame::onInit() {
         
     // Tile
     glm::vec2 tilePos = glm::vec2(400, 20);
-    glm::vec2 tileDims = glm::vec2(800, 40);
+    glm::vec2 tileDims = glm::vec2(1600, 40);
     age::GameObject* tileGO = m_sceneLayer->createGameObject();
     tileGO->setPosition(tilePos);
         
-    age::TileComponent* tileComp = new age::TileComponent(tileDims.x, tileDims.y, 20);
+    age::TileComponent* tileComp = new age::TileComponent(tileDims.x, tileDims.y, 40);
     tileComp->setTexture(brickTexture);
     tileGO->addComponent(tileComp);
 
     age::RigidBodyComponent* tileRBC = tileGO->createRigidBodyComponent(age::IRigidBody::Type::STATIC, tilePos);
-    /*age::Collider* */m_tileCollider = new age::Collider(age::PhysicsDef(1.0f, 0.2f, 0.1f), age::BoxDef(tileDims.x, tileDims.y));
-    m_tileCollider->addLabel("ground");
-    tileRBC->getRigidBody()->addCollider("ground", m_tileCollider);
+    age::Collider* tileCollider = new age::Collider(age::PhysicsDef(1.0f, 0.2f, 0.1f), age::BoxDef(tileDims.x, tileDims.y));
+    tileCollider->addLabel("ground");
+    tileRBC->getRigidBody()->addCollider("ground", tileCollider);
 
 	// Player
 	glm::vec2 playerPos = glm::vec2(20, 61);
@@ -100,10 +100,10 @@ void MyTestGame::onInit() {
     age::PhysicsDef playerPhysicsDef(1.0f, 0.3f, 0);
     age::Collider* playerCollider = new age::Collider(playerPhysicsDef, age::BoxDef(playerDims.x, playerDims.y));
     playerRBC->getRigidBody()->addCollider("playerMain", playerCollider);
-    /*age::Collider* */m_playerFeetCollider = new age::Collider(playerPhysicsDef, age::BoxDef(glm::vec2(0, -21), 12, 2), true);
-    m_playerFeetCollider->addLabel("playerFeet");
-    m_playerFeetCollider->setCollisionAware(true);
-    playerRBC->getRigidBody()->addCollider("playerFeet", m_playerFeetCollider);
+    age::Collider* playerFeetCollider = new age::Collider(playerPhysicsDef, age::BoxDef(glm::vec2(0, -21), 12, 2), true);
+    playerFeetCollider->addLabel("playerFeet");
+    playerFeetCollider->setCollisionAware(true);
+    playerRBC->getRigidBody()->addCollider("playerFeet", playerFeetCollider);
 
     m_particuleEngine = new age::ParticleEngine2D();
     m_playerParticuleBatch = m_particuleEngine->createParticuleBatch(100, particuleTexture->getId(), 0.0025f,
@@ -133,14 +133,14 @@ void MyTestGame::onInput(SDL_Event evt) {
     age::Color particuleColor(0xFFEEEEFF);
     
     // Randome engine init
-    static std::mt19937 randomGenerator(time(nullptr));
+    static std::mt19937 randomGenerator(static_cast<unsigned int>(time(nullptr)));
     static std::uniform_real_distribution<float> randomAngle(0.0f, 360.0f);
 
 	if (playerRBC) {
 
-        if (m_inputManager.isKeyPressed(SDLK_SPACE) && playerRBC->getRigidBody()->getCollider("playerFeet")->isTouchingAny({"ground", "cube"})) {
-        //if (m_inputManager.isKeyPressed(SDLK_SPACE) && m_playerFeetCollider->isTouchingAny({"ground", "cube"})) {
-        //if (m_inputManager.isKeyPressed(SDLK_SPACE) && m_playerFeetCollider->isTouching("ground")) {
+        if (m_inputManager.isKeyPressed(SDLK_SPACE)
+                && playerRBC->getRigidBody()->getCollider("playerFeet")->isTouchingAny({"ground", "cube"})) {
+            
             if (m_jumpThreshold == 0) {
                 m_jumpThreshold = 2;
                 m_sound->play();

@@ -31,11 +31,10 @@ namespace age {
 
 	private:
 		void run();
-		void processInput();
+		void checkEvents();
 
 		std::string m_gameName;
 		Window* m_window;
-		// Default: Black background
 		Color m_backgroundColor = Color(0x000000FF);
 		bool m_isRunning = false;
 		bool m_isInitialized = false;
