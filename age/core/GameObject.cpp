@@ -46,7 +46,7 @@ namespace age {
         component->setGameObject(this);
         m_components.push_back(component);
     }
-    
+
     void GameObject::setPosition(glm::vec2 pos) {
         m_position = pos;
     }

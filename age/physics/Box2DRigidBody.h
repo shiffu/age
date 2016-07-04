@@ -16,7 +16,7 @@ namespace age {
         
     public:
         Box2DRigidBody(Box2DPhysicsEngine* engine, b2World* world, IRigidBody::Type bodyType, glm::vec2 centerPos);
-        ~Box2DRigidBody();
+        virtual ~Box2DRigidBody();
         
         void setFixedRotation(bool fixedRotation) override;
         void addCollider(const char* name, Collider* collider) override;

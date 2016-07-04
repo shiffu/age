@@ -46,6 +46,18 @@ namespace age {
 			return nullptr;
 		}
         
+        template<class T>
+        void deleteComponent() {
+            for (int i = 0; i < m_components.size(); i++) {
+                T* result = dynamic_cast<T*>(m_components[i]);
+                if (result) {
+                    std::swap(m_components[i], m_components[m_components.size() - 1]);
+                    m_components.pop_back();
+                    result = nullptr;
+                }
+            }
+        }
+        
     private:
         std::vector<Component*> m_components;
         Layer* m_parentLayer;

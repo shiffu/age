@@ -19,8 +19,28 @@
 namespace age {
 
 	Game::Game(std::string gameName) : m_gameName(gameName) {}
-
 	Game::~Game() {}
+    
+    void Game::addScreen(const std::string& name, Screen* screen) {
+        m_screens[name] = screen;
+        screen->init();
+    }
+    
+    void Game::setCurrentScreen(const std::string& name) {
+        auto it = m_screens.find(name);
+        if (it != m_screens.end()) {
+            m_currentScreen = it->second;
+        }
+        else {
+            m_currentScreen = nullptr;
+        }
+        //TODO: handle error case!
+    }
+    
+    const InputManager* Game::getInputManager() const {
+        return &m_inputManager;
+    }
+
 
 	void Game::init(Window* window) {
 
@@ -111,7 +131,10 @@ namespace age {
 
 	void Game::run() {
 		std::cout << "Running game " << m_gameName << std::endl;
-		m_isRunning = true;
+		m_isRunning = (m_currentScreen != nullptr);
+        if (m_currentScreen) {
+            m_currentScreen->onEntry();
+        }
 		
 		// FPS / Time variables
 		unsigned int previousCumulatedTime = SDL_GetTicks();
@@ -134,21 +157,21 @@ namespace age {
 			checkEvents();
 
 			// Update callback
-			onUpdate(deltaTime);
+			m_currentScreen->onUpdate(deltaTime);
             
 			// Clear buffers
 			glClearDepth(1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			// Render callback
-			onRender();
+			m_currentScreen->onRender();
 
 			// Swap back and front buffers (display)
             m_window->swapBuffers();
 
-			// Display FPS every 1.5 sec
+			// Display FPS every 2 sec
 			cumulatedElapseTime = SDL_GetTicks() - previousCumulatedTime;
-			if (cumulatedElapseTime > 1500) {
+			if (cumulatedElapseTime > 2000) {
 				actualFPS = frameCounter / (float)cumulatedElapseTime * 1000.0f;
 				frameCounter = 0;
 				previousCumulatedTime = SDL_GetTicks();
@@ -165,8 +188,29 @@ namespace age {
 				SDL_Delay(delayTime);
 			}
 			deltaTime = SDL_GetTicks() - startFrameTime;
+            
+            // Check current screen state
+            if (m_currentScreen->getState() == ScreenState::GO_NEXT) {
+                m_currentScreen->onExit();
+                m_currentScreen->setState(ScreenState::INACTIVE);
+                setCurrentScreen(m_currentScreen->getNext());
+                
+                if (m_currentScreen) {
+                    m_currentScreen->onEntry();
+                    m_currentScreen->setState(ScreenState::ACTIVE);
+                }
+                else {
+                    //TODO: Log in case the screen doesn't exist
+                    m_isRunning = false;
+                }
+            }
 		}
 
+        // Screen cleanup
+        for (auto scr : m_screens) {
+            scr.second->destroy();
+        }
+        
 		// Exit callback
 		onExit();
         
@@ -205,6 +249,6 @@ namespace age {
             }
         }
         
-        onInput(evt);
+        m_currentScreen->onInput();
 	}
 }

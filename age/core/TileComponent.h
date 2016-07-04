@@ -13,7 +13,7 @@ namespace age {
         
     public:
         TileComponent(float width, float height, unsigned short nbXTiles = 1, unsigned short nbYTiles = 1);
-        ~TileComponent();
+        virtual ~TileComponent();
 
 	protected:
 		virtual void updateVerticesUVs();

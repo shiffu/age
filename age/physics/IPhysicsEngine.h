@@ -8,6 +8,8 @@ namespace age {
     
     class IPhysicsEngine {
     public:
+        virtual ~IPhysicsEngine() {};
+        
         virtual void init(const glm::vec2& gravity) = 0;
         virtual void update() = 0;
         virtual ICollisionDispatcher* getCollisionDispatcher() = 0;

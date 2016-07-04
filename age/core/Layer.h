@@ -14,6 +14,7 @@ namespace age {
         virtual ~Layer();
         
         void setPhysicsEngine(IPhysicsEngine* physicsEngine) { m_physicsEngine = physicsEngine; }
+        void destroyPhysicsEngine();
         IPhysicsEngine* getPhysicsEngine() const { return m_physicsEngine; }
         GameObject* createGameObject();
         

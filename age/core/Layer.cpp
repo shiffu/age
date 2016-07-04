@@ -2,6 +2,7 @@
 
 #include "GameObject.h"
 #include "../physics/IPhysicsEngine.h"
+#include "RigidBodyComponent.h"
 
 namespace age {
     
@@ -14,6 +15,14 @@ namespace age {
         m_gameObjects.clear();
     }
     
+    void Layer::destroyPhysicsEngine() {
+        for(GameObject* go : m_gameObjects) {
+            go->deleteComponent<RigidBodyComponent>();
+        }
+        delete m_physicsEngine;
+        m_physicsEngine = nullptr;
+    }
+
     GameObject* Layer::createGameObject() {
         GameObject* go = new GameObject(this);
         m_gameObjects.push_back(go);

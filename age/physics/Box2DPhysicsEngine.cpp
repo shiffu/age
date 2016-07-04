@@ -6,7 +6,11 @@
 namespace age {
     
     Box2DPhysicsEngine::Box2DPhysicsEngine() {}
-    Box2DPhysicsEngine::~Box2DPhysicsEngine() {}
+    
+    Box2DPhysicsEngine::~Box2DPhysicsEngine() {
+        delete m_collisionDispatcher;
+        delete m_world;
+    }
     
     void Box2DPhysicsEngine::init(const glm::vec2& gravity) {
         if (m_world == nullptr) {

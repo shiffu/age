@@ -6,6 +6,8 @@ namespace age {
     class ICollisionDispatcher {
 
     public:
+        virtual ~ICollisionDispatcher() {};
+        
         virtual void addCollider(Collider* collider) = 0;
     };
 }

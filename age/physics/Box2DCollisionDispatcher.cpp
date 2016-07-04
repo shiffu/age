@@ -4,6 +4,15 @@
 
 namespace age {
     
+    Box2DCollisionDispatcher::~Box2DCollisionDispatcher() {
+        /*
+        for (auto colliderPair : m_colliders) {
+            delete colliderPair.second;
+            colliderPair.second = nullptr;
+        }
+         */
+    }
+    
     void Box2DCollisionDispatcher::addCollider(Collider* collider) {
         m_colliders[collider] = collider;
     }

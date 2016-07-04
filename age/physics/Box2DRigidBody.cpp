@@ -32,6 +32,11 @@ namespace age {
             m_body->DestroyFixture(fixture);
         }
         m_fixtures.clear();
+        
+        for (auto colliderPair : m_colliders) {
+            delete colliderPair.second;
+        }
+        m_body->GetWorld()->DestroyBody(m_body);
     }
     
     void Box2DRigidBody::setFixedRotation(bool fixedRotation) {

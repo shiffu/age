@@ -9,6 +9,8 @@ namespace age {
     
     class Box2DCollisionDispatcher : public ICollisionDispatcher, public b2ContactListener {
     public:
+        virtual ~Box2DCollisionDispatcher();
+        
         void addCollider(Collider* collider) override;
 
         void BeginContact(b2Contact* contact) override;

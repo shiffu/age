@@ -13,6 +13,7 @@ namespace age {
         
     public:
         Collider(const PhysicsDef& physicsDef, const BoxDef& boxDef, bool isSensor=false);
+        ~Collider() {};
         
         void addLabel(const std::string& label);
         std::vector<std::string> getLabels() const;

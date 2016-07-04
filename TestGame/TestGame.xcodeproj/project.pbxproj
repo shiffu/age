@@ -16,6 +16,8 @@
 		E4060AC41C8692850072A086 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4060AC31C8692850072A086 /* SDL2.framework */; };
 		E4060AC61C8692900072A086 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4060AC51C8692900072A086 /* OpenGL.framework */; };
 		E424E5C71C8923E300EB34A8 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E424E5C61C8923E300EB34A8 /* SDL2_image.framework */; };
+		E43F3EDD1D29CB9D003D8DE4 /* MainMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E43F3EDB1D29CB9D003D8DE4 /* MainMenu.cpp */; };
+		E46F17CD1D296EB400530A4B /* LevelScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E46F17CB1D296EB400530A4B /* LevelScreen.cpp */; };
 		E4C3BBAC1CA81C8A00D43F91 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C3BBAB1CA81C8A00D43F91 /* SDL2_mixer.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +45,10 @@
 		E4060AC31C8692850072A086 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
 		E4060AC51C8692900072A086 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		E424E5C61C8923E300EB34A8 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
+		E43F3EDB1D29CB9D003D8DE4 /* MainMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainMenu.cpp; sourceTree = "<group>"; };
+		E43F3EDC1D29CB9D003D8DE4 /* MainMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenu.h; sourceTree = "<group>"; };
+		E46F17CB1D296EB400530A4B /* LevelScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LevelScreen.cpp; sourceTree = "<group>"; };
+		E46F17CC1D296EB400530A4B /* LevelScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelScreen.h; sourceTree = "<group>"; };
 		E4C3BBAB1CA81C8A00D43F91 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../../../../../Library/Frameworks/SDL2_mixer.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,6 +72,10 @@
 		E4060A9C1C868C6A0072A086 = {
 			isa = PBXGroup;
 			children = (
+				E43F3EDB1D29CB9D003D8DE4 /* MainMenu.cpp */,
+				E43F3EDC1D29CB9D003D8DE4 /* MainMenu.h */,
+				E46F17CB1D296EB400530A4B /* LevelScreen.cpp */,
+				E46F17CC1D296EB400530A4B /* LevelScreen.h */,
 				E4C3BBAB1CA81C8A00D43F91 /* SDL2_mixer.framework */,
 				E424E5C61C8923E300EB34A8 /* SDL2_image.framework */,
 				E4060AC51C8692900072A086 /* OpenGL.framework */,
@@ -144,7 +154,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4060AB81C868CFB0072A086 /* MyTestGame.cpp in Sources */,
+				E46F17CD1D296EB400530A4B /* LevelScreen.cpp in Sources */,
 				E4060AB91C868CFB0072A086 /* TestGame.cpp in Sources */,
+				E43F3EDD1D29CB9D003D8DE4 /* MainMenu.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

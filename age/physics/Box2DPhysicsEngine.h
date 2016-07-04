@@ -11,7 +11,7 @@ namespace age {
     class Box2DPhysicsEngine : public IPhysicsEngine {
     public:
         Box2DPhysicsEngine();
-        ~Box2DPhysicsEngine();
+        virtual ~Box2DPhysicsEngine();
         
         void init(const glm::vec2& gravity) override;
         void update() override;

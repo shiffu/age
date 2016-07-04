@@ -14,6 +14,9 @@ namespace age {
             DYNAMIC,
             KINEMATIC
         };
+
+        IRigidBody() {};
+        virtual ~IRigidBody() {};
         
         virtual void setFixedRotation(bool fixedRotation) = 0;
         virtual void addCollider(const char* name, Collider* collider) = 0;
