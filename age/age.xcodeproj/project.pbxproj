@@ -11,6 +11,11 @@
 		E400D0541C979780004903F8 /* libBox2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E400D0531C979780004903F8 /* libBox2D.a */; };
 		E4060AC01C86923A0072A086 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4060ABF1C86923A0072A086 /* CoreFoundation.framework */; };
 		E424E5C51C88690B00EB34A8 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E424E5C41C88690B00EB34A8 /* SDL2_image.framework */; };
+		E43F3EE11D2C977D003D8DE4 /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43F3EE01D2C977D003D8DE4 /* SDL2_ttf.framework */; };
+		E43F3EE41D2F1400003D8DE4 /* SpriteFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E43F3EE21D2F1400003D8DE4 /* SpriteFont.cpp */; };
+		E43F3EE51D2F1400003D8DE4 /* SpriteFont.h in Headers */ = {isa = PBXBuildFile; fileRef = E43F3EE31D2F1400003D8DE4 /* SpriteFont.h */; };
+		E43F3EE81D2F3F11003D8DE4 /* Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E43F3EE61D2F3F11003D8DE4 /* Sprite.cpp */; };
+		E43F3EE91D2F3F11003D8DE4 /* Sprite.h in Headers */ = {isa = PBXBuildFile; fileRef = E43F3EE71D2F3F11003D8DE4 /* Sprite.h */; };
 		E45D90971D20704300BC7883 /* AudioEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E45D90911D20704300BC7883 /* AudioEngine.cpp */; };
 		E45D90981D20704300BC7883 /* AudioEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = E45D90921D20704300BC7883 /* AudioEngine.h */; };
 		E45D90991D20704300BC7883 /* Music.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E45D90931D20704300BC7883 /* Music.cpp */; };
@@ -93,6 +98,11 @@
 		E4060ABF1C86923A0072A086 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		E40C6A6B1C867E5E006C84AB /* libage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libage.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E424E5C41C88690B00EB34A8 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
+		E43F3EE01D2C977D003D8DE4 /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../../../../../Library/Frameworks/SDL2_ttf.framework; sourceTree = "<group>"; };
+		E43F3EE21D2F1400003D8DE4 /* SpriteFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteFont.cpp; sourceTree = "<group>"; };
+		E43F3EE31D2F1400003D8DE4 /* SpriteFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteFont.h; sourceTree = "<group>"; };
+		E43F3EE61D2F3F11003D8DE4 /* Sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sprite.cpp; sourceTree = "<group>"; };
+		E43F3EE71D2F3F11003D8DE4 /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite.h; sourceTree = "<group>"; };
 		E45D90911D20704300BC7883 /* AudioEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioEngine.cpp; sourceTree = "<group>"; };
 		E45D90921D20704300BC7883 /* AudioEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioEngine.h; sourceTree = "<group>"; };
 		E45D90931D20704300BC7883 /* Music.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Music.cpp; sourceTree = "<group>"; };
@@ -175,6 +185,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E43F3EE11D2C977D003D8DE4 /* SDL2_ttf.framework in Frameworks */,
 				E4C3BBA71CA810CA00D43F91 /* SDL2_mixer.framework in Frameworks */,
 				E400D0541C979780004903F8 /* libBox2D.a in Frameworks */,
 				E424E5C51C88690B00EB34A8 /* SDL2_image.framework in Frameworks */,
@@ -191,6 +202,7 @@
 		E40C6A621C867E5E006C84AB = {
 			isa = PBXGroup;
 			children = (
+				E43F3EE01D2C977D003D8DE4 /* SDL2_ttf.framework */,
 				E45D90EE1D2070C500BC7883 /* rendering */,
 				E45D90D31D2070BC00BC7883 /* physics */,
 				E45D90CE1D2070B300BC7883 /* input */,
@@ -292,6 +304,8 @@
 		E45D90EE1D2070C500BC7883 /* rendering */ = {
 			isa = PBXGroup;
 			children = (
+				E43F3EE21D2F1400003D8DE4 /* SpriteFont.cpp */,
+				E43F3EE31D2F1400003D8DE4 /* SpriteFont.h */,
 				E45D90EF1D2070C500BC7883 /* Animation2D.cpp */,
 				E45D90F01D2070C500BC7883 /* Animation2D.h */,
 				E45D90F11D2070C500BC7883 /* Animator.cpp */,
@@ -318,6 +332,8 @@
 				E472C4891D21E6FF00E135DB /* ParticleEngine2D.h */,
 				E472C48C1D21E75800E135DB /* ParticleBatch2D.cpp */,
 				E472C48D1D21E75800E135DB /* ParticleBatch2D.h */,
+				E43F3EE61D2F3F11003D8DE4 /* Sprite.cpp */,
+				E43F3EE71D2F3F11003D8DE4 /* Sprite.h */,
 			);
 			path = rendering;
 			sourceTree = "<group>";
@@ -339,8 +355,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E45D90BB1D2070A200BC7883 /* Component.h in Headers */,
+				E43F3EE91D2F3F11003D8DE4 /* Sprite.h in Headers */,
 				E45D91131D2070C500BC7883 /* IRenderer.h in Headers */,
 				E46F17C61D2866F800530A4B /* Window.h in Headers */,
+				E43F3EE51D2F1400003D8DE4 /* SpriteFont.h in Headers */,
 				E45D90EB1D2070BC00BC7883 /* IPhysicsEngine.h in Headers */,
 				E45D910E1D2070C500BC7883 /* BatchRenderer2D.h in Headers */,
 				E45D909C1D20704300BC7883 /* Sound.h in Headers */,
@@ -439,6 +457,7 @@
 			files = (
 				E472C48E1D21E75800E135DB /* ParticleBatch2D.cpp in Sources */,
 				E45D91091D2070C500BC7883 /* Animator.cpp in Sources */,
+				E43F3EE41D2F1400003D8DE4 /* SpriteFont.cpp in Sources */,
 				E45D910B1D2070C500BC7883 /* Basic2DShader.cpp in Sources */,
 				E45D90971D20704300BC7883 /* AudioEngine.cpp in Sources */,
 				E45D910D1D2070C500BC7883 /* BatchRenderer2D.cpp in Sources */,
@@ -454,6 +473,7 @@
 				E45D90C81D2070A200BC7883 /* SpriteComponent.cpp in Sources */,
 				E45D90CA1D2070A200BC7883 /* TileComponent.cpp in Sources */,
 				E45D909B1D20704300BC7883 /* Sound.cpp in Sources */,
+				E43F3EE81D2F3F11003D8DE4 /* Sprite.cpp in Sources */,
 				E45D91171D2070C500BC7883 /* Texture.cpp in Sources */,
 				E45D90CC1D2070A200BC7883 /* Utils.cpp in Sources */,
 				E45D90C01D2070A200BC7883 /* GameObject.cpp in Sources */,

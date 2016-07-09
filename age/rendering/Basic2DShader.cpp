@@ -3,6 +3,7 @@
 namespace age {
     
     void Basic2DShader::init() {
+        //TODO: manage shaders path in the resource manager?
         compileShaders("../age/rendering/shaders/basic");
         
         bindAttribute("position");

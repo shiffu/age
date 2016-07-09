@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <iostream>
+
 #include "Vertex.h"
 #include "IRenderable2D.h"
 
@@ -22,6 +23,7 @@ namespace age {
     }
     
     void BatchRenderer2D::init() {
+        
         if (m_vao == 0) {
             glGenVertexArrays(1, &m_vao);
         }
@@ -54,6 +56,14 @@ namespace age {
     
     void BatchRenderer2D::begin(RenderingSortType sortType /* = RenderingSortType::TEXTURE */){
         m_renderingSortType = sortType;
+        for (auto renderable : m_renderables) {
+            if (renderable->isOwnershipTransfered()) {
+                delete renderable;
+            }
+        }
+        for (auto batch : m_spriteBatches) {
+            delete batch;
+        }
         m_renderables.clear();
         m_spriteBatches.clear();
     }
@@ -63,31 +73,28 @@ namespace age {
     }
     
     void BatchRenderer2D::end() {
-
+        
         // Sort the IRenderable2Ds
         switch (m_renderingSortType) {
             case RenderingSortType::NONE:
                 break;
             case RenderingSortType::TEXTURE:
-                std::stable_sort(m_renderables.begin(), m_renderables.end(), [] (IRenderable2D* a, IRenderable2D* b) {
-                    return a->getTextureId() < b->getTextureId();
-                });
+                std::stable_sort(m_renderables.begin(), m_renderables.end(),
+                            [] (IRenderable2D* a, IRenderable2D* b) { return a->getTextureId() < b->getTextureId(); });
                 break;
             case RenderingSortType::FRONT_TO_BACK:
                 std::stable_sort(m_renderables.begin(), m_renderables.end(),
-                                 [] (IRenderable2D* a, IRenderable2D* b) { return a->getDepth() < b->getDepth(); });
+                            [] (IRenderable2D* a, IRenderable2D* b) { return a->getDepth() < b->getDepth(); });
                 break;
             case RenderingSortType::BACK_TO_FRONT:
                 std::stable_sort(m_renderables.begin(), m_renderables.end(),
-                                 [] (IRenderable2D* a, IRenderable2D* b) { return a->getDepth() > b->getDepth(); });
+                            [] (IRenderable2D* a, IRenderable2D* b) { return a->getDepth() > b->getDepth(); });
                 break;
         }
         
         // Create the SpriteBatches
         std::vector<Vertex> vertices;
         std::vector<GLuint> indices;
-        //vertices.reserve(m_renderables.size() * 4 * sizeof(Vertex));
-        //indices.resize(m_renderables.size() * 6);
         GLuint currentTexId = 0;
         GLuint offset = 0;
         GLuint indiceIdx = 0;

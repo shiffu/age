@@ -10,7 +10,12 @@
 namespace age {
 
     Texture::Texture(GLuint textureId) : m_textureId(textureId) {}
-	Texture::~Texture() {}
+	Texture::~Texture() {
+        if (m_textureId) {
+            glDeleteTextures(1, &m_textureId);
+            m_textureId = 0;
+        }
+    }
 
 	void Texture::bind(GLenum textureSlot /*= GL_TEXTURE0*/) const {
 		glActiveTexture(textureSlot);

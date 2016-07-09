@@ -6,6 +6,7 @@
 #include <rendering/Basic2DShader.h>
 #include <rendering/BatchRenderer2D.h>
 #include <rendering/Camera2D.h>
+#include <rendering/SpriteFont.h>
 
 class MainMenu : public age::Screen {
 public:
@@ -31,4 +32,6 @@ private:
     age::ParticleEngine2D* m_particuleEngine = nullptr;
     age::ParticleBatch2D* m_particuleBatch = nullptr;
     age::Texture* m_particuleTexture = nullptr;
+    
+    age::SpriteFont* m_font;
 };

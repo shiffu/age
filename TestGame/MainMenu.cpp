@@ -20,16 +20,23 @@ void MainMenu::onInit() {
     
     m_camera.init(800, 600);
     m_camera.setPos(400, 300);
-    m_camera.setScale(0.6f);
+    //m_camera.setScale(0.9f);
 
     // Particule engine setup
     m_particuleTexture = age::ResourceManager::instance().loadTexture("fadedCircle.png");
     m_particuleEngine = new age::ParticleEngine2D();
-    m_particuleBatch = m_particuleEngine->createParticuleBatch(6000, m_particuleTexture->getId(), 0.001f,
+    m_particuleBatch = m_particuleEngine->createParticuleBatch(8000, m_particuleTexture->getId(), 0.0007f,
                                                                      [](age::Particle2D& particule, float deltaTime) {
                                                                          particule.position += particule.velocity * deltaTime;
                                                                          particule.color.a = static_cast<GLubyte>(particule.life * 255.0f);
                                                                      });
+    
+    //OpenSans-Regular.ttf
+    //ENDORALT.ttf
+    //calamityJoe.ttf
+    //Arial Narrow Bold.ttf
+    m_font = new age::SpriteFont("calamityJoe.ttf", 64);
+    
     m_batchRenderer.init();
 }
 
@@ -52,9 +59,9 @@ void MainMenu::onUpdate(float deltaTime) {
 
     // Random engine init
     static std::mt19937 randomGenerator(static_cast<unsigned int>(time(nullptr)));
-    static std::uniform_real_distribution<float> randomAngle(0.0f, 180.0f);
-    static std::uniform_int_distribution<int> randomX(20, 650);
-    static std::uniform_int_distribution<unsigned char> randomColor(80, 255);
+    static std::uniform_real_distribution<float> randomAngle(0.0f, 3.14159265f * 2.0f);
+    static std::uniform_int_distribution<int> randomX(5, 750);
+    static std::uniform_int_distribution<unsigned char> randomColor(60, 255);
 
     unsigned char red = randomColor(randomGenerator);
     unsigned char green = randomColor(randomGenerator);
@@ -63,14 +70,14 @@ void MainMenu::onUpdate(float deltaTime) {
     age::Color particuleColor(color);
 
     
-    for(int i = 0; i < 100; i++) {
-        int x = randomX(randomGenerator);
-        int y = randomX(randomGenerator);
-        glm::vec2 velocity = glm::vec2(0.005f, 0.2f);
+    int x = randomX(randomGenerator);
+    int y = randomX(randomGenerator);
+    for(int i = 0; i < 8; i++) {
+        glm::vec2 velocity = glm::vec2(0.01f, 0.2f);
         velocity = glm::rotate(velocity, randomAngle(randomGenerator));
         
-        m_particuleBatch->addParticle(glm::vec2(x + i, y + i),
-                                        10, velocity, particuleColor);
+        m_particuleBatch->addParticle(glm::vec2(x, y),
+                                        6, velocity, particuleColor);
     }
     m_camera.update();
 }
@@ -82,6 +89,15 @@ void MainMenu::onRender() {
     m_batchRenderer.begin();
     
     m_particuleEngine->render(m_batchRenderer);
+    
+    age::Color fontColor(0x00FFFFFF);
+    glm::vec2 scale{0.5f};
+    m_font->render(m_batchRenderer, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", glm::vec2{40.0f, 400.0f}, scale, 1.0f, fontColor);
+    //scale = glm::vec2(0.9f);
+    m_font->render(m_batchRenderer, "abcdefghijklmnopqrstuvwxyz", glm::vec2{40.0f, 350.0f}, scale, 1.0f, fontColor);
+    m_font->render(m_batchRenderer, "0123456789", glm::vec2{40.0f, 300.0f}, scale, 1.0f, fontColor);
+    m_font->render(m_batchRenderer, "@&'(!)-_$*^¨%=+:/;.,?<>", glm::vec2{40.0f, 250.0f}, scale, 1.0f, fontColor);
+    m_font->render(m_batchRenderer, "Hello Word!", glm::vec2{40.0f, 200.0f}, scale, 1.0f, fontColor);
     
     m_batchRenderer.end();
     m_batchRenderer.render();

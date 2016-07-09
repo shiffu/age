@@ -26,7 +26,7 @@ namespace age {
     
     class ParticleBatch2D : public IRenderable2D {
     public:
-        ~ParticleBatch2D();
+        virtual ~ParticleBatch2D();
         ParticleBatch2D(int maxParticles, GLuint textureId,
                         float decayRate = 0.1f,
                         std::function<void(Particle2D&, float)> updateFct = defaultUpdateFct);

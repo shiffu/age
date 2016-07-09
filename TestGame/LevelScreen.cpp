@@ -163,7 +163,7 @@ void LevelScreen::onInput() {
     
     // Random engine init
     static std::mt19937 randomGenerator(static_cast<unsigned int>(time(nullptr)));
-    static std::uniform_real_distribution<float> randomAngle(0.0f, 360.0f);
+    static std::uniform_real_distribution<float> randomAngle(0.0f, 3.14159265f * 2.0f);
     
     if (playerRBC) {
         
