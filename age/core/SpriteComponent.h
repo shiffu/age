@@ -9,40 +9,25 @@ namespace age {
 
     class Texture;
 	class Animator;
+    class Sprite;
 
-    class SpriteComponent : public Component, IRenderable2D {
+    class SpriteComponent : public Component {
     
     public:
-        SpriteComponent(float width, float height);
+        SpriteComponent(Sprite* sprite);
+        SpriteComponent(float width, float height, unsigned short nbXTiles = 1, unsigned short nbYTiles = 1);
         virtual ~SpriteComponent();
         
 		void setTexture(Texture* texture);
 		void setAnimator(Animator* animator) { m_animator = animator;  }
 
+        virtual void update(unsigned int deltaTime);
         virtual void render(IRenderer* renderer);
  
-        std::vector<Vertex> getVertices() const;
-        std::vector<unsigned short> getIndices() const;
-        GLuint getTextureId() const;
-        unsigned int getDepth() const;
-	
-	protected:
-		virtual void updateVerticesUVs();
-
-	protected:
-        static const unsigned char NB_VERTICES = 4;
-        static const unsigned char NB_INDICES = 6;
-
-        float m_width;
-        float m_height;
-        unsigned int m_depth;
-
-		glm::vec4 m_uvs{ 0.0f, 0.0f, 1.0f, 1.0f };
-		std::vector<Vertex> m_vertices;
-		std::vector<Vertex> m_tranformedVertices;
-        std::vector<unsigned short> m_indices;
-        Texture* m_texture = nullptr;
-		Animator* m_animator = nullptr;
+	private:
+		Animator* m_animator = nullptr;        
+        bool m_ownSprite = true;
+        Sprite* m_sprite = nullptr;
     };
     
 }

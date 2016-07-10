@@ -310,12 +310,11 @@ namespace age {
                 
                 glm::vec2 dims = m_glyphs[gi].size * scaling;
                 
-                Sprite* sprite = new Sprite();
+                Sprite* sprite = new Sprite(dims);
                 sprite->setColor(color);
                 sprite->transferOwnership(true);
                 sprite->setUV(m_glyphs[gi].uvRect);
                 sprite->setTexture(m_texture);
-                sprite->setDims(dims);
                 sprite->setPosition(curPos);
                 
                 sprite->render(&batch);

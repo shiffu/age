@@ -9,11 +9,11 @@
 #include <physics/Box2DPhysicsEngine.h>
 #include <core/GameObject.h>
 #include <core/SpriteComponent.h>
-#include <core/TileComponent.h>
 #include <core/RigidBodyComponent.h>
 #include <rendering/TextureAtlas.h>
 #include <rendering/Animator.h>
 #include <rendering/Animation2D.h>
+#include <rendering/Sprite.h>
 
 
 LevelScreen::LevelScreen(unsigned int level) : m_level(level) {}
@@ -25,7 +25,7 @@ std::string LevelScreen::getNext() const {
 }
 
 void LevelScreen::onInit() {
-    m_music = age::AudioEngine::instance().loadMusic("heroic.mp3");
+    m_music = age::AudioEngine::instance().loadMusic("grapes_dunno.mp3");
     m_sound = age::AudioEngine::instance().loadSound("IceShatters/LedasLuzta2.ogg");
     
     // Init Shader Program
@@ -46,15 +46,16 @@ void LevelScreen::onInit() {
     float height = 60.0f;
     m_cubeGO = m_sceneLayer->createGameObject();
     
-    age::SpriteComponent* cubeSpriteComp = new age::SpriteComponent(width, height);
-    cubeSpriteComp->setTexture(m_metalTexture);
+    age::Sprite* cubeSprite = new age::Sprite(width, height);
+    age::SpriteComponent* cubeSpriteComp = new age::SpriteComponent(cubeSprite);
+    cubeSprite->setTexture(m_metalTexture);
     m_cubeGO->addComponent(cubeSpriteComp);
     
     // Ground
     glm::vec2 groundDims = glm::vec2(1600, 40);
     m_groundGO = m_sceneLayer->createGameObject();
     
-    age::TileComponent* groundComp = new age::TileComponent(groundDims.x, groundDims.y, 40);
+    age::SpriteComponent* groundComp = new age::SpriteComponent(groundDims.x, groundDims.y, 40);
     groundComp->setTexture(m_brickTexture);
     m_groundGO->addComponent(groundComp);
     

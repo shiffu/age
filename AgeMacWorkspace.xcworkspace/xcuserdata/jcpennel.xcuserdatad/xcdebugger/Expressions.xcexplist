@@ -20,12 +20,7 @@
          contextName = "age::Box2DRigidBody::getPosition() const:Box2DRigidBody.cpp">
       </ContextState>
       <ContextState
-         contextName = "age::Sprite::render(age::IRenderer*):Sprite.cpp">
-         <PersistentStrings>
-            <PersistentString
-               value = "m_vertices[i]">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "age::Sprite::Sprite(float, float, glm::tvec2&lt;float, (glm::precision)0&gt;):Sprite.cpp">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

@@ -38,8 +38,6 @@
 		E45D90C71D2070A200BC7883 /* RigidBodyComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = E45D90B31D2070A200BC7883 /* RigidBodyComponent.h */; };
 		E45D90C81D2070A200BC7883 /* SpriteComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E45D90B41D2070A200BC7883 /* SpriteComponent.cpp */; };
 		E45D90C91D2070A200BC7883 /* SpriteComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = E45D90B51D2070A200BC7883 /* SpriteComponent.h */; };
-		E45D90CA1D2070A200BC7883 /* TileComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E45D90B61D2070A200BC7883 /* TileComponent.cpp */; };
-		E45D90CB1D2070A200BC7883 /* TileComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = E45D90B71D2070A200BC7883 /* TileComponent.h */; };
 		E45D90CC1D2070A200BC7883 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E45D90B81D2070A200BC7883 /* Utils.cpp */; };
 		E45D90CD1D2070A300BC7883 /* Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = E45D90B91D2070A200BC7883 /* Utils.h */; };
 		E45D90D11D2070B300BC7883 /* InputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E45D90CF1D2070B300BC7883 /* InputManager.cpp */; };
@@ -125,8 +123,6 @@
 		E45D90B31D2070A200BC7883 /* RigidBodyComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RigidBodyComponent.h; sourceTree = "<group>"; };
 		E45D90B41D2070A200BC7883 /* SpriteComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteComponent.cpp; sourceTree = "<group>"; };
 		E45D90B51D2070A200BC7883 /* SpriteComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteComponent.h; sourceTree = "<group>"; };
-		E45D90B61D2070A200BC7883 /* TileComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TileComponent.cpp; sourceTree = "<group>"; };
-		E45D90B71D2070A200BC7883 /* TileComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileComponent.h; sourceTree = "<group>"; };
 		E45D90B81D2070A200BC7883 /* Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
 		E45D90B91D2070A200BC7883 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		E45D90CF1D2070B300BC7883 /* InputManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputManager.cpp; sourceTree = "<group>"; };
@@ -260,8 +256,6 @@
 				E45D90B31D2070A200BC7883 /* RigidBodyComponent.h */,
 				E45D90B41D2070A200BC7883 /* SpriteComponent.cpp */,
 				E45D90B51D2070A200BC7883 /* SpriteComponent.h */,
-				E45D90B61D2070A200BC7883 /* TileComponent.cpp */,
-				E45D90B71D2070A200BC7883 /* TileComponent.h */,
 				E45D90B81D2070A200BC7883 /* Utils.cpp */,
 				E45D90B91D2070A200BC7883 /* Utils.h */,
 				E46F17C31D2866F800530A4B /* Window.cpp */,
@@ -369,7 +363,6 @@
 				E45D90BF1D2070A200BC7883 /* Game.h in Headers */,
 				E45D90C71D2070A200BC7883 /* RigidBodyComponent.h in Headers */,
 				E45D90BD1D2070A200BC7883 /* Error.h in Headers */,
-				E45D90CB1D2070A200BC7883 /* TileComponent.h in Headers */,
 				E45D911B1D2070C600BC7883 /* Vertex.h in Headers */,
 				E45D90EA1D2070BC00BC7883 /* ICollisionDispatcher.h in Headers */,
 				E45D91101D2070C500BC7883 /* Camera2D.h in Headers */,
@@ -471,7 +464,6 @@
 				E45D90BE1D2070A200BC7883 /* Game.cpp in Sources */,
 				E45D90991D20704300BC7883 /* Music.cpp in Sources */,
 				E45D90C81D2070A200BC7883 /* SpriteComponent.cpp in Sources */,
-				E45D90CA1D2070A200BC7883 /* TileComponent.cpp in Sources */,
 				E45D909B1D20704300BC7883 /* Sound.cpp in Sources */,
 				E43F3EE81D2F3F11003D8DE4 /* Sprite.cpp in Sources */,
 				E45D91171D2070C500BC7883 /* Texture.cpp in Sources */,
