@@ -19,6 +19,11 @@ namespace age {
         void render() override;
         
     private:
+        static Texture* getDefaultWhiteTexture();
+        
+    private:
+        static Texture* m_defaultWhiteTexture;
+        
         RenderingSortType m_renderingSortType = RenderingSortType::NONE;
         std::vector<IRenderable2D*> m_renderables;
         std::vector<SpriteBatch*> m_spriteBatches;

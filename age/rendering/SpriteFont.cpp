@@ -225,7 +225,6 @@ namespace age {
         // Blank initialize
         std::vector<int>* glyphs = new std::vector<int>[nbRows]();
         
-        // TODO: fix this memory leak
         int* rowsTotalWidth = new int[nbRows]();
         for (int i = 0; i < nbRows; i++) {
             rowsTotalWidth[i] = padding;
@@ -255,6 +254,8 @@ namespace age {
             if (rowsTotalWidth[i] > w) w = rowsTotalWidth[i];
         }
 
+        delete [] rowsTotalWidth;
+        
         return glyphs;
     }
 

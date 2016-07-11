@@ -8,6 +8,8 @@
 
 namespace age {
     
+    Texture* BatchRenderer2D::m_defaultWhiteTexture = nullptr;
+    
     BatchRenderer2D::BatchRenderer2D() {}
     
     BatchRenderer2D::~BatchRenderer2D() {
@@ -20,6 +22,14 @@ namespace age {
         if (m_vao) {
             glDeleteVertexArrays(1, &m_vao);
         }
+    }
+    
+    Texture* BatchRenderer2D::getDefaultWhiteTexture() {
+        if (m_defaultWhiteTexture == nullptr) {
+            m_defaultWhiteTexture = Texture::createBlankOneByOneTexture();
+        }
+        
+        return m_defaultWhiteTexture;
     }
     
     void BatchRenderer2D::init() {
@@ -103,11 +113,16 @@ namespace age {
             auto srcIndices = renderable->getIndices();
             auto nbSrcIndices = srcIndices.size();
             
-            if (renderable->getTextureId() != currentTexId) {
+            GLuint renderableTextureId = renderable->getTextureId();
+            if (renderableTextureId == 0) {
+                renderableTextureId = getDefaultWhiteTexture()->getId();
+            }
+            
+            if (renderableTextureId != currentTexId) {
                 SpriteBatch* sb = new SpriteBatch(static_cast<unsigned int>(nbSrcIndices), indiceIdx,
                                                     renderable->getTextureId());
                 m_spriteBatches.push_back(sb);
-                currentTexId = renderable->getTextureId();
+                currentTexId = renderableTextureId;
             }
             else {
                 m_spriteBatches.back()->nbIndices += nbSrcIndices;

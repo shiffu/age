@@ -82,7 +82,10 @@ void LevelScreen::onInit() {
                                                          particule.color.a = static_cast<GLubyte>(particule.life * 255.0f);
                                                      });
     
-    m_batchRenderer.init();    
+    m_batchRenderer.init();
+    
+    m_testSprite.setPosition(glm::vec2(80, 500));
+    m_testSprite.setColor(age::Color(0x00FFFFFF));
 }
 
 void LevelScreen::onExit() {
@@ -238,6 +241,8 @@ void LevelScreen::onRender() {
     
     m_sceneLayer->render(&m_batchRenderer);
     m_particuleEngine->render(m_batchRenderer);
+    
+    m_testSprite.render(&m_batchRenderer);
     
     m_batchRenderer.end();
     m_batchRenderer.render();

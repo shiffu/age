@@ -13,6 +13,8 @@
 #include <rendering/Animator.h>
 #include <rendering/ParticleEngine2D.h>
 #include <core/Screen.h>
+#include <rendering/Sprite.h>
+
 
 class LevelScreen : public age::Screen {
 public:
@@ -51,6 +53,8 @@ private:
     
     age::ParticleEngine2D* m_particuleEngine = nullptr;
     age::ParticleBatch2D* m_playerParticuleBatch = nullptr;
+    
+    age::Sprite m_testSprite{50.0f, 50.0f};
     
     age::Animator* m_playerAnimator = nullptr;
     

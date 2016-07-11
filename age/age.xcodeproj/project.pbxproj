@@ -198,20 +198,20 @@
 		E40C6A621C867E5E006C84AB = {
 			isa = PBXGroup;
 			children = (
-				E43F3EE01D2C977D003D8DE4 /* SDL2_ttf.framework */,
-				E45D90EE1D2070C500BC7883 /* rendering */,
-				E45D90D31D2070BC00BC7883 /* physics */,
-				E45D90CE1D2070B300BC7883 /* input */,
-				E45D90A51D2070A200BC7883 /* core */,
 				E45D90901D20704300BC7883 /* audio */,
+				E45D90A51D2070A200BC7883 /* core */,
 				E4060ABF1C86923A0072A086 /* CoreFoundation.framework */,
 				E4635B491C868AA100D0FECB /* GLUT.framework */,
+				E45D90CE1D2070B300BC7883 /* input */,
 				E400D0531C979780004903F8 /* libBox2D.a */,
 				E40032361C8687D00090BBCA /* OpenGL.framework */,
+				E45D90D31D2070BC00BC7883 /* physics */,
 				E40C6A6C1C867E5E006C84AB /* Products */,
 				E40032191C8687B30090BBCA /* ReadMe.txt */,
+				E45D90EE1D2070C500BC7883 /* rendering */,
 				E424E5C41C88690B00EB34A8 /* SDL2_image.framework */,
 				E4C3BBA61CA810CA00D43F91 /* SDL2_mixer.framework */,
+				E43F3EE01D2C977D003D8DE4 /* SDL2_ttf.framework */,
 				E4635B4B1C868B2E00D0FECB /* SDL2.framework */,
 			);
 			sourceTree = "<group>";
@@ -254,14 +254,14 @@
 				E45D90B11D2070A200BC7883 /* ResourceManager.h */,
 				E45D90B21D2070A200BC7883 /* RigidBodyComponent.cpp */,
 				E45D90B31D2070A200BC7883 /* RigidBodyComponent.h */,
+				E46F17C71D296D0000530A4B /* Screen.cpp */,
+				E46F17C81D296D0000530A4B /* Screen.h */,
 				E45D90B41D2070A200BC7883 /* SpriteComponent.cpp */,
 				E45D90B51D2070A200BC7883 /* SpriteComponent.h */,
 				E45D90B81D2070A200BC7883 /* Utils.cpp */,
 				E45D90B91D2070A200BC7883 /* Utils.h */,
 				E46F17C31D2866F800530A4B /* Window.cpp */,
 				E46F17C41D2866F800530A4B /* Window.h */,
-				E46F17C71D296D0000530A4B /* Screen.cpp */,
-				E46F17C81D296D0000530A4B /* Screen.h */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -298,8 +298,6 @@
 		E45D90EE1D2070C500BC7883 /* rendering */ = {
 			isa = PBXGroup;
 			children = (
-				E43F3EE21D2F1400003D8DE4 /* SpriteFont.cpp */,
-				E43F3EE31D2F1400003D8DE4 /* SpriteFont.h */,
 				E45D90EF1D2070C500BC7883 /* Animation2D.cpp */,
 				E45D90F01D2070C500BC7883 /* Animation2D.h */,
 				E45D90F11D2070C500BC7883 /* Animator.cpp */,
@@ -313,21 +311,23 @@
 				E45D90F91D2070C500BC7883 /* Color.h */,
 				E45D90FA1D2070C500BC7883 /* IRenderable2D.h */,
 				E45D90FB1D2070C500BC7883 /* IRenderer.h */,
+				E472C48C1D21E75800E135DB /* ParticleBatch2D.cpp */,
+				E472C48D1D21E75800E135DB /* ParticleBatch2D.h */,
+				E472C4881D21E6FF00E135DB /* ParticleEngine2D.cpp */,
+				E472C4891D21E6FF00E135DB /* ParticleEngine2D.h */,
 				E45D90FC1D2070C500BC7883 /* ShaderProgram.cpp */,
 				E45D90FD1D2070C500BC7883 /* ShaderProgram.h */,
 				E45D90FE1D2070C500BC7883 /* shaders */,
+				E43F3EE61D2F3F11003D8DE4 /* Sprite.cpp */,
+				E43F3EE71D2F3F11003D8DE4 /* Sprite.h */,
 				E45D91011D2070C500BC7883 /* SpriteBatch.h */,
+				E43F3EE21D2F1400003D8DE4 /* SpriteFont.cpp */,
+				E43F3EE31D2F1400003D8DE4 /* SpriteFont.h */,
 				E45D91021D2070C500BC7883 /* Texture.cpp */,
 				E45D91031D2070C500BC7883 /* Texture.h */,
 				E45D91041D2070C500BC7883 /* TextureAtlas.cpp */,
 				E45D91051D2070C500BC7883 /* TextureAtlas.h */,
 				E45D91061D2070C500BC7883 /* Vertex.h */,
-				E472C4881D21E6FF00E135DB /* ParticleEngine2D.cpp */,
-				E472C4891D21E6FF00E135DB /* ParticleEngine2D.h */,
-				E472C48C1D21E75800E135DB /* ParticleBatch2D.cpp */,
-				E472C48D1D21E75800E135DB /* ParticleBatch2D.h */,
-				E43F3EE61D2F3F11003D8DE4 /* Sprite.cpp */,
-				E43F3EE71D2F3F11003D8DE4 /* Sprite.h */,
 			);
 			path = rendering;
 			sourceTree = "<group>";

@@ -21,6 +21,8 @@ namespace age {
 		Texture(GLuint textureId);
 		~Texture();
 
+        static Texture* createBlankOneByOneTexture();
+        
         GLuint getId() const { return m_textureId; }
         unsigned int getWidth() const { return m_width; }
         unsigned int getHeight() const { return m_height; }
