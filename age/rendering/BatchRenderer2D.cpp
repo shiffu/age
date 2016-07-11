@@ -119,8 +119,7 @@ namespace age {
             }
             
             if (renderableTextureId != currentTexId) {
-                SpriteBatch* sb = new SpriteBatch(static_cast<unsigned int>(nbSrcIndices), indiceIdx,
-                                                    renderable->getTextureId());
+                SpriteBatch* sb = new SpriteBatch(static_cast<unsigned int>(nbSrcIndices), indiceIdx, renderableTextureId);
                 m_spriteBatches.push_back(sb);
                 currentTexId = renderableTextureId;
             }
