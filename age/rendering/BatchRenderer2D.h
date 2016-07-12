@@ -9,7 +9,12 @@ namespace age {
     
     class BatchRenderer2D : public IRenderer {
     public:
-        BatchRenderer2D();
+        enum class RenderingPrimitive {
+            TRIANGLES,
+            LINES
+        };
+        
+        BatchRenderer2D(RenderingPrimitive primitive = RenderingPrimitive::TRIANGLES, bool useIndices = true);
         ~BatchRenderer2D();
         
         void init() override;
@@ -30,6 +35,8 @@ namespace age {
         GLuint m_vbo = 0;
         GLuint m_vao = 0;
         GLuint m_ibo = 0;
+        bool m_useIndices;
+        GLenum m_glPrimitive;
     };
     
 }
