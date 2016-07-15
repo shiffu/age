@@ -16,6 +16,9 @@
 		E43F3EE51D2F1400003D8DE4 /* SpriteFont.h in Headers */ = {isa = PBXBuildFile; fileRef = E43F3EE31D2F1400003D8DE4 /* SpriteFont.h */; };
 		E43F3EE81D2F3F11003D8DE4 /* Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E43F3EE61D2F3F11003D8DE4 /* Sprite.cpp */; };
 		E43F3EE91D2F3F11003D8DE4 /* Sprite.h in Headers */ = {isa = PBXBuildFile; fileRef = E43F3EE71D2F3F11003D8DE4 /* Sprite.h */; };
+		E43F3EEC1D35B0AE003D8DE4 /* Square.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E43F3EEA1D35B0AE003D8DE4 /* Square.cpp */; };
+		E43F3EED1D35B0AE003D8DE4 /* Square.h in Headers */ = {isa = PBXBuildFile; fileRef = E43F3EEB1D35B0AE003D8DE4 /* Square.h */; };
+		E43F3EEF1D387AD1003D8DE4 /* Renderable2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E43F3EEE1D387AD1003D8DE4 /* Renderable2D.cpp */; };
 		E45D90971D20704300BC7883 /* AudioEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E45D90911D20704300BC7883 /* AudioEngine.cpp */; };
 		E45D90981D20704300BC7883 /* AudioEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = E45D90921D20704300BC7883 /* AudioEngine.h */; };
 		E45D90991D20704300BC7883 /* Music.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E45D90931D20704300BC7883 /* Music.cpp */; };
@@ -66,7 +69,7 @@
 		E45D910F1D2070C500BC7883 /* Camera2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E45D90F71D2070C500BC7883 /* Camera2D.cpp */; };
 		E45D91101D2070C500BC7883 /* Camera2D.h in Headers */ = {isa = PBXBuildFile; fileRef = E45D90F81D2070C500BC7883 /* Camera2D.h */; };
 		E45D91111D2070C500BC7883 /* Color.h in Headers */ = {isa = PBXBuildFile; fileRef = E45D90F91D2070C500BC7883 /* Color.h */; };
-		E45D91121D2070C500BC7883 /* IRenderable2D.h in Headers */ = {isa = PBXBuildFile; fileRef = E45D90FA1D2070C500BC7883 /* IRenderable2D.h */; };
+		E45D91121D2070C500BC7883 /* Renderable2D.h in Headers */ = {isa = PBXBuildFile; fileRef = E45D90FA1D2070C500BC7883 /* Renderable2D.h */; };
 		E45D91131D2070C500BC7883 /* IRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = E45D90FB1D2070C500BC7883 /* IRenderer.h */; };
 		E45D91141D2070C500BC7883 /* ShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E45D90FC1D2070C500BC7883 /* ShaderProgram.cpp */; };
 		E45D91151D2070C500BC7883 /* ShaderProgram.h in Headers */ = {isa = PBXBuildFile; fileRef = E45D90FD1D2070C500BC7883 /* ShaderProgram.h */; };
@@ -99,8 +102,11 @@
 		E43F3EE01D2C977D003D8DE4 /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../../../../../Library/Frameworks/SDL2_ttf.framework; sourceTree = "<group>"; };
 		E43F3EE21D2F1400003D8DE4 /* SpriteFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteFont.cpp; sourceTree = "<group>"; };
 		E43F3EE31D2F1400003D8DE4 /* SpriteFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteFont.h; sourceTree = "<group>"; };
-		E43F3EE61D2F3F11003D8DE4 /* Sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sprite.cpp; sourceTree = "<group>"; };
-		E43F3EE71D2F3F11003D8DE4 /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite.h; sourceTree = "<group>"; };
+		E43F3EE61D2F3F11003D8DE4 /* Sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = Sprite.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		E43F3EE71D2F3F11003D8DE4 /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Sprite.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		E43F3EEA1D35B0AE003D8DE4 /* Square.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = Square.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		E43F3EEB1D35B0AE003D8DE4 /* Square.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Square.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		E43F3EEE1D387AD1003D8DE4 /* Renderable2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Renderable2D.cpp; sourceTree = "<group>"; };
 		E45D90911D20704300BC7883 /* AudioEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioEngine.cpp; sourceTree = "<group>"; };
 		E45D90921D20704300BC7883 /* AudioEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioEngine.h; sourceTree = "<group>"; };
 		E45D90931D20704300BC7883 /* Music.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Music.cpp; sourceTree = "<group>"; };
@@ -122,7 +128,7 @@
 		E45D90B21D2070A200BC7883 /* RigidBodyComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RigidBodyComponent.cpp; sourceTree = "<group>"; };
 		E45D90B31D2070A200BC7883 /* RigidBodyComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RigidBodyComponent.h; sourceTree = "<group>"; };
 		E45D90B41D2070A200BC7883 /* SpriteComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteComponent.cpp; sourceTree = "<group>"; };
-		E45D90B51D2070A200BC7883 /* SpriteComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteComponent.h; sourceTree = "<group>"; };
+		E45D90B51D2070A200BC7883 /* SpriteComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SpriteComponent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		E45D90B81D2070A200BC7883 /* Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
 		E45D90B91D2070A200BC7883 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		E45D90CF1D2070B300BC7883 /* InputManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputManager.cpp; sourceTree = "<group>"; };
@@ -146,13 +152,13 @@
 		E45D90F21D2070C500BC7883 /* Animator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animator.h; sourceTree = "<group>"; };
 		E45D90F31D2070C500BC7883 /* Basic2DShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Basic2DShader.cpp; sourceTree = "<group>"; };
 		E45D90F41D2070C500BC7883 /* Basic2DShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Basic2DShader.h; sourceTree = "<group>"; };
-		E45D90F51D2070C500BC7883 /* BatchRenderer2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BatchRenderer2D.cpp; sourceTree = "<group>"; };
-		E45D90F61D2070C500BC7883 /* BatchRenderer2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchRenderer2D.h; sourceTree = "<group>"; };
+		E45D90F51D2070C500BC7883 /* BatchRenderer2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = BatchRenderer2D.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		E45D90F61D2070C500BC7883 /* BatchRenderer2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BatchRenderer2D.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		E45D90F71D2070C500BC7883 /* Camera2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera2D.cpp; sourceTree = "<group>"; };
 		E45D90F81D2070C500BC7883 /* Camera2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera2D.h; sourceTree = "<group>"; };
 		E45D90F91D2070C500BC7883 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
-		E45D90FA1D2070C500BC7883 /* IRenderable2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRenderable2D.h; sourceTree = "<group>"; };
-		E45D90FB1D2070C500BC7883 /* IRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRenderer.h; sourceTree = "<group>"; };
+		E45D90FA1D2070C500BC7883 /* Renderable2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderable2D.h; sourceTree = "<group>"; };
+		E45D90FB1D2070C500BC7883 /* IRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = IRenderer.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		E45D90FC1D2070C500BC7883 /* ShaderProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderProgram.cpp; sourceTree = "<group>"; };
 		E45D90FD1D2070C500BC7883 /* ShaderProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderProgram.h; sourceTree = "<group>"; };
 		E45D90FF1D2070C500BC7883 /* basic.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = basic.fs; sourceTree = "<group>"; };
@@ -171,8 +177,8 @@
 		E46F17C81D296D0000530A4B /* Screen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Screen.h; sourceTree = "<group>"; };
 		E472C4881D21E6FF00E135DB /* ParticleEngine2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleEngine2D.cpp; sourceTree = "<group>"; };
 		E472C4891D21E6FF00E135DB /* ParticleEngine2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleEngine2D.h; sourceTree = "<group>"; };
-		E472C48C1D21E75800E135DB /* ParticleBatch2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleBatch2D.cpp; sourceTree = "<group>"; };
-		E472C48D1D21E75800E135DB /* ParticleBatch2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleBatch2D.h; sourceTree = "<group>"; };
+		E472C48C1D21E75800E135DB /* ParticleBatch2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = ParticleBatch2D.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		E472C48D1D21E75800E135DB /* ParticleBatch2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ParticleBatch2D.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		E4C3BBA61CA810CA00D43F91 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../../../../../Library/Frameworks/SDL2_mixer.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -309,12 +315,13 @@
 				E45D90F71D2070C500BC7883 /* Camera2D.cpp */,
 				E45D90F81D2070C500BC7883 /* Camera2D.h */,
 				E45D90F91D2070C500BC7883 /* Color.h */,
-				E45D90FA1D2070C500BC7883 /* IRenderable2D.h */,
 				E45D90FB1D2070C500BC7883 /* IRenderer.h */,
 				E472C48C1D21E75800E135DB /* ParticleBatch2D.cpp */,
 				E472C48D1D21E75800E135DB /* ParticleBatch2D.h */,
 				E472C4881D21E6FF00E135DB /* ParticleEngine2D.cpp */,
 				E472C4891D21E6FF00E135DB /* ParticleEngine2D.h */,
+				E43F3EEE1D387AD1003D8DE4 /* Renderable2D.cpp */,
+				E45D90FA1D2070C500BC7883 /* Renderable2D.h */,
 				E45D90FC1D2070C500BC7883 /* ShaderProgram.cpp */,
 				E45D90FD1D2070C500BC7883 /* ShaderProgram.h */,
 				E45D90FE1D2070C500BC7883 /* shaders */,
@@ -323,6 +330,8 @@
 				E45D91011D2070C500BC7883 /* SpriteBatch.h */,
 				E43F3EE21D2F1400003D8DE4 /* SpriteFont.cpp */,
 				E43F3EE31D2F1400003D8DE4 /* SpriteFont.h */,
+				E43F3EEA1D35B0AE003D8DE4 /* Square.cpp */,
+				E43F3EEB1D35B0AE003D8DE4 /* Square.h */,
 				E45D91021D2070C500BC7883 /* Texture.cpp */,
 				E45D91031D2070C500BC7883 /* Texture.h */,
 				E45D91041D2070C500BC7883 /* TextureAtlas.cpp */,
@@ -357,7 +366,7 @@
 				E45D910E1D2070C500BC7883 /* BatchRenderer2D.h in Headers */,
 				E45D909C1D20704300BC7883 /* Sound.h in Headers */,
 				E472C48F1D21E75800E135DB /* ParticleBatch2D.h in Headers */,
-				E45D91121D2070C500BC7883 /* IRenderable2D.h in Headers */,
+				E45D91121D2070C500BC7883 /* Renderable2D.h in Headers */,
 				E45D90E41D2070BC00BC7883 /* Box2DPhysicsEngine.h in Headers */,
 				E45D90C31D2070A200BC7883 /* Layer.h in Headers */,
 				E45D90BF1D2070A200BC7883 /* Game.h in Headers */,
@@ -389,6 +398,7 @@
 				E45D910C1D2070C500BC7883 /* Basic2DShader.h in Headers */,
 				E45D90D21D2070B300BC7883 /* InputManager.h in Headers */,
 				E45D91111D2070C500BC7883 /* Color.h in Headers */,
+				E43F3EED1D35B0AE003D8DE4 /* Square.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,6 +470,7 @@
 				E45D90BC1D2070A200BC7883 /* Error.cpp in Sources */,
 				E45D90BA1D2070A200BC7883 /* Component.cpp in Sources */,
 				E45D90E11D2070BC00BC7883 /* Box2DCollisionDispatcher.cpp in Sources */,
+				E43F3EEC1D35B0AE003D8DE4 /* Square.cpp in Sources */,
 				E45D91141D2070C500BC7883 /* ShaderProgram.cpp in Sources */,
 				E45D90BE1D2070A200BC7883 /* Game.cpp in Sources */,
 				E45D90991D20704300BC7883 /* Music.cpp in Sources */,
@@ -478,6 +489,7 @@
 				E45D90E31D2070BC00BC7883 /* Box2DPhysicsEngine.cpp in Sources */,
 				E45D90E51D2070BC00BC7883 /* Box2DRigidBody.cpp in Sources */,
 				E45D910F1D2070C500BC7883 /* Camera2D.cpp in Sources */,
+				E43F3EEF1D387AD1003D8DE4 /* Renderable2D.cpp in Sources */,
 				E45D91191D2070C600BC7883 /* TextureAtlas.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

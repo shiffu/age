@@ -1,6 +1,8 @@
 #include "Music.h"
 #include "../core/Error.h"
 
+#include <SDL2/SDL.h>
+
 namespace age {
     
     Music::Music() {}
@@ -30,7 +32,13 @@ namespace age {
 
     void Music::play(int loops /* = -1 */) {
         if (m_music != nullptr) {
-            Mix_PlayMusic(m_music, loops);
+            int result = Mix_PlayMusic(m_music, loops);
+            if (result == -1) {
+                SDL_Log("Error trying to play music");
+            }
+        }
+        else {
+            SDL_Log("Unable to play music");
         }
     }
     

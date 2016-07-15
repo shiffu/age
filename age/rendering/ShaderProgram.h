@@ -29,6 +29,7 @@ namespace age {
 		void setUniform(const std::string& name, float value);
 		void setUniform(const std::string& name, glm::mat4 value);
 
+        // TODO: rename in use/unuse: that makes more sense
 		void bind() const;
 		void unbind() const;
 

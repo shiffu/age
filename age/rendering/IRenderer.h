@@ -2,7 +2,7 @@
 
 namespace age {
     
-    class IRenderable2D;
+    class Renderable2D;
     
     class IRenderer {
         
@@ -17,7 +17,7 @@ namespace age {
         virtual void init() = 0;
         virtual void begin(RenderingSortType sortType = RenderingSortType::TEXTURE) = 0;
         virtual void end() = 0;
-        virtual void submit(IRenderable2D* renderable) = 0;
+        virtual void submit(Renderable2D* renderable) = 0;
         virtual void render() = 0;
     };
     

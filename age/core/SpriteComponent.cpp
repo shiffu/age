@@ -35,6 +35,6 @@ namespace age {
     }
 
     void SpriteComponent::render(IRenderer* renderer) {
-        m_sprite->render(renderer);
+        m_sprite->draw(renderer);
     }
 }

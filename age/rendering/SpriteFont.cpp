@@ -318,7 +318,7 @@ namespace age {
                 sprite->setTexture(m_texture);
                 sprite->setPosition(curPos);
                 
-                sprite->render(&batch);
+                sprite->draw(&batch);
                 
                 curPos.x += (m_glyphs[gi].size.x + padding) * scaling.x;
             }

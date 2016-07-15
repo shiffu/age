@@ -12,7 +12,7 @@ namespace age {
         
         // ParticuleEngine2D is responsible of the memory management
         // of the batches
-        ParticleBatch2D* createParticuleBatch(int maxParticles, GLuint textureId,
+        ParticleBatch2D* createParticuleBatch(int maxParticles, Texture* texture,
                                               float decayRate = 0.1f,
                                               std::function<void(Particle2D&, float)> updateFct = defaultUpdateFct);
         void addParticuleBatch(ParticleBatch2D* batch);

@@ -13,10 +13,12 @@ namespace age {
         delete[] m_particles;
     }
     
-    ParticleBatch2D::ParticleBatch2D(int maxParticles, GLuint textureId,
+    ParticleBatch2D::ParticleBatch2D(int maxParticles, Texture* texture,
                                      float decayRate /* = 0.1f*/,
                                     std::function<void(Particle2D&, float)> updateFct /* = defaultUpdateFct */)
-        : m_maxParticules(maxParticles), m_textureId(textureId), m_decayRate(decayRate), m_updateFct(updateFct) {
+        : m_maxParticules(maxParticles), m_decayRate(decayRate), m_updateFct(updateFct) {
+        
+        m_texture = texture;
         m_particles = new Particle2D[m_maxParticules];
     }
 
@@ -60,11 +62,11 @@ namespace age {
         }
     }
     
-    void ParticleBatch2D::render(IRenderer& renderer) {
-        renderer.submit(this);
+    void ParticleBatch2D::draw(IRenderer* renderer) {
+        renderer->submit(this);
     }
 
-    // IRenderable2D methods
+    // Renderable2D methods
     std::vector<Vertex> ParticleBatch2D::getVertices() const {
         std::vector<Vertex> vertices;
         Vertex v;
@@ -117,13 +119,8 @@ namespace age {
         return indices;
     }
     
-    GLuint ParticleBatch2D::getTextureId() const {
-        return m_textureId;
-    }
-    
-    unsigned int ParticleBatch2D::getDepth() const {
-        //TODO: implement a way to set depth (constructor or setter?)
-        return m_depth;
+    GLenum ParticleBatch2D::getDrawingPrimitive() const {
+        return GL_TRIANGLES;
     }
 
 }

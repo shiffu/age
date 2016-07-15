@@ -27,6 +27,8 @@ public:
 private:
     age::Basic2DShader m_basicShader;
     age::BatchRenderer2D m_batchRenderer;
+    age::BatchRenderer2D m_linesBatchRenderer;
+    
     age::Camera2D m_camera;
 
     age::ParticleEngine2D* m_particuleEngine = nullptr;

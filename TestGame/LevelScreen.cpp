@@ -25,6 +25,9 @@ std::string LevelScreen::getNext() const {
 }
 
 void LevelScreen::onInit() {
+    // cdk_Like_Music.mp3
+    // grapes_dunno.mp3
+    // heroic.mp3
     m_music = age::AudioEngine::instance().loadMusic("grapes_dunno.mp3");
     m_sound = age::AudioEngine::instance().loadSound("IceShatters/LedasLuzta2.ogg");
     
@@ -76,7 +79,7 @@ void LevelScreen::onInit() {
     
     // Particule engine setup
     m_particuleEngine = new age::ParticleEngine2D();
-    m_playerParticuleBatch = m_particuleEngine->createParticuleBatch(100, m_particuleTexture->getId(), 0.0025f,
+    m_playerParticuleBatch = m_particuleEngine->createParticuleBatch(100, m_particuleTexture, 0.0025f,
                                                      [](age::Particle2D& particule, float deltaTime) {
                                                          particule.position += particule.velocity * deltaTime;
                                                          particule.color.a = static_cast<GLubyte>(particule.life * 255.0f);
@@ -242,7 +245,7 @@ void LevelScreen::onRender() {
     m_sceneLayer->render(&m_batchRenderer);
     m_particuleEngine->render(m_batchRenderer);
     
-    m_testSprite.render(&m_batchRenderer);
+    m_testSprite.draw(&m_batchRenderer);
     
     m_batchRenderer.end();
     m_batchRenderer.render();

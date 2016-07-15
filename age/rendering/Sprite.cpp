@@ -76,25 +76,6 @@ namespace age {
         updateVerticesPos();
     }
     
-    void Sprite::setPosition(const glm::vec2& pos) {
-        m_pos = pos;
-        updateModel2WordTransform();
-    }
-    
-    void Sprite::setAngle(float angleInRadian) {
-        m_angle = angleInRadian;
-        updateModel2WordTransform();
-    }
-
-    void Sprite::updateModel2WordTransform() {
-        m_m2wTransform = glm::translate(glm::mat3(1.0f), m_pos);
-        m_m2wTransform = glm::rotate(m_m2wTransform, m_angle);
-    }
-    
-    void Sprite::setTransform(const glm::mat3& m2wTransform) {
-        m_m2wTransform = m2wTransform;
-    }
-
     void Sprite::updateVerticesPos() {
         float halfWidth = m_width / 2.0f;
         float halfHeight = m_height / 2.0f;
@@ -177,34 +158,7 @@ namespace age {
         }
     }
 
-    void Sprite::setColor(Color color) {
-        for (int i = 0; i < m_nbXTiles * m_nbYTiles; i++) {
-            // bottom left
-            m_vertices[i].color = color;
-            m_transformedVertices[i].color = color;
-            // bottom right
-            m_vertices[i + 1].color = color;
-            m_transformedVertices[i + 1].color = color;
-            // top right
-            m_vertices[i + 2].color = color;
-            m_transformedVertices[i + 2].color = color;
-            // top left
-            m_vertices[i + 3].color = color;
-            m_transformedVertices[i + 3].color = color;
-        }
-    }
-    
-    void Sprite::render(IRenderer* renderer) {
-        glm::vec3 tmpPos;
-        for (unsigned int i = 0; i < m_vertices.size(); i++) {
-            tmpPos = m_m2wTransform * glm::vec3(m_vertices[i].pos, 1.0f);
-            m_transformedVertices[i].pos = tmpPos.xy();
-        }
-
-        renderer->submit(this);
-    }
-
-    // IRenderable2D Methodes
+    // Renderable2D Methodes
     std::vector<Vertex> Sprite::getVertices() const {
         return m_transformedVertices;
     }
@@ -212,13 +166,9 @@ namespace age {
     std::vector<unsigned short> Sprite::getIndices() const {
         return m_indices;
     }
-    
-    GLuint Sprite::getTextureId() const {
-        return m_texture ? m_texture->getId() : 0;
-    }
-    
-    unsigned int Sprite::getDepth() const {
-        return m_depth;
+        
+    GLenum Sprite::getDrawingPrimitive() const {
+        return GL_TRIANGLES;
     }
 
 }

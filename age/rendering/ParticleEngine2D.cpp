@@ -10,11 +10,11 @@ namespace age {
         }
     }
     
-    ParticleBatch2D* ParticleEngine2D::createParticuleBatch(int maxParticles, GLuint textureId,
+    ParticleBatch2D* ParticleEngine2D::createParticuleBatch(int maxParticles, Texture* texture,
                                                             float decayRate /* = 0.1f */,
                                                             std::function<void(Particle2D&, float)> updateFct /* = defaultUpdateFct */) {
         
-        ParticleBatch2D* batch = new ParticleBatch2D(maxParticles, textureId, decayRate, updateFct);
+        ParticleBatch2D* batch = new ParticleBatch2D(maxParticles, texture, decayRate, updateFct);
         m_particuleBatches.push_back(batch);
         return batch;
     }
@@ -31,7 +31,7 @@ namespace age {
 
     void ParticleEngine2D::render(IRenderer& renderer) {
         for(ParticleBatch2D* batch : m_particuleBatches) {
-            batch->render(renderer);
+            batch->draw(&renderer);
         }
     }
 

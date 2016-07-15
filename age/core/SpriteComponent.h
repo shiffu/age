@@ -3,7 +3,7 @@
 #include <vector>
 #include "../rendering/Vertex.h"
 #include "Component.h"
-#include "../rendering/IRenderable2D.h"
+#include "../rendering/Renderable2D.h"
 
 namespace age {
 

@@ -7,7 +7,7 @@
 #include <core/ResourceManager.h>
 #include <input/InputManager.h>
 #include <core/Game.h>
-
+#include <rendering/Square.h>
 
 std::string MainMenu::getNext() const {
     return "Level1";
@@ -25,7 +25,7 @@ void MainMenu::onInit() {
     // Particule engine setup
     m_particuleTexture = age::ResourceManager::instance().loadTexture("fadedCircle.png");
     m_particuleEngine = new age::ParticleEngine2D();
-    m_particuleBatch = m_particuleEngine->createParticuleBatch(8000, m_particuleTexture->getId(), 0.0007f,
+    m_particuleBatch = m_particuleEngine->createParticuleBatch(8000, m_particuleTexture, 0.0007f,
                                                                      [](age::Particle2D& particule, float deltaTime) {
                                                                          particule.position += particule.velocity * deltaTime;
                                                                          particule.color.a = static_cast<GLubyte>(particule.life * 255.0f);
@@ -38,6 +38,7 @@ void MainMenu::onInit() {
     m_font = new age::SpriteFont("calamityJoe.ttf", 64);
     
     m_batchRenderer.init();
+    m_linesBatchRenderer.init();
 }
 
 void MainMenu::onExit() {}
@@ -96,11 +97,24 @@ void MainMenu::onRender() {
     //scale = glm::vec2(0.9f);
     m_font->render(m_batchRenderer, "abcdefghijklmnopqrstuvwxyz", glm::vec2{40.0f, 350.0f}, scale, 1.0f, fontColor);
     m_font->render(m_batchRenderer, "0123456789", glm::vec2{40.0f, 300.0f}, scale, 1.0f, fontColor);
-    m_font->render(m_batchRenderer, "@&'(!)-_$*^¨%=+:/;.,?<>", glm::vec2{40.0f, 250.0f}, scale, 1.0f, fontColor);
-    m_font->render(m_batchRenderer, "Hello Word!", glm::vec2{40.0f, 200.0f}, scale, 1.0f, fontColor);
+    m_font->render(m_batchRenderer, "@&'(!)-_*^¨%=+:/;.,?<>", glm::vec2{40.0f, 250.0f}, scale, 1.0f, fontColor);
+    //m_font->render(m_batchRenderer, "Hello Word!", glm::vec2{40.0f, 200.0f}, scale, 1.0f, fontColor);
     
     m_batchRenderer.end();
     m_batchRenderer.render();
+    
+    // Try rendering a Square (LINES primitive)
+    age::Square square = age::Square(30, 30);
+    square.setPosition(glm::vec2(100, 500));
+    square.setColor(0xFFFF00FF);
+    
+    m_linesBatchRenderer.begin();
+    square.draw(&m_linesBatchRenderer);
+    m_linesBatchRenderer.end();
+    // TODO: Why this line width function is not working?
+    //glLineWidth(3.5f);
+    m_linesBatchRenderer.render();
+    
     
     m_basicShader.unbind();
 }

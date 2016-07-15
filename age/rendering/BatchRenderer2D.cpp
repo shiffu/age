@@ -4,22 +4,13 @@
 #include <iostream>
 
 #include "Vertex.h"
-#include "IRenderable2D.h"
+#include "Renderable2D.h"
 
 namespace age {
     
     Texture* BatchRenderer2D::m_defaultWhiteTexture = nullptr;
     
-    BatchRenderer2D::BatchRenderer2D(RenderingPrimitive primitive /* = RenderingPrimitive::TRIANGLES*/,
-                                    bool useIndices /* = true */) : m_useIndices(useIndices) {
-        switch(primitive) {
-            case RenderingPrimitive::TRIANGLES:
-                m_glPrimitive = GL_TRIANGLES;
-                break;
-            case RenderingPrimitive::LINES:
-                m_glPrimitive = GL_LINES;
-                break;
-        }
+    BatchRenderer2D::BatchRenderer2D(bool useIndices /* = true */) : m_useIndices(useIndices) {
     }
     
     BatchRenderer2D::~BatchRenderer2D() {
@@ -92,27 +83,27 @@ namespace age {
         m_spriteBatches.clear();
     }
     
-    void BatchRenderer2D::submit(IRenderable2D* renderable) {
+    void BatchRenderer2D::submit(Renderable2D* renderable) {
         m_renderables.push_back(renderable);
     }
     
     void BatchRenderer2D::end() {
         
-        // Sort the IRenderable2Ds
+        // Sort the Renderable2Ds
         switch (m_renderingSortType) {
             case RenderingSortType::NONE:
                 break;
             case RenderingSortType::TEXTURE:
                 std::stable_sort(m_renderables.begin(), m_renderables.end(),
-                            [] (IRenderable2D* a, IRenderable2D* b) { return a->getTextureId() < b->getTextureId(); });
+                            [] (Renderable2D* a, Renderable2D* b) { return a->getTextureId() < b->getTextureId(); });
                 break;
             case RenderingSortType::FRONT_TO_BACK:
                 std::stable_sort(m_renderables.begin(), m_renderables.end(),
-                            [] (IRenderable2D* a, IRenderable2D* b) { return a->getDepth() < b->getDepth(); });
+                            [] (Renderable2D* a, Renderable2D* b) { return a->getDepth() < b->getDepth(); });
                 break;
             case RenderingSortType::BACK_TO_FRONT:
                 std::stable_sort(m_renderables.begin(), m_renderables.end(),
-                            [] (IRenderable2D* a, IRenderable2D* b) { return a->getDepth() > b->getDepth(); });
+                            [] (Renderable2D* a, Renderable2D* b) { return a->getDepth() > b->getDepth(); });
                 break;
         }
         
@@ -120,6 +111,7 @@ namespace age {
         std::vector<Vertex> vertices;
         std::vector<GLuint> indices;
         GLuint currentTexId = 0;
+        GLenum currentPrimitiveType = -1;
         GLuint offset = 0;
         GLuint indiceIdx = 0;
         std::vector<GLushort> srcIndices;
@@ -144,16 +136,22 @@ namespace age {
                 renderableTextureId = getDefaultWhiteTexture()->getId();
             }
             
-            // New batch needed
-            if (renderableTextureId != currentTexId) {
+            // Get the drawing primitive type
+            GLenum renderablePrimitiveType = renderable->getDrawingPrimitive();
+            
+            // New batch needed?
+            if (renderableTextureId != currentTexId
+                    || renderablePrimitiveType != currentPrimitiveType) {
+                
                 if (m_useIndices) {
-                    sb = new SpriteBatch(nbSrcIndices, indiceIdx, renderableTextureId);
+                    sb = new SpriteBatch(nbSrcIndices, indiceIdx, renderableTextureId, renderablePrimitiveType);
                 }
                 else {
-                    sb = new SpriteBatch(nbSrcVertices, offset, renderableTextureId);
+                    sb = new SpriteBatch(nbSrcVertices, offset, renderableTextureId, renderablePrimitiveType);
                 }
                 m_spriteBatches.push_back(sb);
                 currentTexId = renderableTextureId;
+                currentPrimitiveType = renderablePrimitiveType;
             }
             // Use the same batch
             else {
@@ -198,10 +196,10 @@ namespace age {
             glBindTexture(GL_TEXTURE_2D, batch->textureId);
 
             if (m_useIndices) {
-                glDrawElements(m_glPrimitive, batch->count, GL_UNSIGNED_INT, (void*)(batch->offset * sizeof(GLuint)));
+                glDrawElements(batch->primitive, batch->count, GL_UNSIGNED_INT, (void*)(batch->offset * sizeof(GLuint)));
             }
             else {
-                glDrawArrays(m_glPrimitive, batch->offset, batch->count);
+                glDrawArrays(batch->primitive, batch->offset, batch->count);
             }
             
             //SpriteBatch->texture->unbind();
