@@ -34,7 +34,7 @@ namespace age {
         float m_width;
         float m_height;
                 
-        std::vector<unsigned short> m_indices {0, 1, 2, 3, 0};
+        std::vector<unsigned short> m_indices {0, 1, 1, 2, 2, 3, 3, 0};
     };
     
 }

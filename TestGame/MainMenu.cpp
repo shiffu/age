@@ -104,12 +104,17 @@ void MainMenu::onRender() {
     m_batchRenderer.render();
     
     // Try rendering a Square (LINES primitive)
-    age::Square square = age::Square(30, 30);
-    square.setPosition(glm::vec2(100, 500));
-    square.setColor(0xFFFF00FF);
+    age::Square square1 = age::Square(30, 30);
+    square1.setPosition(glm::vec2(100, 500));
+    square1.setColor(0xFFFF00FF);
+    
+    age::Square square2 = age::Square(30, 30);
+    square2.setPosition(glm::vec2(160, 500));
+    square2.setColor(0xFF00FFFF);
     
     m_linesBatchRenderer.begin();
-    square.draw(&m_linesBatchRenderer);
+    square1.draw(&m_linesBatchRenderer);
+    square2.draw(&m_linesBatchRenderer);
     m_linesBatchRenderer.end();
     // TODO: Why this line width function is not working?
     //glLineWidth(3.5f);

@@ -61,6 +61,6 @@ namespace age {
     }
     
     GLenum Square::getDrawingPrimitive() const {
-        return GL_LINE_STRIP;
+        return GL_LINES;
     }
 }
