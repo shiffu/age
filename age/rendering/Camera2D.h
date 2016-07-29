@@ -47,6 +47,7 @@ namespace age {
 		}
 
 		glm::vec2 getPos() const { return m_pos; }
+        glm::vec2 getSize() const { return glm::vec2(m_viewWidth, m_viewHeight); }
 
 		void setScale(float scale) {
 			m_scale = scale;

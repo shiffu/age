@@ -3,33 +3,40 @@
 
 namespace age {
 
-	TextureAtlas::TextureAtlas(Texture* texture, unsigned short tileWidth, unsigned short tileHeight)
-		: m_texture(texture), m_tileWidth(tileWidth), m_tileHeight(tileHeight) {
-		
-		m_nbCols = texture->m_width / tileWidth;
-		m_nbRows = texture->m_height / tileHeight;
-	}
+    TextureAtlas::TextureAtlas(Texture* texture, unsigned short tileWidth, unsigned short tileHeight)
+    : m_tileWidth(tileWidth), m_tileHeight(tileHeight) {
+        
+        m_textureWidth = texture->getWidth();
+        m_textureHeight = texture->getHeight();
+        
+        m_nbCols = m_textureWidth / tileWidth;
+        m_nbRows = m_textureHeight / tileHeight;
+    }
 
 	TextureAtlas::~TextureAtlas() {}
+
+    glm::vec4 TextureAtlas::getUV() const {
+        return m_uv;
+    }
 
 	void TextureAtlas::setCurrentFrameIndex(unsigned short index, bool flip) {
 
 		unsigned short tileXIndex = index % m_nbCols;
 		unsigned short tileYIndex = index / m_nbCols;
 
-		glm::vec2 blOffset(tileXIndex * m_tileWidth, m_texture->m_height - tileYIndex * m_tileHeight - m_tileHeight);
+		glm::vec2 blOffset(tileXIndex * m_tileWidth, m_textureHeight - tileYIndex * m_tileHeight - m_tileHeight);
 		
-		float x1 = (float)(blOffset.x) / m_texture->m_width;
-		float x2 = (float)(blOffset.x + m_tileWidth - 1) / m_texture->m_width;
+		float x1 = (float)(blOffset.x) / m_textureWidth;
+		float x2 = (float)(blOffset.x + m_tileWidth - 1) / m_textureWidth;
 
 		if (flip) {
-			x1 = (float)(blOffset.x + m_tileWidth - 1) / m_texture->m_width;
-			x2 = (float)(blOffset.x) / m_texture->m_width;
+			x1 = (float)(blOffset.x + m_tileWidth - 1) / m_textureWidth;
+			x2 = (float)(blOffset.x) / m_textureWidth;
 		}
 
-		m_texture->setUVs(glm::vec4(x1,
-									(float)(blOffset.y) / m_texture->m_height,
-									x2,
-									(float)(blOffset.y + m_tileHeight - 1) / m_texture->m_height ));
+        m_uv = {x1,
+                (float)(blOffset.y) / m_textureHeight,
+                x2,
+                (float)(blOffset.y + m_tileHeight - 1) / m_textureHeight};
 	}
 }

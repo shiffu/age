@@ -7,7 +7,7 @@
 namespace age {
     
     Window::Window(const std::string& title, unsigned int width, unsigned int height,
-                   WindowFlag flags /* = WindowFlag::MAXIMIZE */)
+                   WindowFlag flags /* = WindowFlag::NONE */)
                     : m_title(title), m_width(width), m_height(height), m_flags(flags) {
     };
     
@@ -56,22 +56,18 @@ namespace age {
         SDL_GL_SwapWindow(m_window);
     }
     
-    int Window::getWidth() const {
-        /* ?? or Event??
-        SDL_GetWindowSize(SDL_Window* window,
-                               int*        w,
-                               int*        h)
-         */
-        return m_width;
+    void Window::setSize(int width, int height) {
+        SDL_SetWindowSize(m_window, width, height);
     }
     
-    void Window::setSize(int width, int height) {
-        m_width = width;
-        m_height = height;
+    void Window::setSize(const glm::vec2& size) {
+        SDL_SetWindowSize(m_window, size.x, size.y);
     }
-
-    int Window::getHeight() const {
-        return m_height;
+    
+    glm::vec2 Window::getSize() const {
+        int w, h;
+        SDL_GetWindowSize(m_window, &w, &h);
+        return glm::vec2(w, h);
     }
 
 }

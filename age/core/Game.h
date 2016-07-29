@@ -25,7 +25,8 @@ namespace age {
         const InputManager* getInputManager() const;
 
 		void init(Window* window);
-		void setBackgroundColor(Color color) { m_backgroundColor = color;  };
+		void setBackgroundColor(Color color) { m_backgroundColor = color; }
+        Window* getWindow() { return m_window; }
 		void start();
         
 		// Methods to be implemented in the child class
@@ -41,10 +42,10 @@ namespace age {
 
 	private:
 		void run();
-		void checkEvents();
+		void processEvents();
 
 		std::string m_gameName;
-		Window* m_window;
+		Window* m_window = nullptr;
 		Color m_backgroundColor = Color(0x000000FF);
 		bool m_isRunning = false;
 		bool m_isInitialized = false;

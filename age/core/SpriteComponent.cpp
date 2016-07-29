@@ -2,6 +2,8 @@
 #include "SpriteComponent.h"
 
 #include "GameObject.h"
+#include "../rendering/Animator.h"
+#include "../rendering/TextureAtlas.h"
 #include "../rendering/Sprite.h"
 
 namespace age {
@@ -29,7 +31,7 @@ namespace age {
 
     void SpriteComponent::update(unsigned int deltaTime) {
         if (m_animator) {
-            m_sprite->updateUVFromTexture();
+            m_sprite->setUV(m_animator->getTextureAtlas()->getUV());
         }
         m_sprite->setTransform(m_parent->getTransform());
     }

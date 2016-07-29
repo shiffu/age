@@ -23,6 +23,7 @@ namespace age {
     
     void Game::addScreen(const std::string& name, Screen* screen) {
         m_screens[name] = screen;
+        screen->setGame(this);
         screen->init();
     }
     
@@ -154,7 +155,7 @@ namespace age {
 		while (m_isRunning) {
 			startFrameTime = SDL_GetTicks();
 			frameCounter++;
-			checkEvents();
+			processEvents();
 
 			// Update callback
 			m_currentScreen->onUpdate(deltaTime);
@@ -218,7 +219,7 @@ namespace age {
         m_window->destroy();
 	}
     
-    void Game::checkEvents() {
+    void Game::processEvents() {
         SDL_Event evt;
         while (SDL_PollEvent(&evt)) {
             
@@ -227,6 +228,7 @@ namespace age {
                     std::cout << "Exit requested" << std::endl;
                     m_isRunning = false;
                     break;
+                    
                 case SDL_WINDOWEVENT:
                     switch (evt.window.event) {
                         case SDL_WINDOWEVENT_RESIZED:
@@ -235,14 +237,25 @@ namespace age {
                             break;
                     }
                     break;
+                    
                 case SDL_KEYDOWN:
                     m_inputManager.keyPressed(evt.key.keysym.sym);
                     break;
+                    
                 case SDL_KEYUP:
                     m_inputManager.keyReleased(evt.key.keysym.sym);
                     break;
+                    
+                case SDL_MOUSEBUTTONDOWN:
+                    m_inputManager.mouseButtonPressed(evt.button.button);
+                    break;
+                    
+                case SDL_MOUSEBUTTONUP:
+                    m_inputManager.mouseButtonReleased(evt.button.button);
+                    break;
+                    
                 case SDL_MOUSEMOTION:
-                    //std::cout << evt.motion.x << ", " << evt.motion.y << std::endl;
+                    m_inputManager.mousePosition(evt.motion.x, evt.motion.y);
                     break;
                 default:
                     break;

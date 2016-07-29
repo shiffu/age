@@ -26,8 +26,11 @@ namespace age {
         virtual std::vector<unsigned short> getIndices() const = 0;
         virtual GLenum getDrawingPrimitive() const = 0;
         
+        void setTexture(Texture* texture) { m_texture = texture; }
+        Texture* getTexture() const { return m_texture; }
+        GLuint getTextureId() const { return m_texture ? m_texture->getId() : 0; }
+        
         // Abstract methodes (could be overriden by children classes)
-        virtual void setTexture(Texture* texture) { m_texture = texture; }
         virtual void draw(IRenderer* renderer);
 
         void setDepth(unsigned int depth) { m_depth = depth; }
@@ -35,9 +38,6 @@ namespace age {
         void setPosition(const glm::vec2& pos);
         void setAngle(float angleInRadian);
         void setTransform(const glm::mat3& m2wTransform) { m_m2wTransform = m2wTransform; }
-        
-        Texture* getTexture() const { return m_texture; }
-        GLuint getTextureId() const { return m_texture ? m_texture->getId() : 0; }
 
         void setColor(Color color);
         

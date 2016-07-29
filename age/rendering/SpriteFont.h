@@ -70,11 +70,11 @@ namespace age {
             return m_fontMaxHeight;
         }
 
-        // Measures the dimensions of the text
-        glm::vec2 measure(const char* s);
+        // Returns the size of the text
+        glm::vec2 getSize(const char* s);
 
         // Render using a BatchRenderer2D
-        void render(BatchRenderer2D& batch, const char* s, glm::vec2 position, glm::vec2 scaling,
+        void draw(IRenderer* renderer, const char* s, glm::vec2 position, glm::vec2 scaling,
                   float depth, Color color, int padding = PADDING, Justification just = Justification::LEFT);
         
     private:

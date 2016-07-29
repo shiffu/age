@@ -16,6 +16,8 @@ namespace age {
 		void addAnimation(const std::string& name, Animation2D* animation);
 		void playAnimation(const std::string& name, unsigned int deltaTime, bool flip = false);
 
+        TextureAtlas* getTextureAtlas() const;
+        
 	private:
 		void updateTextureAtlas(Animation2D* animation, unsigned int deltaTime, bool flip);
 

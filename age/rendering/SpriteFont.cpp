@@ -259,7 +259,7 @@ namespace age {
         return glyphs;
     }
 
-    glm::vec2 SpriteFont::measure(const char* s) {
+    glm::vec2 SpriteFont::getSize(const char* s) {
         
         glm::vec2 size(0, m_fontMaxHeight);
         float cw = 0;
@@ -286,16 +286,16 @@ namespace age {
         return size;
     }
 
-    void SpriteFont::render(BatchRenderer2D& batch, const char* s, glm::vec2 position, glm::vec2 scaling,
+    void SpriteFont::draw(IRenderer* renderer, const char* s, glm::vec2 position, glm::vec2 scaling,
                           float depth, Color color, int padding /* = PADDING*/, Justification just /* = Justification::LEFT */) {
         
         glm::vec2 curPos = position;
         
         // Apply justification
         if (just == Justification::MIDDLE) {
-            curPos.x -= measure(s).x * scaling.x / 2;
+            curPos.x -= getSize(s).x * scaling.x / 2;
         } else if (just == Justification::RIGHT) {
-            curPos.x -= measure(s).x * scaling.x;
+            curPos.x -= getSize(s).x * scaling.x;
         }
         
         for (int si = 0; s[si] != 0; si++) {
@@ -318,7 +318,7 @@ namespace age {
                 sprite->setTexture(m_texture);
                 sprite->setPosition(curPos);
                 
-                sprite->draw(&batch);
+                sprite->draw(renderer);
                 
                 curPos.x += (m_glyphs[gi].size.x + padding) * scaling.x;
             }

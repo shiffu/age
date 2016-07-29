@@ -9,11 +9,25 @@
 
 namespace age {
     
-    Sprite::Sprite(glm::vec2 dims, unsigned short nbXTiles /* = 1*/, unsigned short nbYTiles /* = 1*/)
-        : Sprite(dims.x, dims.y, nbXTiles, nbYTiles) {}
+    Sprite::Sprite(glm::vec2 size, unsigned short nbXTiles /* = 1*/, unsigned short nbYTiles /* = 1*/) {
+        init(size.x, size.y, nbXTiles, nbYTiles);
+    }
 
-    Sprite::Sprite(float width, float height, unsigned short nbXTiles, unsigned short nbYTiles)
-        : m_width(width), m_height(height), m_nbXTiles(nbXTiles), m_nbYTiles(nbYTiles) {
+    Sprite::Sprite(float width, float height, unsigned short nbXTiles, unsigned short nbYTiles) {
+        init(width, height, nbXTiles, nbYTiles);
+    }
+    
+    Sprite::~Sprite() {}
+ 
+    void Sprite::init(glm::vec2 size, unsigned short nbXTiles /* = 1 */, unsigned short nbYTiles /* = 1 */) {
+        init(size.x, size.y, nbXTiles, nbYTiles);
+    }
+    
+    void Sprite::init(float width, float height, unsigned short nbXTiles /* = 1 */, unsigned short nbYTiles /* = 1 */) {
+        m_width = width;
+        m_height = height;
+        m_nbXTiles = nbXTiles;
+        m_nbYTiles = nbYTiles;
         
         m_vertices.resize(NB_VERTICES_PER_TILE * m_nbXTiles * m_nbYTiles);
         m_transformedVertices.resize(NB_VERTICES_PER_TILE * m_nbXTiles * m_nbYTiles);
@@ -67,9 +81,7 @@ namespace age {
             }
         }
     }
-    
-    Sprite::~Sprite() {}
-    
+
     void Sprite::setDims(const glm::vec2& dims) {
         m_width = dims.x;
         m_height = dims.y;
@@ -107,26 +119,14 @@ namespace age {
             }
         }
     }
-    
-    void Sprite::setTexture(Texture* texture) {
-        m_texture = texture;
-        if (!m_uvInitialized) {
-            setUV(m_texture->getUVs());
-        }
-    }
 
-    void Sprite::updateUVFromTexture() {
-        setUV(m_texture->getUVs());
-    }
-    
     void Sprite::setUV(const glm::vec4& uv) {
-        m_uvInitialized = true;
         m_uv = uv;
         updateVerticesUVs();
     }
 
     const glm::vec4& Sprite::getUV() {
-        return  m_uv;
+        return m_uv;
     }
     
     void Sprite::updateVerticesUVs() {

@@ -35,4 +35,7 @@ namespace age {
 		m_textureAtlas->setCurrentFrameIndex(frameIdx, flip);
 	}
 
+    TextureAtlas* Animator::getTextureAtlas() const {
+        return m_textureAtlas;
+    }
 }
