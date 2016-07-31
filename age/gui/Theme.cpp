@@ -1,12 +1,13 @@
 #include "Theme.h"
 
 #include <iostream>
-#include <fstream>
 #include <vector>
+#include <map>
 
 #include "../rendering/Texture.h"
 #include "../core/ResourceManager.h"
 #include "../core/StringUtil.h"
+#include "../core/PropertyFileParser.h"
 
 namespace age {
 
@@ -25,59 +26,38 @@ namespace age {
 		using std::cout;
 		using std::cerr;
 		using std::endl;
+		using std::map;
+		using std::string;
 
-		std::string themeFilePath = ResourceManager::instance().getThemePath(filename);
-		std::ifstream ifs(themeFilePath);
-		
-		if (ifs) {
-			std::string line;
-			size_t pos = 0;
-			std::string key;
-			std::string value;
+		string themeFilePath = ResourceManager::instance().getThemePath(filename);
+		PropertyFileParser pfp;
+		pfp.parse(themeFilePath);
+		string value;
 
-			while (std::getline(ifs, line)) {
-				// Check for comments
-				if (line[0] == '#') {
-					continue;
-				}
-
-				// Search for "=" separator (key/value)
-				if ((pos = line.find("=")) != std::string::npos) {
-					key = StringUtil::trim(line.substr(0, pos));
-					value = StringUtil::trim(line.substr(pos + 1));
-					
-					//TODO: Remove this debugging log
-					cout << "key:" << key << ", value:" << value << endl;
-
-					if (key == "font.name") {
-						setFont(value);
-					}
-					else if (key == "font.size") {
-						setFontSize(std::stoi(value));
-					}
-					else if (key == "button.texture") {
-						setButtonTexture(age::ResourceManager::instance().loadTexture(value));
-					}
-					else if (key == "button.defaultUV") {
-						setDefaultUV(convert(value));
-					}
-					else if (key == "button.pressedtUV") {
-						setPressedUV(convert(value));
-					}
-					else if (key == "button.hoverUV") {
-						setHoverUV(convert(value));
-					}
-					else {
-						//TODO: Implement proper error management
-						cerr << "Uknown property " << key << endl;
-					}
-				}
-			}
-
-			ifs.close();
+		// Font
+		value = pfp.getValue("font.name");
+		if (value != "") {
+			setFont(value);
 		}
-		else {
+		setFontSize(std::stoi(pfp.getValue("font.size", "32")));
 
+		// Button
+		value = pfp.getValue("button.texture");
+		if (value != "") {
+			setButtonTexture(age::ResourceManager::instance().loadTexture(value));
+
+			value = pfp.getValue("button.defaultUV");
+			if (value != "") {
+				setDefaultUV(convert(value));
+			}
+			value = pfp.getValue("button.pressedUV");
+			if (value != "") {
+				setPressedUV(convert(value));
+			}
+			value = pfp.getValue("button.hoverUV");
+			if (value != "") {
+				setHoverUV(convert(value));
+			}
 		}
 	}
 

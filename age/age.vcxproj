@@ -46,6 +46,7 @@
     <ClCompile Include="physics\Box2DPhysicsEngine.cpp" />
     <ClCompile Include="physics\Box2DRigidBody.cpp" />
     <ClCompile Include="physics\Collider.cpp" />
+    <ClCompile Include="core\PropertyFileParser.cpp" />
     <ClCompile Include="rendering\Animation2D.cpp" />
     <ClCompile Include="rendering\Animator.cpp" />
     <ClCompile Include="rendering\Basic2DShader.cpp" />
@@ -92,6 +93,7 @@
     <ClInclude Include="physics\IPhysicsEngine.h" />
     <ClInclude Include="physics\IRigidBody.h" />
     <ClInclude Include="physics\PhysicsDef.h" />
+    <ClInclude Include="core\PropertyFileParser.h" />
     <ClInclude Include="rendering\Animation2D.h" />
     <ClInclude Include="rendering\Animator.h" />
     <ClInclude Include="rendering\Basic2DShader.h" />

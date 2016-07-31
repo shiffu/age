@@ -67,15 +67,14 @@ namespace age {
 	Texture* ResourceManager::fetchTextureFromCache(const std::string& filepath) {
 		
 		Texture* ret = nullptr;
-		std::cout << "Loading texture " << filepath << std::endl;
 
 		auto it = m_texturesMap.find(filepath);
 		if (it != m_texturesMap.end()) {
-			std::cout << "Texture " << filepath << " returned from cache" << std::endl;
+			std::cout << "Loading texture " << filepath << std::endl;
 			ret = it->second;
 		}
 		else {
-			std::cout << "Texture " << filepath << " not returned from cache (cache miss)" << std::endl;
+			std::cout << "Loading texture " << filepath << " (cache miss)" << std::endl;
 		}
 
 		return ret;
