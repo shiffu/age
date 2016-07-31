@@ -56,11 +56,15 @@ void MainMenu::onInit() {
     m_guiManager.setWindow(getGame()->getWindow());
     
     age::Theme* theme = new age::Theme();
+	theme->loadFromFile("myTheme.properties");
+
+	/*
     theme->setFont("calamityJoe.ttf");
     theme->setButtonTexture(age::ResourceManager::instance().loadTexture("buttons.png"));
     theme->setDefaultUV(glm::vec4(14,  69,   117, 41));
     theme->setHoverUV(glm::vec4(14,    34,   117, 7));
     theme->setPressedUV(glm::vec4(14,  103,  117, 76));
+	*/
     m_guiManager.setTheme(theme);
     
     m_startButton = m_guiManager.getButton(glm::vec2(390, 350), glm::vec2(180, 40), "Start");

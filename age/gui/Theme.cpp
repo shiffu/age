@@ -1,8 +1,86 @@
 #include "Theme.h"
+
+#include <iostream>
+#include <fstream>
+#include <vector>
+
 #include "../rendering/Texture.h"
+#include "../core/ResourceManager.h"
+#include "../core/StringUtil.h"
 
 namespace age {
- 
+
+	glm::vec4 convert(std::string& listOfValues) {
+		std::vector<std::string> v = StringUtil::split(listOfValues, ',');
+		glm::vec4 uv = { std::stoi(StringUtil::trim(v[0])),
+			std::stoi(StringUtil::trim(v[1])),
+			std::stoi(StringUtil::trim(v[2])),
+			std::stoi(StringUtil::trim(v[3]))
+		};
+
+		return uv;
+	}
+
+	void Theme::loadFromFile(const std::string& filename) {
+		using std::cout;
+		using std::cerr;
+		using std::endl;
+
+		std::string themeFilePath = ResourceManager::instance().getThemePath(filename);
+		std::ifstream ifs(themeFilePath);
+		
+		if (ifs) {
+			std::string line;
+			size_t pos = 0;
+			std::string key;
+			std::string value;
+
+			while (std::getline(ifs, line)) {
+				// Check for comments
+				if (line[0] == '#') {
+					continue;
+				}
+
+				// Search for "=" separator (key/value)
+				if ((pos = line.find("=")) != std::string::npos) {
+					key = StringUtil::trim(line.substr(0, pos));
+					value = StringUtil::trim(line.substr(pos + 1));
+					
+					//TODO: Remove this debugging log
+					cout << "key:" << key << ", value:" << value << endl;
+
+					if (key == "font.name") {
+						setFont(value);
+					}
+					else if (key == "font.size") {
+						setFontSize(std::stoi(value));
+					}
+					else if (key == "button.texture") {
+						setButtonTexture(age::ResourceManager::instance().loadTexture(value));
+					}
+					else if (key == "button.defaultUV") {
+						setDefaultUV(convert(value));
+					}
+					else if (key == "button.pressedtUV") {
+						setPressedUV(convert(value));
+					}
+					else if (key == "button.hoverUV") {
+						setHoverUV(convert(value));
+					}
+					else {
+						//TODO: Implement proper error management
+						cerr << "Uknown property " << key << endl;
+					}
+				}
+			}
+
+			ifs.close();
+		}
+		else {
+
+		}
+	}
+
     void Theme::setFontSize(int size) {
         m_fontSize = size;
     }

@@ -60,6 +60,7 @@
     <ClCompile Include="rendering\Square.cpp" />
     <ClCompile Include="rendering\Texture.cpp" />
     <ClCompile Include="rendering\TextureAtlas.cpp" />
+    <ClCompile Include="core\StringUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio\AudioEngine.h" />
@@ -109,6 +110,7 @@
     <ClInclude Include="rendering\Texture.h" />
     <ClInclude Include="rendering\TextureAtlas.h" />
     <ClInclude Include="rendering\Vertex.h" />
+    <ClInclude Include="core\StringUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="rendering\shaders\basic.fs" />
