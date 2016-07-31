@@ -1,9 +1,11 @@
 #include "SpriteFont.h"
 
+#include <SDL2/SDL.h>
+#include <SDL2_ttf/SDL_ttf.h>
+
+#include "Texture.h"
 #include "SpriteBatch.h"
 #include "Sprite.h"
-
-#include <SDL2/SDL.h>
 
 
 #define MAX_TEXTURE_RES 4096

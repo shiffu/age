@@ -19,66 +19,100 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Animation2D.cpp" />
-    <ClCompile Include="Animator.cpp" />
-    <ClCompile Include="AudioEngine.cpp" />
-    <ClCompile Include="Basic2DShader.cpp" />
-    <ClCompile Include="BatchRenderer2D.cpp" />
-    <ClCompile Include="Box2DPhysicsEngine.cpp" />
-    <ClCompile Include="Box2DRigidBody.cpp" />
-    <ClCompile Include="Camera2D.cpp" />
-    <ClCompile Include="Component.cpp" />
-    <ClCompile Include="Error.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="Layer.cpp" />
-    <ClCompile Include="Music.cpp" />
-    <ClCompile Include="ResourceManager.cpp" />
-    <ClCompile Include="RigidBodyComponent.cpp" />
-    <ClCompile Include="ShaderProgram.cpp" />
-    <ClCompile Include="Sound.cpp" />
-    <ClCompile Include="SpriteComponent.cpp" />
-    <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="TextureAtlas.cpp" />
-    <ClCompile Include="TileComponent.cpp" />
-    <ClCompile Include="Utils.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Animation2D.h" />
-    <ClInclude Include="Animator.h" />
-    <ClInclude Include="AudioEngine.h" />
-    <ClInclude Include="Basic2DShader.h" />
-    <ClInclude Include="BatchRenderer2D.h" />
-    <ClInclude Include="Box2DPhysicsEngine.h" />
-    <ClInclude Include="Box2DRigidBody.h" />
-    <ClInclude Include="Camera2D.h" />
-    <ClInclude Include="Color.h" />
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="Error.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="InputManager.h" />
-    <ClInclude Include="IPhysicsEngine.h" />
-    <ClInclude Include="IRenderable2D.h" />
-    <ClInclude Include="IRenderer.h" />
-    <ClInclude Include="IRigidBody.h" />
-    <ClInclude Include="Layer.h" />
-    <ClInclude Include="Music.h" />
-    <ClInclude Include="ResourceManager.h" />
-    <ClInclude Include="RigidBodyComponent.h" />
-    <ClInclude Include="ShaderProgram.h" />
-    <ClInclude Include="Sound.h" />
-    <ClInclude Include="SpriteBatch.h" />
-    <ClInclude Include="SpriteComponent.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="TextureAtlas.h" />
-    <ClInclude Include="TileComponent.h" />
-    <ClInclude Include="Utils.h" />
-    <ClInclude Include="Vertex.h" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="audio\AudioEngine.cpp" />
+    <ClCompile Include="audio\Music.cpp" />
+    <ClCompile Include="audio\Sound.cpp" />
+    <ClCompile Include="core\Component.cpp" />
+    <ClCompile Include="core\Error.cpp" />
+    <ClCompile Include="core\Game.cpp" />
+    <ClCompile Include="core\GameObject.cpp" />
+    <ClCompile Include="core\Layer.cpp" />
+    <ClCompile Include="core\ResourceManager.cpp" />
+    <ClCompile Include="core\RigidBodyComponent.cpp" />
+    <ClCompile Include="core\Screen.cpp" />
+    <ClCompile Include="core\SpriteComponent.cpp" />
+    <ClCompile Include="core\Utils.cpp" />
+    <ClCompile Include="core\Window.cpp" />
+    <ClCompile Include="gui\Button.cpp" />
+    <ClCompile Include="gui\GUIManager.cpp" />
+    <ClCompile Include="gui\Label.cpp" />
+    <ClCompile Include="gui\Theme.cpp" />
+    <ClCompile Include="gui\Widget.cpp" />
+    <ClCompile Include="input\InputManager.cpp" />
+    <ClCompile Include="physics\Box2DCollisionDispatcher.cpp" />
+    <ClCompile Include="physics\Box2DPhysicsEngine.cpp" />
+    <ClCompile Include="physics\Box2DRigidBody.cpp" />
+    <ClCompile Include="physics\Collider.cpp" />
+    <ClCompile Include="rendering\Animation2D.cpp" />
+    <ClCompile Include="rendering\Animator.cpp" />
+    <ClCompile Include="rendering\Basic2DShader.cpp" />
+    <ClCompile Include="rendering\BatchRenderer2D.cpp" />
+    <ClCompile Include="rendering\Camera2D.cpp" />
+    <ClCompile Include="rendering\ParticleBatch2D.cpp" />
+    <ClCompile Include="rendering\ParticleEngine2D.cpp" />
+    <ClCompile Include="rendering\Renderable2D.cpp" />
+    <ClCompile Include="rendering\ShaderProgram.cpp" />
+    <ClCompile Include="rendering\Sprite.cpp" />
+    <ClCompile Include="rendering\SpriteFont.cpp" />
+    <ClCompile Include="rendering\Square.cpp" />
+    <ClCompile Include="rendering\Texture.cpp" />
+    <ClCompile Include="rendering\TextureAtlas.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="audio\AudioEngine.h" />
+    <ClInclude Include="audio\Music.h" />
+    <ClInclude Include="audio\Sound.h" />
+    <ClInclude Include="core\Component.h" />
+    <ClInclude Include="core\Error.h" />
+    <ClInclude Include="core\Game.h" />
+    <ClInclude Include="core\GameObject.h" />
+    <ClInclude Include="core\Layer.h" />
+    <ClInclude Include="core\ResourceManager.h" />
+    <ClInclude Include="core\RigidBodyComponent.h" />
+    <ClInclude Include="core\Screen.h" />
+    <ClInclude Include="core\SpriteComponent.h" />
+    <ClInclude Include="core\Utils.h" />
+    <ClInclude Include="core\Window.h" />
+    <ClInclude Include="gui\Button.h" />
+    <ClInclude Include="gui\GUIManager.h" />
+    <ClInclude Include="gui\Label.h" />
+    <ClInclude Include="gui\Theme.h" />
+    <ClInclude Include="gui\Widget.h" />
+    <ClInclude Include="input\InputManager.h" />
+    <ClInclude Include="physics\Box2DCollisionDispatcher.h" />
+    <ClInclude Include="physics\Box2DPhysicsEngine.h" />
+    <ClInclude Include="physics\Box2DRigidBody.h" />
+    <ClInclude Include="physics\BoxDef.h" />
+    <ClInclude Include="physics\Collider.h" />
+    <ClInclude Include="physics\ICollisionDispatcher.h" />
+    <ClInclude Include="physics\IPhysicsEngine.h" />
+    <ClInclude Include="physics\IRigidBody.h" />
+    <ClInclude Include="physics\PhysicsDef.h" />
+    <ClInclude Include="rendering\Animation2D.h" />
+    <ClInclude Include="rendering\Animator.h" />
+    <ClInclude Include="rendering\Basic2DShader.h" />
+    <ClInclude Include="rendering\BatchRenderer2D.h" />
+    <ClInclude Include="rendering\Camera2D.h" />
+    <ClInclude Include="rendering\Color.h" />
+    <ClInclude Include="rendering\IRenderer.h" />
+    <ClInclude Include="rendering\ParticleBatch2D.h" />
+    <ClInclude Include="rendering\ParticleEngine2D.h" />
+    <ClInclude Include="rendering\Renderable2D.h" />
+    <ClInclude Include="rendering\ShaderProgram.h" />
+    <ClInclude Include="rendering\Sprite.h" />
+    <ClInclude Include="rendering\SpriteBatch.h" />
+    <ClInclude Include="rendering\SpriteFont.h" />
+    <ClInclude Include="rendering\Square.h" />
+    <ClInclude Include="rendering\Texture.h" />
+    <ClInclude Include="rendering\TextureAtlas.h" />
+    <ClInclude Include="rendering\Vertex.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="rendering\shaders\basic.fs" />
+    <None Include="rendering\shaders\basic.vs" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0F04BA92-7997-4853-AF34-8D41EA4555CE}</ProjectGuid>
@@ -148,7 +182,7 @@
       <SubSystem>Windows</SubSystem>
     </Link>
     <Lib>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

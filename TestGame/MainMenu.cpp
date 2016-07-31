@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "MainMenu.h"
 
 #include <iostream>
@@ -47,7 +49,7 @@ void MainMenu::onInit() {
     //ENDORALT.ttf
     //calamityJoe.ttf
     //Arial Narrow Bold.ttf
-    m_font = new age::SpriteFont("calamityJoe.ttf", 64);
+    //m_font = new age::SpriteFont("calamityJoe.ttf", 64);
     
     using std::cout;
     m_guiManager.setCamera(&m_camera);
@@ -124,7 +126,7 @@ void MainMenu::onUpdate(float deltaTime) {
     static std::mt19937 randomGenerator(static_cast<unsigned int>(time(nullptr)));
     static std::uniform_real_distribution<float> randomAngle(0.0f, 3.14159265f * 2.0f);
     static std::uniform_int_distribution<int> randomX(5, 750);
-    static std::uniform_int_distribution<unsigned char> randomColor(60, 255);
+    static std::uniform_int_distribution<short> randomColor(60, 255);
 
     unsigned char red = randomColor(randomGenerator);
     unsigned char green = randomColor(randomGenerator);
