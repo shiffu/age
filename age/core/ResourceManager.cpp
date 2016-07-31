@@ -64,10 +64,6 @@ namespace age {
         return filePath;
     }
     
-    void ResourceManager::setTextureSubFolder(const std::string& subFolder) {
-        m_textureSubFolder = subFolder;
-    }
-    
 	Texture* ResourceManager::fetchTextureFromCache(const std::string& filepath) {
 		
 		Texture* ret = nullptr;
@@ -181,11 +177,36 @@ namespace age {
 		return texture;
     }
 
+	void ResourceManager::setTextureSubFolder(const std::string& subFolder) {
+		m_textureSubFolder = subFolder;
+	}
+
     const std::string ResourceManager::getTexturePath(const std::string& filename /* = ""*/) const {
         return getRootPath() + "/" + m_textureSubFolder + "/" + filename;
     }
-    
-    const std::string ResourceManager::getAudioPath(const std::string& filename /* = ""*/) const {
+
+	void ResourceManager::setAudioSubFolder(const std::string& subFolder) {
+		m_audioSubFolder = subFolder;
+	}
+
+	const std::string ResourceManager::getAudioPath(const std::string& filename /* = ""*/) const {
         return getRootPath() + "/" + m_audioSubFolder + "/" + filename;
     }
+
+	void ResourceManager::setFontSubFolder(const std::string& subFolder) {
+		m_fontSubFolder = subFolder;
+	}
+
+	const std::string ResourceManager::getFontPath(const std::string& filename /* = ""*/) const {
+		return getRootPath() + "/" + m_fontSubFolder + "/" + filename;
+	}
+
+	void ResourceManager::setThemeSubFolder(const std::string& subFolder) {
+		m_themeSubFolder = subFolder;
+	}
+
+	const std::string ResourceManager::getThemePath(const std::string& filename /* = ""*/) const {
+		return getRootPath() + "/" + m_themeSubFolder + "/" + filename;
+	}
+
 }
