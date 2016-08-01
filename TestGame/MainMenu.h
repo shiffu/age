@@ -43,8 +43,6 @@ private:
     age::GUIManager m_guiManager;
     age::Button* m_startButton = nullptr;
     age::Button* m_quitButton = nullptr;
-    age::Label* m_quitLabel = nullptr;
-    age::Label* m_playLabel = nullptr;
     
     age::Camera2D m_camera;
 

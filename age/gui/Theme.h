@@ -12,6 +12,8 @@ namespace age {
         Theme() {};
         ~Theme() {};
         
+		void loadFromFile(const std::string& filename);
+
         void setFontSize(int size);
         int getFontSize() const;        
         void setFont(const std::string& font);

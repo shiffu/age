@@ -31,10 +31,16 @@ namespace age {
         
         void setTextureSubFolder(const std::string& subFolder);
         const std::string getTexturePath(const std::string& filename = "") const;
-        
-        void setAudioSubFolder(const std::string& subFolder);
-        const std::string getAudioPath(const std::string& filename = "") const;
-        
+
+		void setAudioSubFolder(const std::string& subFolder);
+		const std::string getAudioPath(const std::string& filename = "") const;
+
+		void setFontSubFolder(const std::string& subFolder);
+		const std::string getFontPath(const std::string& filename = "") const;
+
+		void setThemeSubFolder(const std::string& subFolder);
+		const std::string getThemePath(const std::string& filename = "") const;
+
 		Texture* loadTexture(const std::string& filename);
 
     protected:
@@ -47,8 +53,10 @@ namespace age {
     private:
         std::string m_rootFolder = "res";
         std::string m_textureSubFolder = "textures";
-        std::string m_audioSubFolder = "audio";
-        
+		std::string m_audioSubFolder = "audio";
+		std::string m_fontSubFolder = "fonts";
+		std::string m_themeSubFolder = "themes";
+
         std::unordered_map<std::string, Texture*> m_texturesMap;
 	};
 

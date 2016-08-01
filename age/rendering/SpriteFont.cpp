@@ -1,9 +1,12 @@
 #include "SpriteFont.h"
 
+#include <SDL2/SDL.h>
+#include <SDL2_ttf/SDL_ttf.h>
+
+#include "../core/ResourceManager.h"
+#include "Texture.h"
 #include "SpriteBatch.h"
 #include "Sprite.h"
-
-#include <SDL2/SDL.h>
 
 
 #define MAX_TEXTURE_RES 4096
@@ -28,9 +31,11 @@ namespace age {
             TTF_Init();
         }
         
-        TTF_Font* font = TTF_OpenFont(fontFilename, size);
+		std::string fontFilePath = ResourceManager::instance().getFontPath(fontFilename);
+
+        TTF_Font* font = TTF_OpenFont(fontFilePath.c_str(), size);
         if (font == nullptr) {
-            fprintf(stderr, "Failed to open TTF font %s\n", fontFilename);
+            fprintf(stderr, "Failed to open TTF font %s\n", fontFilePath.c_str());
             fflush(stderr);
             throw 281;
         }

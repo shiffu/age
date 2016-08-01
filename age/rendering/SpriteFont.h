@@ -23,14 +23,13 @@
 
 #pragma once
 
-#include <SDL2_ttf/SDL_ttf.h>
 #include <glm/glm.hpp>
 #include <map>
 #include <vector>
 
 #include "Color.h"
 #include "Vertex.h"
-#include "BatchRenderer2D.h"
+#include "IRenderer.h"
 
 namespace age {
 
@@ -53,6 +52,8 @@ namespace age {
         LEFT, MIDDLE, RIGHT
     };
     
+	class Texture;
+
     class SpriteFont {
     public:
         static const int PADDING = 7;
