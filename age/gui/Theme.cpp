@@ -11,52 +11,49 @@
 
 namespace age {
 
-	glm::vec4 convert(std::string& listOfValues) {
-		std::vector<std::string> v = StringUtil::split(listOfValues, ',');
-		glm::vec4 uv = { std::stoi(StringUtil::trim(v[0])),
-			std::stoi(StringUtil::trim(v[1])),
-			std::stoi(StringUtil::trim(v[2])),
-			std::stoi(StringUtil::trim(v[3]))
+	using namespace std;
+
+	glm::vec4 convert(vector<string>& listOfValues) {
+		glm::vec4 uv = { stoi(StringUtil::trim(listOfValues[0])),
+			stoi(StringUtil::trim(listOfValues[1])),
+			stoi(StringUtil::trim(listOfValues[2])),
+			stoi(StringUtil::trim(listOfValues[3]))
 		};
 
 		return uv;
 	}
 
-	void Theme::loadFromFile(const std::string& filename) {
-		using std::cout;
-		using std::cerr;
-		using std::endl;
-		using std::map;
-		using std::string;
+	void Theme::loadFromFile(const string& filename) {
 
 		string themeFilePath = ResourceManager::instance().getThemePath(filename);
 		PropertyFileParser pfp;
 		pfp.parse(themeFilePath);
 		string value;
+		vector<string> values;
 
 		// Font
 		value = pfp.getValue("font.name");
 		if (value != "") {
 			setFont(value);
 		}
-		setFontSize(std::stoi(pfp.getValue("font.size", "32")));
+		setFontSize(stoi(pfp.getValue("font.size", "32")));
 
 		// Button
 		value = pfp.getValue("button.texture");
 		if (value != "") {
 			setButtonTexture(age::ResourceManager::instance().loadTexture(value));
 
-			value = pfp.getValue("button.defaultUV");
+			values = pfp.getList("button.defaultUV");
 			if (value != "") {
-				setDefaultUV(convert(value));
+				setDefaultUV(convert(values));
 			}
-			value = pfp.getValue("button.pressedUV");
+			values = pfp.getList("button.pressedUV");
 			if (value != "") {
-				setPressedUV(convert(value));
+				setPressedUV(convert(values));
 			}
-			value = pfp.getValue("button.hoverUV");
+			values = pfp.getList("button.hoverUV");
 			if (value != "") {
-				setHoverUV(convert(value));
+				setHoverUV(convert(values));
 			}
 		}
 	}
@@ -69,11 +66,11 @@ namespace age {
         return m_fontSize;
     }
 
-    void Theme::setFont(const std::string& font) {
+    void Theme::setFont(const string& font) {
         m_font = font;
     }
     
-    const std::string& Theme::getFont() const {
+    const string& Theme::getFont() const {
         return m_font;
     }
 
