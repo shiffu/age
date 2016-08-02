@@ -17,7 +17,7 @@ namespace age {
 		std::vector<std::string> getList(const std::string& key) const;
 
 	private:
-		std::map<std::string, std::string> m_data = {};
+		std::map<std::string, std::string> m_data {};
 	};
 
 }
