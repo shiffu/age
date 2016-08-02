@@ -94,6 +94,10 @@
 		E4B150DC1D46E6750021EC4D /* Label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B150DA1D46E6750021EC4D /* Label.cpp */; };
 		E4B150DD1D46E6750021EC4D /* Label.h in Headers */ = {isa = PBXBuildFile; fileRef = E4B150DB1D46E6750021EC4D /* Label.h */; };
 		E4C3BBA71CA810CA00D43F91 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C3BBA61CA810CA00D43F91 /* SDL2_mixer.framework */; };
+		E4FA986C1D4F7242000FFA78 /* PropertyFileParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4FA986A1D4F7242000FFA78 /* PropertyFileParser.cpp */; };
+		E4FA986D1D4F7242000FFA78 /* PropertyFileParser.h in Headers */ = {isa = PBXBuildFile; fileRef = E4FA986B1D4F7242000FFA78 /* PropertyFileParser.h */; };
+		E4FA98701D501A91000FFA78 /* StringUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4FA986E1D501A91000FFA78 /* StringUtil.cpp */; };
+		E4FA98711D501A91000FFA78 /* StringUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = E4FA986F1D501A91000FFA78 /* StringUtil.h */; };
 		E4FF2CFC1D3A693B00D6F13E /* GUIManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4FF2CFA1D3A693B00D6F13E /* GUIManager.cpp */; };
 		E4FF2CFD1D3A693B00D6F13E /* GUIManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E4FF2CFB1D3A693B00D6F13E /* GUIManager.h */; };
 		E4FF2D011D3A6A1200D6F13E /* Widget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4FF2CFF1D3A6A1200D6F13E /* Widget.cpp */; };
@@ -194,6 +198,10 @@
 		E4B150DA1D46E6750021EC4D /* Label.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Label.cpp; path = gui/Label.cpp; sourceTree = "<group>"; };
 		E4B150DB1D46E6750021EC4D /* Label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Label.h; path = gui/Label.h; sourceTree = "<group>"; };
 		E4C3BBA61CA810CA00D43F91 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../../../../../Library/Frameworks/SDL2_mixer.framework; sourceTree = "<group>"; };
+		E4FA986A1D4F7242000FFA78 /* PropertyFileParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PropertyFileParser.cpp; sourceTree = "<group>"; };
+		E4FA986B1D4F7242000FFA78 /* PropertyFileParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertyFileParser.h; sourceTree = "<group>"; };
+		E4FA986E1D501A91000FFA78 /* StringUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StringUtil.cpp; sourceTree = "<group>"; };
+		E4FA986F1D501A91000FFA78 /* StringUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringUtil.h; sourceTree = "<group>"; };
 		E4FF2CFA1D3A693B00D6F13E /* GUIManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GUIManager.cpp; path = gui/GUIManager.cpp; sourceTree = "<group>"; };
 		E4FF2CFB1D3A693B00D6F13E /* GUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GUIManager.h; path = gui/GUIManager.h; sourceTree = "<group>"; };
 		E4FF2CFF1D3A6A1200D6F13E /* Widget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Widget.cpp; path = gui/Widget.cpp; sourceTree = "<group>"; };
@@ -277,6 +285,8 @@
 				E45D90AD1D2070A200BC7883 /* GameObject.h */,
 				E45D90AE1D2070A200BC7883 /* Layer.cpp */,
 				E45D90AF1D2070A200BC7883 /* Layer.h */,
+				E4FA986A1D4F7242000FFA78 /* PropertyFileParser.cpp */,
+				E4FA986B1D4F7242000FFA78 /* PropertyFileParser.h */,
 				E45D90B01D2070A200BC7883 /* ResourceManager.cpp */,
 				E45D90B11D2070A200BC7883 /* ResourceManager.h */,
 				E45D90B21D2070A200BC7883 /* RigidBodyComponent.cpp */,
@@ -285,6 +295,8 @@
 				E46F17C81D296D0000530A4B /* Screen.h */,
 				E45D90B41D2070A200BC7883 /* SpriteComponent.cpp */,
 				E45D90B51D2070A200BC7883 /* SpriteComponent.h */,
+				E4FA986E1D501A91000FFA78 /* StringUtil.cpp */,
+				E4FA986F1D501A91000FFA78 /* StringUtil.h */,
 				E45D90B81D2070A200BC7883 /* Utils.cpp */,
 				E45D90B91D2070A200BC7883 /* Utils.h */,
 				E46F17C31D2866F800530A4B /* Window.cpp */,
@@ -407,11 +419,13 @@
 				E45D91121D2070C500BC7883 /* Renderable2D.h in Headers */,
 				E4B150DD1D46E6750021EC4D /* Label.h in Headers */,
 				E45D90E41D2070BC00BC7883 /* Box2DPhysicsEngine.h in Headers */,
+				E4FA986D1D4F7242000FFA78 /* PropertyFileParser.h in Headers */,
 				E45D90C31D2070A200BC7883 /* Layer.h in Headers */,
 				E45D90BF1D2070A200BC7883 /* Game.h in Headers */,
 				E45D90C71D2070A200BC7883 /* RigidBodyComponent.h in Headers */,
 				E45D90BD1D2070A200BC7883 /* Error.h in Headers */,
 				E45D911B1D2070C600BC7883 /* Vertex.h in Headers */,
+				E4FA98711D501A91000FFA78 /* StringUtil.h in Headers */,
 				E45D90EA1D2070BC00BC7883 /* ICollisionDispatcher.h in Headers */,
 				E4FF2D061D3B06D100D6F13E /* Button.h in Headers */,
 				E45D91101D2070C500BC7883 /* Camera2D.h in Headers */,
@@ -513,6 +527,7 @@
 				E45D90C61D2070A200BC7883 /* RigidBodyComponent.cpp in Sources */,
 				E45D90BC1D2070A200BC7883 /* Error.cpp in Sources */,
 				E45D90BA1D2070A200BC7883 /* Component.cpp in Sources */,
+				E4FA98701D501A91000FFA78 /* StringUtil.cpp in Sources */,
 				E4B150DC1D46E6750021EC4D /* Label.cpp in Sources */,
 				E45D90E11D2070BC00BC7883 /* Box2DCollisionDispatcher.cpp in Sources */,
 				E43F3EEC1D35B0AE003D8DE4 /* Square.cpp in Sources */,
@@ -530,6 +545,7 @@
 				E46F17C51D2866F800530A4B /* Window.cpp in Sources */,
 				E472C48A1D21E6FF00E135DB /* ParticleEngine2D.cpp in Sources */,
 				E4FF2D011D3A6A1200D6F13E /* Widget.cpp in Sources */,
+				E4FA986C1D4F7242000FFA78 /* PropertyFileParser.cpp in Sources */,
 				E45D90D11D2070B300BC7883 /* InputManager.cpp in Sources */,
 				E45D91071D2070C500BC7883 /* Animation2D.cpp in Sources */,
 				E45D90C41D2070A200BC7883 /* ResourceManager.cpp in Sources */,

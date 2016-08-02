@@ -15,7 +15,7 @@ namespace age {
 		std::string getValue(const std::string& key, std::string defaultValue = "") const;
 
 	private:
-		std::map<std::string, std::string> m_data = {};
+		std::map<std::string, std::string> m_data {};
 	};
 
 }
