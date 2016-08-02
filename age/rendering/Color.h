@@ -19,13 +19,8 @@ namespace age {
             r = g = b = a = 255;
         }
         
-		// Set color as an int: 0xRRGGBBAA or 0xRRGGBB
+		// Set color as an int: 0xRRGGBBAA
 		Color(unsigned int value) {
-			// In case Alpha is not given, consider it as FF
-			if (value <= 0xFFFFFF) {
-				value = value << 8;
-				value += 0xFF;
-			}
 			r = value >> 24;
 			g = (value >> 16) & 0xFF;
 			b = (value >> 8) & 0xFF;
